@@ -15,6 +15,7 @@ All visual decisions flow through CSS custom properties in `assets/scss/_tokens.
 - **Typography** — font families, sizes, weights, line heights
 - **Spacing** — 4px-based scale (`--space-1` … `--space-24`)
 - **Radius** — `--radius-sm` … `--radius-full`
+- **Scrollbar** — track, thumb, hover, size, and radius
 - **Shadow** — xs → xl + focus ring
 - **Container** — max widths for layouts
 - **Z-index** — dropdown, modal, toast, etc.
@@ -34,8 +35,17 @@ applies vertical padding. Each direction supports `0`, `1`–`6`, `8`, `10`,
   --color-primary: #ff4d00;
   --color-primary-hover: #e64500;
   --radius-md: 0.5rem;
+
+  --scrollbar-track: #f1eee4;
+  --scrollbar-thumb: #c9c3b1;
+  --scrollbar-thumb-hover: #858879;
+  --scrollbar-size: 0.75rem;
+  --scrollbar-radius: 9999px;
+  --scrollbar-width: thin;
 }
 ```
+
+Scrollbar colors follow the active theme by default. Override these tokens after `main.css` to customize them; `--scrollbar-width` accepts the native `auto`, `thin`, or `none` values where supported.
 
 ## Dark theme
 

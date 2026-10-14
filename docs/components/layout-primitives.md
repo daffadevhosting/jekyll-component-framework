@@ -45,6 +45,25 @@ Creates a responsive grid. Two columns start at the medium breakpoint; three- an
 
 {% include components/grid.html columns=2 gap=4 content="Grid example" %}
 
+## Utility Classes
+
+Use `u-*` classes for one-off layout and styling adjustments, and keep Liquid components for reusable interface patterns. Utilities use the shared design tokens, including in dark mode.
+
+```html
+<section class="u-grid u-grid-cols-1 u-md-grid-cols-3 u-gap-4 u-lg-gap-8">
+	<article class="u-p-4 u-bg-surface u-text-default">
+		<h2 class="u-font-display u-text-2xl u-leading-tight">A token-based utility</h2>
+		<p class="u-mt-2 u-text-muted">Spacing, type, and color stay on the design system scale.</p>
+	</article>
+</section>
+```
+
+Spacing supports `m`, `mx`, `my`, `mt`, `mr`, `mb`, `ml`, `p`, `px`, `py`, `pt`, `pr`, `pb`, and `pl`, with steps `0`, `1`-`6`, `8`, `10`, `12`, `16`, `20`, and `24`. Grid utilities provide `u-grid-cols-1` through `u-grid-cols-12`, matching `u-col-span-*` classes, and `u-gap-*`, `u-gap-x-*`, and `u-gap-y-*` on the same spacing scale.
+
+Typography includes `u-font-sans`, `u-font-display`, `u-font-mono`, `u-text-*` sizes from `xs` through `6xl`, `u-font-*` weights, `u-leading-*`, and text alignment utilities. Text, background, and border color classes map to semantic theme tokens such as `u-text-primary`, `u-bg-success-subtle`, and `u-border-strong`.
+
+Responsive variants are mobile-first and available at `sm` (640px), `md` (768px), `lg` (1024px), `xl` (1280px), and `2xl` (1536px). Prefix supported display, flex, grid-column, spacing, gap, font-size, and text-alignment utilities with the breakpoint, for example `u-md-hidden`, `u-lg-px-8`, or `u-xl-text-3xl`.
+
 ## Divider
 
 Renders a semantic horizontal rule using the framework's border tokens.

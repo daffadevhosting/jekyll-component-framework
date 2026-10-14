@@ -15,7 +15,7 @@ Renders the theme switch button used by the navbar. It cycles through the suppor
 
 ## Example
 
-<div class="docs-component-example">
+<div class="togglr-component-example">
 
 {% include components/theme-toggle.html %}
 

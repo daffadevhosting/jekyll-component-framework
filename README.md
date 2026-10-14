@@ -1,8 +1,8 @@
 # Thicket UI
 
-**A living component garden for Jekyll · v1.2.1**
+**A hybrid component and utility framework for Jekyll · v1.2.1**
 
-Thicket is an accessible, Liquid-native component system with an earthy palette, editorial typography, and a visual identity made for Jekyll—not another Bootstrap-shaped UI kit.
+Thicket is an accessible, Jekyll-native UI framework pairing reusable Liquid components with token-based utility classes, an earthy palette, and editorial typography.
 It is built with:
 
 - **Jekyll** + **Liquid**
@@ -31,8 +31,23 @@ Use the included design tokens and components as a starting point for SaaS, port
 - Minimal dependencies
 - Progressive enhancement
 - Component API via Liquid includes
+- Token-based utility classes for responsive layouts and one-off styling
 - Self-hosted documentation ready
 - Ready for GitHub Pages & Cloudflare Pages
+
+## Utility Classes
+
+Thicket combines reusable Liquid components with `u-*` utility classes. Use components for consistent interface patterns and utilities for page-specific layout or styling; both use the same theme tokens and support dark mode.
+
+```html
+<div class="u-grid u-grid-cols-1 u-md-grid-cols-2 u-gap-4 u-lg-gap-8">
+   <section class="u-p-6 u-bg-surface u-text-default">
+      <h2 class="u-font-display u-text-2xl">Utility-first, Thicket-style</h2>
+   </section>
+</div>
+```
+
+Utilities are documented in [Layout Primitives](docs/components/layout-primitives.md). They are compiled as part of the framework stylesheet and do not require a separate JavaScript or CSS build step.
 
 ---
 

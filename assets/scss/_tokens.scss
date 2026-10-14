@@ -54,6 +54,16 @@
   --color-border-strong: #c9c3b1;
   --color-border-subtle: #efecdf;
 
+  // ---------------------------------------------------------------------------
+  // Scrollbar
+  // ---------------------------------------------------------------------------
+  --scrollbar-track: var(--color-surface);
+  --scrollbar-thumb: var(--color-border-strong);
+  --scrollbar-thumb-hover: var(--color-text-subtle);
+  --scrollbar-size: 0.75rem;
+  --scrollbar-radius: var(--radius-full);
+  --scrollbar-width: thin;
+
   --color-focus-ring: #285943;
   --color-focus-ring-offset: #faf8f0;
 

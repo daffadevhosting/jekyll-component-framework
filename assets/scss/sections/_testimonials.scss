@@ -82,3 +82,13 @@
     color: var(--color-text-muted);
   }
 }
+ .togglr-component-example {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  border: solid 1px var(--color-border);
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
