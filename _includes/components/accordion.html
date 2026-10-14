@@ -21,7 +21,7 @@
     {% assign is_open = item.open | default: false %}
 
     <div class="c-accordion__item">
-      <h3>
+      <span>
         <button
           type="button"
           class="c-accordion__trigger"
@@ -35,7 +35,7 @@
             {% include icon.html name="chevron-down" %}
           </span>
         </button>
-      </h3>
+      </span>
       <div
         class="c-accordion__panel"
         id="{{ panel_id }}"
