@@ -4,6 +4,7 @@
 
 .c-code {
   position: relative;
+  margin-bottom: var(--space-4);
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -76,6 +77,10 @@
       border: none;
       color: inherit;
     }
+  }
+
+  .c-code--standalone {
+    margin-block: var(--space-4);
   }
 
   // Inline code (already in typography, reinforce)

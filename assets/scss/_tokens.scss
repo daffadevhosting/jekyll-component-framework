@@ -55,6 +55,16 @@
   --color-border-subtle: #efecdf;
 
   // ---------------------------------------------------------------------------
+  // Select Popup
+  // ---------------------------------------------------------------------------
+  --color-select-popup: var(--color-surface-elevated);
+  --color-select-popup-border: var(--color-border);
+  --color-select-option-hover: var(--color-primary-subtle);
+  --color-select-option-selected: var(--color-primary-subtle);
+  --radius-select-popup: var(--radius-md);
+  --shadow-select-popup: var(--shadow-md);
+
+  // ---------------------------------------------------------------------------
   // Scrollbar
   // ---------------------------------------------------------------------------
   --scrollbar-track: var(--color-surface);

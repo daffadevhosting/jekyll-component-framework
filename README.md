@@ -1,6 +1,6 @@
 # Thicket UI
 
-**A hybrid component and utility framework for Jekyll · v1.3.0**
+**A hybrid component and utility framework for Jekyll · v1.4.0**
 
 Thicket is an accessible, Jekyll-native UI framework pairing reusable Liquid components with token-based utility classes, an earthy palette, and editorial typography.
 It is built with:
@@ -32,6 +32,7 @@ Use the included design tokens and components as a starting point for SaaS, port
 - Progressive enhancement
 - Component API via Liquid includes
 - Token-based utility classes for responsive layouts and one-off styling
+- Jekyll-aware CSS purge CLI, searchable combobox, and rich customizable select popup
 - Self-hosted documentation ready
 - Ready for GitHub Pages & Cloudflare Pages
 
@@ -77,6 +78,22 @@ import "thicket-ui/js";
 ```
 
 The package also includes the SCSS source at `thicket-ui/scss` and Liquid component templates under `_includes/components/`. The CSS is built automatically when the package is packed or published.
+
+To generate a smaller stylesheet for a Jekyll site, run the CLI from the site root:
+
+```bash
+npx thicket purge --output assets/css/thicket.purged.css
+```
+
+By default it scans HTML, Markdown, Liquid, and JavaScript source files while excluding generated `_site`, dependencies, and vendor files. It keeps dynamic component and layout classes. Add a `thicket.config.json` to customize scanning and safelist classes:
+
+```json
+{
+   "content": ["_includes/**/*.html", "_layouts/**/*.html", "docs/**/*.{md,html}", "assets/js/**/*.js"],
+   "output": "assets/css/thicket.purged.css",
+   "safelist": ["^u-dynamic-"]
+}
+```
 
 ### Jekyll source
 
@@ -239,7 +256,7 @@ MIT License — see [LICENSE](LICENSE).
 
 ## Status
 
-Thicket UI 1.2.1 adds site-level Organization structured data alongside the existing `jekyll-seo-tag` metadata. The Thicket brand identity and component-garden design language were introduced in 1.1.0. Core components include buttons, cards, alerts, badges, navigation, dialogs, and form controls.
+Thicket UI 1.4.0 adds a Jekyll-aware CSS purge CLI, expanded interaction utilities, and an accessible searchable combobox. It also includes site-level Organization structured data alongside `jekyll-seo-tag`, with reusable components for buttons, cards, alerts, navigation, dialogs, and form controls.
 - new button ripple effect, card glare, and border beam features
 
 More components, documentation pages, and example templates will be added iteratively.

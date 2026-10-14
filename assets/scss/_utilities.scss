@@ -212,6 +212,62 @@ $utility-border-colors: (
   .u-border-#{$name} { border-color: $value !important; }
 }
 
+// Interaction states
+$utility-hover-background-colors: (
+  primary: var(--color-primary-hover),
+  secondary: var(--color-secondary-hover),
+  success: var(--color-success-hover),
+  warning: var(--color-warning-hover),
+  danger: var(--color-danger-hover),
+  info: var(--color-info-hover)
+);
+
+$utility-hover-text-colors: (
+  primary: var(--color-primary-hover),
+  secondary: var(--color-secondary-hover),
+  success: var(--color-success-hover),
+  warning: var(--color-warning-hover),
+  danger: var(--color-danger-hover),
+  info: var(--color-info-hover)
+);
+
+@each $name, $value in $utility-hover-background-colors {
+  .u-hover-bg-#{$name}:hover { background-color: $value !important; }
+}
+
+@each $name, $value in $utility-hover-text-colors {
+  .u-hover-text-#{$name}:hover { color: $value !important; }
+}
+
+.u-focus-visible-ring:focus-visible { @include focus-ring; }
+.u-focus-visible-ring-inset:focus-visible { @include focus-ring-inset; }
+.u-disabled-opacity-50:disabled { opacity: 0.5 !important; }
+.u-disabled-cursor-not-allowed:disabled { cursor: not-allowed !important; }
+
+@mixin dark-state-utilities {
+  @each $name, $value in $utility-text-colors {
+    .u-dark-text-#{$name} { color: $value !important; }
+  }
+
+  @each $name, $value in $utility-background-colors {
+    .u-dark-bg-#{$name} { background-color: $value !important; }
+  }
+
+  @each $name, $value in $utility-border-colors {
+    .u-dark-border-#{$name} { border-color: $value !important; }
+  }
+}
+
+[data-theme="dark"] {
+  @include dark-state-utilities;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    @include dark-state-utilities;
+  }
+}
+
 // Position
 .u-relative { position: relative !important; }
 .u-absolute { position: absolute !important; }

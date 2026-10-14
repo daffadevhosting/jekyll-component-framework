@@ -7,7 +7,7 @@ permalink: /docs/components/code/
 
 # Code Block
 
-Displays escaped code with an optional language label and copy button.
+Displays escaped code with an optional language label and copy button. Markdown code fences in docs and pages also receive a copy button automatically.
 
 ```liquid
 {% raw %}{% capture example_code %}<button class="c-button">Save</button>{% endcapture %}
@@ -27,4 +27,4 @@ Displays escaped code with an optional language label and copy button.
 | `class` | string | — | Additional CSS classes |
 | `id` | string | — | Element id |
 
-Use Liquid `capture` to pass multiline code. The copy action requires JavaScript.
+Use Liquid `capture` to pass multiline code. Copy actions require JavaScript.

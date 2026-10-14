@@ -30,10 +30,23 @@ dropdown_items:
 select_options:
   - value: basic
     label: Basic
+    icon: check-circle
+    description: Core features for getting started.
+    badge: Free
+    badge_variant: success
   - value: pro
     label: Pro
+    icon: info
+    description: More tools for growing teams.
+    badge: Popular
+    badge_variant: primary
+    variant: info
   - value: enterprise
     label: Enterprise
+    icon: user
+    description: Advanced controls and dedicated support.
+    badge: Custom
+    badge_variant: neutral
 
 accordion_items:
   - title: Can I customize the component styles?

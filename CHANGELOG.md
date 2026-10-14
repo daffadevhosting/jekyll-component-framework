@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.2.1/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-10-14
+
+### Added
+- `thicket purge` CLI to remove unused CSS selectors from Jekyll and frontend source files
+- Hover, focus-visible, disabled, and dark-theme utility variants
+- Accessible searchable combobox with keyboard navigation and native select fallback
+- Themed select popup with rich options for icons, descriptions, badges, and variants
+
+### Changed
+- Use PostCSS-based selector pruning to keep the npm dependency tree free of known CVEs
+
 ## [1.3.0] - 2026-10-14
 
 ### Added
