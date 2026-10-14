@@ -1,6 +1,6 @@
 # Thicket UI
 
-**A hybrid component and utility framework for Jekyll · v1.2.1**
+**A hybrid component and utility framework for Jekyll · v1.3.0**
 
 Thicket is an accessible, Jekyll-native UI framework pairing reusable Liquid components with token-based utility classes, an earthy palette, and editorial typography.
 It is built with:
@@ -60,6 +60,25 @@ Utilities are documented in [Layout Primitives](docs/components/layout-primitive
 ---
 
 ## Installation
+
+### npm
+
+Install the framework in any frontend project:
+
+```bash
+npm install thicket-ui
+```
+
+Import the compiled stylesheet and optional JavaScript entrypoint from your app:
+
+```js
+import "thicket-ui/css";
+import "thicket-ui/js";
+```
+
+The package also includes the SCSS source at `thicket-ui/scss` and Liquid component templates under `_includes/components/`. The CSS is built automatically when the package is packed or published.
+
+### Jekyll source
 
 ```bash
 git clone https://github.com/daffadevhosting/jekyll-component-framework.git

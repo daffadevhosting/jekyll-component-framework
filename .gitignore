@@ -11,6 +11,7 @@ node_modules/
 vendor/
 .bundle/
 package-lock.json
+dist/
 
 # OS
 .DS_Store

@@ -1,5 +1,42 @@
 {
-  "dependencies": {
-    "jekyll-component-mcp": "^1.0.0"
+  "name": "thicket-ui",
+  "version": "1.3.0",
+  "description": "A hybrid component and utility framework for Jekyll and the web.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daffadevhosting/jekyll-component-framework.git"
+  },
+  "homepage": "https://daffadevhosting.github.io/jekyll-component-framework/",
+  "keywords": [
+    "css",
+    "scss",
+    "design-system",
+    "jekyll",
+    "liquid",
+    "components",
+    "utilities"
+  ],
+  "style": "dist/thicket.css",
+  "sass": "assets/scss/thicket.scss",
+  "exports": {
+    "./css": "./dist/thicket.css",
+    "./scss": "./assets/scss/thicket.scss",
+    "./js": "./assets/js/main.js"
+  },
+  "files": [
+    "dist/",
+    "assets/scss/",
+    "assets/js/",
+    "_includes/components/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build:css": "sass --no-source-map --load-path=assets/scss assets/scss/thicket.scss dist/thicket.css",
+    "prepack": "npm run build:css"
+  },
+  "devDependencies": {
+    "sass": "^1.93.2"
   }
 }
