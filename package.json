@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "glob": "^13.0.6",
+    "jekyll-component-mcp": "^1.2.2",
     "postcss": "^8.5.30",
     "postcss-selector-parser": "^7.1.6"
   }

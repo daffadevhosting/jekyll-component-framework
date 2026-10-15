@@ -1,5 +1,9 @@
 # Thicket UI
 
+[![npm version](https://img.shields.io/npm/v/thicket-ui.svg)](https://www.npmjs.com/package/thicket-ui)
+
+[![Socket Badge](https://badge.socket.dev/npm/package/thicket-ui/1.4.0)](https://badge.socket.dev/npm/package/thicket-ui/1.4.0)
+
 **A hybrid component and utility framework for Jekyll · v1.4.0**
 
 Thicket is an accessible, Jekyll-native UI framework pairing reusable Liquid components with token-based utility classes, an earthy palette, and editorial typography.
@@ -78,6 +82,16 @@ import "thicket-ui/js";
 ```
 
 The package also includes the SCSS source at `thicket-ui/scss` and Liquid component templates under `_includes/components/`. The CSS is built automatically when the package is packed or published.
+
+#### CDN
+
+For a quick setup without a bundler, include the compiled stylesheet from unpkg:
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/thicket-ui@1.4.0/dist/thicket.css">
+```
+
+The version is pinned to `1.4.0` so your site keeps using the same CSS until you choose to upgrade. Replace `1.4.0` with a newer published version when you want to update.
 
 To generate a smaller stylesheet for a Jekyll site, run the CLI from the site root:
 

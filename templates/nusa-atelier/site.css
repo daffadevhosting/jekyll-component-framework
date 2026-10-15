@@ -1,0 +1,1611 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap");
+
+.nusa-page {
+  --nusa-ink: #26291f;
+  --nusa-muted: #73776b;
+  --nusa-paper: #f7f5ef;
+  --nusa-paper-deep: #eeece3;
+  --nusa-green: #334b3d;
+  --nusa-green-light: #dbe3d6;
+  --nusa-clay: #b8765d;
+  --nusa-line: #deddd4;
+  margin: 0;
+  background: var(--nusa-paper);
+  color: var(--nusa-ink);
+  font-family: "DM Sans", "Avenir Next", Avenir, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.nusa-page *,
+.nusa-page *::before,
+.nusa-page *::after {
+  box-sizing: border-box;
+}
+
+.nusa-page a {
+  color: inherit;
+}
+
+.nusa-page img {
+  display: block;
+  width: 100%;
+}
+
+.nusa-page h1,
+.nusa-page h2,
+.nusa-page h3,
+.nusa-page p {
+  margin-top: 0;
+}
+
+.nusa-page :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--nusa-ink);
+}
+
+.nusa-site {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 6.1vw, 96px);
+  overflow: hidden;
+}
+
+.nusa-skip-link {
+  position: absolute;
+  z-index: 10;
+  top: 12px;
+  left: 12px;
+  transform: translateY(-160%);
+  padding: 12px 16px;
+  background: var(--nusa-ink);
+  color: #fff !important;
+}
+
+.nusa-skip-link:focus {
+  transform: translateY(0);
+}
+
+.nusa-topline {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--nusa-line);
+  color: var(--nusa-muted);
+  font-size: 10px;
+  letter-spacing: .075em;
+  text-transform: uppercase;
+}
+
+.nusa-topline a {
+  text-decoration: none;
+}
+
+.nusa-topline a span {
+  margin-left: 5px;
+  color: var(--nusa-clay);
+}
+
+.nusa-header {
+  position: relative;
+  display: flex;
+  min-height: 88px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--nusa-line);
+}
+
+.nusa-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nusa-brand__mark {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--nusa-green);
+  color: var(--nusa-paper);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 23px;
+  font-style: italic;
+  line-height: 1;
+}
+
+.nusa-brand__name {
+  color: var(--nusa-ink);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -.04em;
+}
+
+.nusa-brand__name span {
+  color: var(--nusa-muted);
+  font-weight: 400;
+}
+
+.nusa-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3.2vw, 48px);
+}
+
+.nusa-nav a,
+.nusa-header__cta {
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.nusa-nav a {
+  color: #5f6258;
+  transition: color .2s ease;
+}
+
+.nusa-nav a:hover,
+.nusa-footer a:hover {
+  color: var(--nusa-clay);
+}
+
+.nusa-header__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 17px;
+  border: 1px solid #b8baae;
+  border-radius: 2px;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.nusa-header__cta:hover {
+  border-color: var(--nusa-green);
+  background: var(--nusa-green);
+  color: #fff;
+}
+
+.nusa-header__cta span {
+  color: var(--nusa-clay);
+}
+
+.nusa-mobile-nav {
+  display: none;
+}
+
+.nusa-hero {
+  display: grid;
+  min-height: 620px;
+  grid-template-columns: 1fr 1.02fr;
+  align-items: center;
+  gap: clamp(42px, 8vw, 120px);
+  padding: 76px 0 84px;
+}
+
+.nusa-hero__copy {
+  position: relative;
+  z-index: 1;
+  padding: 0 0 0 clamp(0px, 2vw, 28px);
+}
+
+.nusa-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 25px;
+  color: var(--nusa-muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.nusa-eyebrow__line {
+  width: 24px;
+  height: 1px;
+  background: var(--nusa-clay);
+}
+
+.nusa-hero h1,
+.nusa-about h2,
+.nusa-section-heading h2,
+.nusa-faq h2,
+.nusa-contact h2 {
+  margin-bottom: 24px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -.055em;
+}
+
+.nusa-hero h1 {
+  max-width: 610px;
+  font-size: clamp(44px, 5.35vw, 78px);
+  line-height: 1.05;
+}
+
+.nusa-hero h1 em,
+.nusa-about h2 em,
+.nusa-section-heading h2 em,
+.nusa-contact h2 em,
+.nusa-quote blockquote em,
+.nusa-testimonial blockquote em {
+  color: var(--nusa-clay);
+  font-weight: 500;
+}
+
+.nusa-hero__intro {
+  max-width: 430px;
+  margin-bottom: 30px;
+  color: var(--nusa-muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.nusa-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 26px;
+}
+
+.nusa-page .c-button--primary {
+  border-color: var(--nusa-green);
+  border-radius: 2px;
+  background: var(--nusa-green);
+  box-shadow: none;
+  color: #fff;
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .01em;
+}
+
+.nusa-page .c-button--primary:hover {
+  border-color: #263a2e;
+  background: #263a2e;
+}
+
+.nusa-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--nusa-ink);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nusa-text-link span {
+  color: var(--nusa-clay);
+  transition: transform .2s ease;
+}
+
+.nusa-text-link:hover span {
+  transform: translate(3px, -2px);
+}
+
+.nusa-hero__note {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 50px;
+}
+
+.nusa-avatar-stack {
+  display: flex;
+  padding-left: 4px;
+}
+
+.nusa-avatar-stack span {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  margin-left: -4px;
+  place-items: center;
+  border: 2px solid var(--nusa-paper);
+  border-radius: 50%;
+  background: #d5a58e;
+  color: #fff;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 11px;
+}
+
+.nusa-avatar-stack span:nth-child(2) {
+  background: #687b69;
+}
+
+.nusa-avatar-stack span:nth-child(3) {
+  background: #a58c67;
+}
+
+.nusa-hero__note p {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.nusa-hero__note p strong {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.nusa-hero__note p span {
+  color: var(--nusa-muted);
+}
+
+.nusa-hero__visual {
+  position: relative;
+  min-width: 0;
+  padding: 0 12px 12px 0;
+}
+
+.nusa-hero__visual::after {
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  bottom: 0;
+  width: 80%;
+  height: 82%;
+  border: 1px solid #c5c8b7;
+  content: "";
+}
+
+.nusa-hero__image {
+  height: clamp(390px, 47vw, 590px);
+  object-fit: cover;
+  object-position: center;
+}
+
+.nusa-image-label {
+  position: absolute;
+  right: 28px;
+  bottom: 30px;
+  left: 28px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 16px;
+  background: rgba(247, 245, 239, .94);
+  color: var(--nusa-ink);
+  font-size: 10px;
+  letter-spacing: .02em;
+}
+
+.nusa-image-label__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7d956d;
+}
+
+.nusa-image-label__year {
+  margin-left: auto;
+  color: var(--nusa-muted);
+  font-size: 9px;
+  letter-spacing: .1em;
+}
+
+.nusa-hero__stamp {
+  position: absolute;
+  top: 32px;
+  right: -26px;
+  display: flex;
+  width: 92px;
+  height: 92px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--nusa-green);
+  color: #f4f1e8;
+  font-size: 7px;
+  letter-spacing: .13em;
+  transform: rotate(9deg);
+}
+
+.nusa-hero__stamp-star {
+  margin: 2px 0;
+  color: #d9a58a;
+  font-size: 23px;
+}
+
+.nusa-proof {
+  padding: 22px 0 23px;
+  border-top: 1px solid var(--nusa-line);
+  border-bottom: 1px solid var(--nusa-line);
+}
+
+.nusa-proof__label {
+  margin: 0 0 16px;
+  color: var(--nusa-muted);
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.nusa-proof__items {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 20px;
+  color: var(--nusa-muted);
+  font-size: 11px;
+}
+
+.nusa-proof__items strong {
+  margin-right: 5px;
+  color: var(--nusa-green);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.nusa-proof__quote {
+  color: var(--nusa-clay);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.nusa-section {
+  padding: clamp(82px, 10vw, 148px) 0;
+}
+
+.nusa-about {
+  display: grid;
+  grid-template-columns: .95fr 1fr;
+  align-items: center;
+  gap: clamp(64px, 10vw, 150px);
+}
+
+.nusa-about__visual {
+  position: relative;
+  padding: 0 0 34px 28px;
+}
+
+.nusa-about__visual::before {
+  position: absolute;
+  top: -26px;
+  left: 0;
+  width: 65%;
+  height: 82%;
+  border: 1px solid #c7c8b9;
+  content: "";
+}
+
+.nusa-about__visual img {
+  position: relative;
+  height: clamp(400px, 46vw, 570px);
+  object-fit: cover;
+}
+
+.nusa-about__caption {
+  position: absolute;
+  right: -12px;
+  bottom: 0;
+  padding: 15px 18px;
+  background: var(--nusa-paper-deep);
+  color: var(--nusa-muted);
+  font-size: 10px;
+}
+
+.nusa-about__caption span {
+  margin-right: 10px;
+  color: var(--nusa-clay);
+}
+
+.nusa-about__flower {
+  position: absolute;
+  right: -21px;
+  top: 30px;
+  color: var(--nusa-clay);
+  font-size: 42px;
+}
+
+.nusa-about__copy {
+  max-width: 460px;
+}
+
+.nusa-about h2,
+.nusa-section-heading h2,
+.nusa-faq h2 {
+  font-size: clamp(40px, 4.5vw, 62px);
+  line-height: 1.12;
+}
+
+.nusa-about__copy > p:not(.nusa-eyebrow) {
+  color: var(--nusa-muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.nusa-about__copy .nusa-text-link {
+  margin-top: 10px;
+}
+
+.nusa-signature {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 39px;
+  padding-top: 19px;
+  border-top: 1px solid var(--nusa-line);
+  color: var(--nusa-muted);
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.nusa-signature strong {
+  color: var(--nusa-ink);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.nusa-signature__scribble {
+  color: var(--nusa-green);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 27px;
+  font-style: italic;
+  letter-spacing: -.08em;
+}
+
+.nusa-services {
+  margin: 0 calc(clamp(20px, 6.1vw, 96px) * -1);
+  padding-right: clamp(20px, 6.1vw, 96px);
+  padding-left: clamp(20px, 6.1vw, 96px);
+  background: var(--nusa-paper-deep);
+}
+
+.nusa-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.nusa-section-heading .nusa-eyebrow {
+  margin-bottom: 19px;
+}
+
+.nusa-section-heading h2 {
+  margin-bottom: 0;
+}
+
+.nusa-section-heading > p {
+  max-width: 340px;
+  margin-bottom: 5px;
+  color: var(--nusa-muted);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.nusa-service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.nusa-service-card {
+  position: relative;
+  display: flex;
+  min-height: 288px;
+  flex-direction: column;
+  padding: 27px 26px 22px;
+  border: 1px solid #d8d7cb;
+  background: rgba(255, 255, 255, .28);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.nusa-service-card:hover {
+  box-shadow: 0 12px 28px rgba(38, 41, 31, .08);
+  transform: translateY(-4px);
+}
+
+.nusa-service-card--featured {
+  border-color: var(--nusa-green);
+  background: var(--nusa-green);
+  color: #f7f5ef;
+}
+
+.nusa-service-card__number {
+  color: var(--nusa-muted);
+  font-size: 9px;
+  letter-spacing: .1em;
+}
+
+.nusa-service-card--featured .nusa-service-card__number {
+  color: #c8d1c4;
+}
+
+.nusa-service-card__icon {
+  margin: 30px 0 17px;
+  color: var(--nusa-clay);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 33px;
+  line-height: 1;
+}
+
+.nusa-service-card h3 {
+  margin-bottom: 9px;
+  color: var(--nusa-ink);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -.03em;
+}
+
+.nusa-service-card p {
+  max-width: 270px;
+  margin-bottom: 24px;
+  color: var(--nusa-muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.nusa-service-card--featured p {
+  color: #d7ded5;
+}
+
+.nusa-service-card--featured h3 {
+  color: var(--nusa-paper);
+}
+
+.nusa-service-card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  font-size: 10px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nusa-service-card a span {
+  color: var(--nusa-clay);
+}
+
+.nusa-work {
+  padding-bottom: clamp(80px, 9vw, 125px);
+}
+
+.nusa-section-heading--work {
+  align-items: end;
+}
+
+.nusa-section-heading--work > .nusa-text-link {
+  margin-bottom: 9px;
+}
+
+.nusa-project-grid {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  column-gap: 24px;
+  row-gap: 46px;
+}
+
+.nusa-project--large {
+  grid-row: span 2;
+}
+
+.nusa-project__image {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: #ded8cb;
+}
+
+.nusa-project--large .nusa-project__image {
+  height: 620px;
+}
+
+.nusa-project:not(.nusa-project--large) .nusa-project__image {
+  height: 270px;
+}
+
+.nusa-project__image img {
+  height: 100%;
+  object-fit: cover;
+  transition: transform .65s cubic-bezier(.2, .7, .25, 1);
+}
+
+.nusa-project__image:hover img {
+  transform: scale(1.045);
+}
+
+.nusa-project__arrow {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  background: var(--nusa-paper);
+  font-size: 15px;
+  transition: background .2s ease, color .2s ease;
+}
+
+.nusa-project__image:hover .nusa-project__arrow {
+  background: var(--nusa-green);
+  color: #fff;
+}
+
+.nusa-project__meta {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  padding-top: 15px;
+}
+
+.nusa-project__meta h3 {
+  margin-bottom: 4px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.nusa-project__meta p,
+.nusa-project__meta > span {
+  margin-bottom: 0;
+  color: var(--nusa-muted);
+  font-size: 10px;
+}
+
+.nusa-quote {
+  position: relative;
+  display: flex;
+  min-height: 310px;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 15%;
+  background: var(--nusa-green);
+  color: var(--nusa-paper);
+  text-align: center;
+}
+
+.nusa-quote__mark {
+  position: absolute;
+  top: 21px;
+  left: 8%;
+  color: #778575;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 125px;
+  line-height: 1;
+}
+
+.nusa-quote blockquote {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0;
+}
+
+.nusa-quote blockquote > p {
+  margin-bottom: 24px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(26px, 3.4vw, 43px);
+  line-height: 1.35;
+  letter-spacing: -.035em;
+}
+
+.nusa-quote blockquote em {
+  color: #e4b59d;
+}
+
+.nusa-quote blockquote footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #d5d9d0;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.nusa-quote__rule {
+  width: 24px;
+  height: 1px;
+  background: #d69a7d;
+}
+
+.nusa-quote__flower {
+  position: absolute;
+  right: 8%;
+  bottom: 26px;
+  color: #889482;
+  font-size: 44px;
+}
+
+.nusa-process {
+  display: grid;
+  grid-template-columns: .9fr 1fr;
+  gap: clamp(55px, 10vw, 150px);
+}
+
+.nusa-process .nusa-section-heading {
+  display: block;
+  margin: 0;
+}
+
+.nusa-process .nusa-section-heading > p {
+  margin-top: 22px;
+}
+
+.nusa-process-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nusa-process-list li {
+  display: grid;
+  grid-template-columns: 32px 1fr 20px;
+  align-items: start;
+  gap: 15px;
+  padding: 23px 0;
+  border-bottom: 1px solid var(--nusa-line);
+}
+
+.nusa-process-list li:first-child {
+  padding-top: 0;
+}
+
+.nusa-process-list li > span:first-child {
+  padding-top: 3px;
+  color: var(--nusa-clay);
+  font-size: 10px;
+  letter-spacing: .08em;
+}
+
+.nusa-process-list h3 {
+  margin: 0 0 6px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.nusa-process-list p {
+  max-width: 390px;
+  margin: 0;
+  color: var(--nusa-muted);
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.nusa-process-list__symbol {
+  color: #afb1a5;
+  font-size: 12px;
+}
+
+.nusa-testimonial {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--nusa-paper-deep);
+}
+
+.nusa-testimonial__image {
+  position: relative;
+  min-height: 520px;
+}
+
+.nusa-testimonial__image img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nusa-testimonial__image > span {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  padding: 10px 13px;
+  background: rgba(247, 245, 239, .94);
+  color: var(--nusa-muted);
+  font-size: 9px;
+}
+
+.nusa-testimonial__copy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(35px, 7vw, 95px);
+}
+
+.nusa-testimonial__copy .nusa-eyebrow {
+  margin-bottom: 24px;
+}
+
+.nusa-stars {
+  margin-bottom: 16px;
+  color: var(--nusa-clay);
+  font-size: 12px;
+  letter-spacing: .18em;
+}
+
+.nusa-testimonial blockquote {
+  max-width: 500px;
+  margin: 0 0 27px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(22px, 2.5vw, 32px);
+  line-height: 1.5;
+  letter-spacing: -.025em;
+}
+
+.nusa-testimonial blockquote em {
+  color: var(--nusa-green);
+}
+
+.nusa-testimonial__person {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--nusa-muted);
+  font-size: 9px;
+  line-height: 1.7;
+}
+
+.nusa-testimonial__person strong {
+  color: var(--nusa-ink);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.nusa-testimonial__initials {
+  display: grid;
+  width: 35px;
+  height: 35px;
+  place-items: center;
+  border-radius: 50%;
+  background: #d7bdab;
+  color: var(--nusa-green);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 11px;
+}
+
+.nusa-testimonial__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 36px;
+  padding-top: 14px;
+  border-top: 1px solid #d8d6ca;
+  color: var(--nusa-muted);
+  font-size: 9px;
+}
+
+.nusa-testimonial__controls i {
+  display: inline-block;
+  width: 70px;
+  height: 1px;
+  margin: 0 8px 3px;
+  background: linear-gradient(to right, var(--nusa-clay) 33%, #c9c9bd 33%);
+}
+
+.nusa-faq {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: clamp(55px, 10vw, 145px);
+}
+
+.nusa-faq__intro h2 {
+  font-size: clamp(38px, 4vw, 55px);
+}
+
+.nusa-faq__intro > p:last-child {
+  max-width: 270px;
+  color: var(--nusa-muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.nusa-faq__intro > p:last-child a {
+  color: var(--nusa-green);
+  text-decoration-color: #b7c1b3;
+  text-underline-offset: 3px;
+}
+
+.nusa-faq__list details {
+  border-bottom: 1px solid var(--nusa-line);
+}
+
+.nusa-faq__list details:first-child {
+  border-top: 1px solid var(--nusa-line);
+}
+
+.nusa-faq__list summary {
+  display: flex;
+  min-height: 66px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  cursor: pointer;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 16px;
+  list-style: none;
+}
+
+.nusa-faq__list summary::-webkit-details-marker {
+  display: none;
+}
+
+.nusa-faq__list summary > span {
+  position: relative;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.nusa-faq__list summary > span::before,
+.nusa-faq__list summary > span::after {
+  position: absolute;
+  top: 7px;
+  left: 2px;
+  width: 12px;
+  height: 1px;
+  background: var(--nusa-clay);
+  content: "";
+}
+
+.nusa-faq__list summary > span::after {
+  transform: rotate(90deg);
+  transition: transform .2s ease;
+}
+
+.nusa-faq__list details[open] summary > span::after {
+  transform: rotate(0);
+}
+
+.nusa-faq__list details > p {
+  max-width: 570px;
+  margin: -2px 35px 21px 0;
+  color: var(--nusa-muted);
+  font-size: 11px;
+  line-height: 1.9;
+}
+
+.nusa-contact {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(68px, 9vw, 120px) 20px;
+  background: var(--nusa-green);
+  color: var(--nusa-paper);
+  text-align: center;
+}
+
+.nusa-eyebrow--light {
+  justify-content: center;
+  color: #d2d8ce;
+}
+
+.nusa-contact h2 {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 17px;
+  font-size: clamp(47px, 6.1vw, 82px);
+  line-height: 1.08;
+}
+
+.nusa-contact h2 em {
+  color: #e4b59d;
+}
+
+.nusa-contact__intro {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 28px;
+  color: #d5dbd1;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.nusa-contact__button {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  gap: 26px;
+  padding: 0 19px;
+  background: var(--nusa-paper);
+  color: var(--nusa-green) !important;
+  font-size: 11px;
+  text-decoration: none;
+  transition: background .2s ease, color .2s ease;
+}
+
+.nusa-contact__button:hover {
+  background: #e4b59d;
+}
+
+.nusa-contact__button span {
+  color: var(--nusa-clay);
+}
+
+.nusa-contact__email {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: 17px;
+  color: #c4cdc0;
+  font-size: 9px;
+}
+
+.nusa-contact__email a {
+  color: #f3eee3;
+  text-decoration-color: #849181;
+  text-underline-offset: 3px;
+}
+
+.nusa-contact__decoration {
+  position: absolute;
+  top: -93px;
+  right: 7%;
+  color: rgba(255, 255, 255, .055);
+  font-size: 350px;
+  line-height: 1;
+}
+
+.nusa-footer {
+  display: grid;
+  min-height: 112px;
+  grid-template-columns: 1fr 1.3fr 1fr auto;
+  align-items: center;
+  gap: 20px;
+}
+
+.nusa-brand--footer .nusa-brand__mark {
+  background: var(--nusa-paper-deep);
+  color: var(--nusa-green);
+}
+
+.nusa-footer > p {
+  margin: 0;
+  color: var(--nusa-muted);
+  font-size: 9px;
+  line-height: 1.7;
+}
+
+.nusa-footer__links {
+  display: flex;
+  gap: 22px;
+}
+
+.nusa-footer__links a {
+  font-size: 10px;
+  text-decoration: none;
+}
+
+.nusa-footer__links span {
+  color: var(--nusa-clay);
+}
+
+.nusa-footer__copyright {
+  color: var(--nusa-muted);
+  font-size: 9px;
+}
+
+.nusa-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@media (min-width: 1500px) {
+  .nusa-hero {
+    min-height: 720px;
+  }
+
+  .nusa-project--large .nusa-project__image {
+    height: 700px;
+  }
+}
+
+@media (max-width: 900px) {
+  .nusa-site {
+    padding-right: 5vw;
+    padding-left: 5vw;
+  }
+
+  .nusa-hero {
+    min-height: auto;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    padding: 65px 0;
+  }
+
+  .nusa-hero h1 {
+    font-size: clamp(40px, 6vw, 58px);
+  }
+
+  .nusa-hero__image {
+    height: 470px;
+  }
+
+  .nusa-about {
+    gap: 55px;
+  }
+
+  .nusa-services {
+    margin-right: -5vw;
+    margin-left: -5vw;
+    padding-right: 5vw;
+    padding-left: 5vw;
+  }
+
+  .nusa-project--large .nusa-project__image {
+    height: 520px;
+  }
+
+  .nusa-project:not(.nusa-project--large) .nusa-project__image {
+    height: 225px;
+  }
+
+  .nusa-testimonial__image {
+    min-height: 440px;
+  }
+
+  .nusa-testimonial__copy {
+    padding: 35px;
+  }
+}
+
+@media (max-width: 680px) {
+  .nusa-site {
+    padding-right: 21px;
+    padding-left: 21px;
+  }
+
+  .nusa-topline {
+    min-height: 35px;
+    font-size: 8px;
+    letter-spacing: .04em;
+  }
+
+  .nusa-topline > span {
+    max-width: 51%;
+  }
+
+  .nusa-topline a {
+    text-align: right;
+  }
+
+  .nusa-header {
+    min-height: 72px;
+  }
+
+  .nusa-nav,
+  .nusa-header__cta {
+    display: none;
+  }
+
+  .nusa-mobile-nav {
+    display: block;
+  }
+
+  .nusa-mobile-nav summary {
+    display: flex;
+    width: 42px;
+    height: 42px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 1px solid var(--nusa-line);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .nusa-mobile-nav summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .nusa-mobile-nav summary span {
+    width: 16px;
+    height: 1px;
+    background: var(--nusa-ink);
+  }
+
+  .nusa-mobile-nav nav {
+    position: absolute;
+    z-index: 5;
+    top: calc(100% - 1px);
+    right: 0;
+    left: 0;
+    display: grid;
+    padding: 10px 18px;
+    border: 1px solid var(--nusa-line);
+    background: var(--nusa-paper);
+    box-shadow: 0 12px 20px rgba(38, 41, 31, .08);
+  }
+
+  .nusa-mobile-nav nav a {
+    padding: 13px 4px;
+    border-bottom: 1px solid var(--nusa-line);
+    font-size: 12px;
+    text-decoration: none;
+  }
+
+  .nusa-mobile-nav nav a:last-child {
+    border-bottom: 0;
+    color: var(--nusa-green);
+    font-weight: 600;
+  }
+
+  .nusa-hero {
+    grid-template-columns: 1fr;
+    gap: 43px;
+    padding: 57px 0 59px;
+  }
+
+  .nusa-hero__copy {
+    padding: 0;
+  }
+
+  .nusa-eyebrow {
+    margin-bottom: 19px;
+    font-size: 9px;
+  }
+
+  .nusa-hero h1 {
+    max-width: 470px;
+    margin-bottom: 18px;
+    font-size: clamp(43px, 11vw, 66px);
+  }
+
+  .nusa-hero__intro {
+    max-width: 460px;
+    font-size: 12px;
+  }
+
+  .nusa-hero__note {
+    margin-top: 29px;
+  }
+
+  .nusa-hero__visual {
+    margin: 0 8px 0 0;
+  }
+
+  .nusa-hero__image {
+    height: min(112vw, 510px);
+  }
+
+  .nusa-hero__stamp {
+    top: 19px;
+    right: -13px;
+    width: 76px;
+    height: 76px;
+    font-size: 6px;
+  }
+
+  .nusa-hero__stamp-star {
+    font-size: 18px;
+  }
+
+  .nusa-image-label {
+    right: 16px;
+    bottom: 20px;
+    left: 16px;
+  }
+
+  .nusa-proof {
+    padding: 19px 0;
+  }
+
+  .nusa-proof__items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 8px;
+    font-size: 9px;
+  }
+
+  .nusa-proof__items strong {
+    font-size: 16px;
+  }
+
+  .nusa-proof__quote {
+    font-size: 11px;
+  }
+
+  .nusa-section {
+    padding: 77px 0;
+  }
+
+  .nusa-about {
+    grid-template-columns: 1fr;
+    gap: 43px;
+  }
+
+  .nusa-about__visual {
+    padding-left: 15px;
+  }
+
+  .nusa-about__visual img {
+    height: min(112vw, 490px);
+  }
+
+  .nusa-about__caption {
+    right: -10px;
+    font-size: 9px;
+  }
+
+  .nusa-about h2,
+  .nusa-section-heading h2 {
+    font-size: clamp(39px, 10vw, 56px);
+  }
+
+  .nusa-about__copy > p:not(.nusa-eyebrow) {
+    font-size: 12px;
+  }
+
+  .nusa-services {
+    margin-right: -21px;
+    margin-left: -21px;
+    padding-right: 21px;
+    padding-left: 21px;
+  }
+
+  .nusa-section-heading {
+    display: block;
+    margin-bottom: 32px;
+  }
+
+  .nusa-section-heading > p {
+    margin-top: 17px;
+  }
+
+  .nusa-service-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .nusa-service-card {
+    min-height: 246px;
+    padding: 22px;
+  }
+
+  .nusa-service-card__icon {
+    margin-top: 22px;
+  }
+
+  .nusa-project-grid {
+    grid-template-columns: 1fr;
+    row-gap: 30px;
+  }
+
+  .nusa-project--large {
+    grid-row: auto;
+  }
+
+  .nusa-project--large .nusa-project__image,
+  .nusa-project:not(.nusa-project--large) .nusa-project__image {
+    height: min(84vw, 420px);
+  }
+
+  .nusa-section-heading--work > .nusa-text-link {
+    margin-top: 18px;
+  }
+
+  .nusa-quote {
+    min-height: 300px;
+    margin: 0 -21px;
+    padding: 58px 26px;
+  }
+
+  .nusa-quote__mark {
+    top: 21px;
+    left: 17px;
+    font-size: 90px;
+  }
+
+  .nusa-quote blockquote > p {
+    font-size: clamp(26px, 7vw, 36px);
+  }
+
+  .nusa-process {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .nusa-process .nusa-section-heading > p {
+    margin-top: 17px;
+  }
+
+  .nusa-process-list li {
+    grid-template-columns: 25px 1fr 16px;
+    gap: 10px;
+    padding: 19px 0;
+  }
+
+  .nusa-process-list h3 {
+    font-size: 17px;
+  }
+
+  .nusa-testimonial {
+    grid-template-columns: 1fr;
+    margin: 0 -21px;
+  }
+
+  .nusa-testimonial__image {
+    min-height: 350px;
+  }
+
+  .nusa-testimonial__copy {
+    padding: 43px 25px 34px;
+  }
+
+  .nusa-testimonial blockquote {
+    font-size: 27px;
+  }
+
+  .nusa-testimonial__controls {
+    margin-top: 27px;
+  }
+
+  .nusa-faq {
+    grid-template-columns: 1fr;
+    gap: 29px;
+  }
+
+  .nusa-faq h2 {
+    font-size: 43px;
+  }
+
+  .nusa-faq__list summary {
+    min-height: 62px;
+    font-size: 14px;
+  }
+
+  .nusa-contact {
+    margin: 0 -21px;
+    padding: 71px 20px;
+  }
+
+  .nusa-contact h2 {
+    font-size: clamp(45px, 12vw, 65px);
+  }
+
+  .nusa-contact__decoration {
+    top: -41px;
+    right: -46px;
+    font-size: 240px;
+  }
+
+  .nusa-footer {
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 12px;
+    padding: 27px 0;
+  }
+
+  .nusa-footer > p {
+    text-align: right;
+  }
+
+  .nusa-footer__links {
+    gap: 15px;
+  }
+
+  .nusa-footer__copyright {
+    text-align: right;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nusa-page *,
+  .nusa-page *::before,
+  .nusa-page *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
