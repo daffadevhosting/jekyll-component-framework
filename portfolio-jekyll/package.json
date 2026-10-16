@@ -1,0 +1,14 @@
+{
+  "name": "thicket-portfolio-starter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A modular Jekyll portfolio starter powered by Thicket UI.",
+  "license": "MIT",
+  "scripts": {
+    "dev": "bundle exec jekyll serve --livereload",
+    "build": "bundle exec jekyll build"
+  },
+  "dependencies": {
+    "thicket-ui": "1.4.0"
+  }
+}

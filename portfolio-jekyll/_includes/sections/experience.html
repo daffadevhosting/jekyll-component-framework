@@ -1,0 +1,22 @@
+<section class="folio-section folio-experience" id="experience" aria-labelledby="experience-title">
+  <div class="folio-section-heading">
+    <div>
+      {% include components/badge.html label="The path so far" variant="neutral" size="md" %}
+      <h2 id="experience-title">A little experience<span class="folio-heading-dot">.</span></h2>
+    </div>
+    <p>Good work comes from good partnerships. These are a few chapters that shaped how I work.</p>
+  </div>
+  <ol class="folio-timeline">
+    {% for job in site.data.experience %}
+      <li>
+        <span class="folio-timeline__period">{{ job.period }}</span>
+        <div class="folio-timeline__role">
+          <h3>{{ job.role }}</h3>
+          <span>{{ job.company }}</span>
+          <p>{{ job.description }}</p>
+        </div>
+        <span class="folio-timeline__arrow" aria-hidden="true">↗</span>
+      </li>
+    {% endfor %}
+  </ol>
+</section>

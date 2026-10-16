@@ -1,0 +1,17 @@
+{
+	"mcpServers": {
+		"jekyll-component": {
+			"type": "local",
+			"command": "npx",
+			"args": [
+				"-y",
+				"jekyll-component-mcp",
+				"--root",
+				"/home/ndang/Desktop/jekyll-component-framework"
+			],
+			"tools": [
+				"*"
+			]
+		}
+	}
+}

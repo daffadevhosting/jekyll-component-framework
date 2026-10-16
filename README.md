@@ -1,7 +1,6 @@
 # Thicket UI
 
 [![npm version](https://img.shields.io/npm/v/thicket-ui.svg)](https://www.npmjs.com/package/thicket-ui)
-
 [![Socket Badge](https://badge.socket.dev/npm/package/thicket-ui/1.4.0)](https://badge.socket.dev/npm/package/thicket-ui/1.4.0)
 
 **A hybrid component and utility framework for Jekyll · v1.4.0**

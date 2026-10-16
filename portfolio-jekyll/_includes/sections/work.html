@@ -1,0 +1,24 @@
+<section class="folio-section folio-work" id="work" aria-labelledby="work-title">
+  <div class="folio-section-heading">
+    <div>
+      {% include components/badge.html label="A few good things" variant="neutral" size="md" %}
+      <h2 id="work-title">Selected work<span class="folio-heading-dot">.</span></h2>
+    </div>
+    <p>A selection of products and experiences built with care, curiosity, and good people.</p>
+  </div>
+  <div class="folio-project-grid">
+    {% assign featured_projects = site.projects | where: "featured", true %}
+    {% for project in featured_projects %}
+      {% capture project_body %}
+        <p>{{ project.summary }}</p>
+        <div class="folio-project-card__tags">
+          {% for tag in project.tags %}
+            {% include components/badge.html label=tag variant="neutral" size="sm" %}
+          {% endfor %}
+        </div>
+        <a class="folio-project-card__link" href="{{ project.url | relative_url }}">View case study <span aria-hidden="true">↗</span></a>
+      {% endcapture %}
+      {% include components/card.html title=project.title subtitle=project.client media=project.image media_alt=project.image_alt content=project_body class="folio-project-card c-card--hoverable" %}
+    {% endfor %}
+  </div>
+</section>

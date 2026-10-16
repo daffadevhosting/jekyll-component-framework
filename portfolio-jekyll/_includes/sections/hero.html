@@ -1,0 +1,19 @@
+<section class="folio-hero" aria-labelledby="hero-title">
+  <div class="folio-hero__copy">
+    {% include components/badge.html label=site.data.profile.eyebrow variant="neutral" size="md" dot=true %}
+    <h1 id="hero-title">{{ site.data.profile.headline }}</h1>
+    <p class="folio-hero__intro">{{ site.data.profile.intro }}</p>
+    <div class="folio-hero__actions">
+      {% include components/button.html label="Explore my work" href="#work" variant="primary" size="lg" %}
+      <a class="folio-text-link" href="#about">A little about me <span aria-hidden="true">↓</span></a>
+    </div>
+    <div class="folio-availability"><span></span>{{ site.data.site.availability }}</div>
+  </div>
+  <div class="folio-hero__portrait-wrap">
+    <img class="folio-hero__portrait" src="{{ site.data.profile.portrait }}" alt="{{ site.data.profile.portrait_alt }}" fetchpriority="high">
+    <div class="folio-hero__portrait-note"><span>Currently based in</span><strong>{{ site.data.site.location }}</strong></div>
+    <span class="folio-hero__asterisk" aria-hidden="true">✳</span>
+    <span class="folio-hero__index">DESIGNING WITH INTENTION · EST. 2018</span>
+  </div>
+  <a class="folio-scroll-cue" href="#work"><span>Scroll to explore</span><i aria-hidden="true"></i></a>
+</section>

@@ -1,0 +1,19 @@
+<section class="folio-testimonials" aria-labelledby="testimonials-title">
+  <div class="folio-testimonials__heading">
+    {% include components/badge.html label="Kind words" variant="neutral" size="md" %}
+    <h2 id="testimonials-title">Better work is<br>always <em>shared work.</em></h2>
+    <p>A few notes from people I've had the joy of working with.</p>
+  </div>
+  <div class="folio-testimonial-grid">
+    {% for item in site.data.testimonials %}
+      {% capture quote_content %}
+        <blockquote>“{{ item.quote }}”</blockquote>
+        <div class="folio-quote-author">
+          <span class="folio-quote-author__initials">{{ item.initials }}</span>
+          <span><strong>{{ item.name }}</strong><small>{{ item.role }}</small></span>
+        </div>
+      {% endcapture %}
+      {% include components/card.html content=quote_content class="folio-quote-card" %}
+    {% endfor %}
+  </div>
+</section>

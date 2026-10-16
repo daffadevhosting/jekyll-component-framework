@@ -1,0 +1,21 @@
+---
+layout: default
+---
+<article class="folio-project-detail">
+  <a class="folio-back-link" href="{{ '/' | relative_url }}#work">← Back to selected work</a>
+  <header class="folio-project-detail__header">
+    {% include components/badge.html label=page.category variant="primary" size="md" %}
+    <h1>{{ page.title }}</h1>
+    <p>{{ page.summary }}</p>
+    <div class="folio-project-detail__meta">
+      <span><strong>Role</strong>{{ page.role }}</span>
+      <span><strong>Year</strong>{{ page.year }}</span>
+      <span><strong>Client</strong>{{ page.client }}</span>
+    </div>
+  </header>
+  <img class="folio-project-detail__cover" src="{{ page.image }}" alt="{{ page.image_alt }}" loading="eager">
+  <div class="folio-project-detail__body">
+    {{ content }}
+    <a class="folio-back-link" href="{{ '/' | relative_url }}#work">← Explore more work</a>
+  </div>
+</article>

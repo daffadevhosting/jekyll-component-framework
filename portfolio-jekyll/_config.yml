@@ -1,0 +1,33 @@
+title: "Raka Pradana — Product Designer"
+description: "Portfolio of Raka Pradana, an independent product designer building thoughtful digital experiences."
+url: ""
+baseurl: ""
+lang: id
+markdown: kramdown
+permalink: pretty
+timezone: Asia/Jakarta
+
+port: 4040
+
+includes_dir: node_modules/thicket-ui/_includes
+
+collections:
+  projects:
+    output: true
+    permalink: /work/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: project
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - package.json
+  - package-lock.json
+  - README.md
+  - vendor

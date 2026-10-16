@@ -30,3 +30,7 @@ Thumbs.db
 # Environment
 .env
 .env.*
+
+# Keep the standalone portfolio's dependency locks reproducible.
+!portfolio-jekyll/Gemfile.lock
+!portfolio-jekyll/package-lock.json
