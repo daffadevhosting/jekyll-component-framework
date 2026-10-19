@@ -171,11 +171,26 @@ bundle install
 
 ## Development
 
+Install the Node development dependencies before building the distributable CSS
+or packing the npm package. This provides the local Sass executable used by the
+build scripts:
+
+```bash
+npm install
+```
+
 ```bash
 bundle exec jekyll serve
 ```
 
 Open [http://localhost:4000](http://localhost:4000).
+
+Build the CSS published in the npm package with either command:
+
+```bash
+npm run build
+# or: npm run build:css
+```
 
 ---
 

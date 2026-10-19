@@ -39,6 +39,7 @@
     ".mcp.json"
   ],
   "scripts": {
+    "build": "npm run build:css",
     "build:css": "sass --no-source-map --load-path=assets/scss assets/scss/thicket.scss dist/thicket.css",
     "prepack": "npm run build:css",
     "test:purge": "node scripts/thicket.mjs purge --help && node --test scripts/thicket.purge.test.mjs",
