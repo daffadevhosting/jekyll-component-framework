@@ -1,6 +1,6 @@
 {
   "name": "thicket-ui",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "A hybrid component and utility framework for Jekyll and the web.",
   "license": "MIT",
   "repository": {
@@ -35,6 +35,7 @@
     "scripts/",
     "_includes/components/",
     "README.md",
+    "SKILL.md",
     "LICENSE",
     ".mcp.json"
   ],
