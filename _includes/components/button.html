@@ -3,7 +3,7 @@
 
   Parameters:
   - label       (string, required unless icon_only)
-  - href        (string)  → renders as <a>
+  - href        (string)  → renders as <a> (navigation semantics, no role="button")
   - type        (string)  → button type (button|submit|reset), default: button
   - variant     (string)  → primary|secondary|outline|ghost|danger|success, default: primary
   - size        (string)  → sm|md|lg, default: md
@@ -19,6 +19,11 @@
   - class       (string)  → extra classes
   - id          (string)
   - aria_label  (string)
+
+  Accessibility:
+  - With href → native <a> (link semantics). Never role="button".
+  - Without href → native <button>.
+  - disabled + href → non-interactive <span> (no accidental navigation).
 {% endcomment %}
 
 {% assign variant = include.variant | default: "primary" %}
@@ -40,31 +45,43 @@
 {% endcapture %}
 {% assign btn_classes = btn_classes | strip | strip_newlines | split: " " | compact | join: " " %}
 
-{% if include.href %}
+{% capture btn_inner %}
+  {% if include.icon and icon_position == "left" %}
+    <span class="c-button__icon" aria-hidden="true">
+      {% include icon.html name=include.icon %}
+    </span>
+  {% endif %}
+  {% unless include.icon_only %}
+    <span class="c-button__label">{{ include.label }}</span>
+  {% endunless %}
+  {% if include.icon and icon_position == "right" %}
+    <span class="c-button__icon" aria-hidden="true">
+      {% include icon.html name=include.icon %}
+    </span>
+  {% endif %}
+{% endcapture %}
+
+{% if include.href and include.disabled %}
+  <span
+    class="{{ btn_classes }}"
+    {% if include.id %}id="{{ include.id }}"{% endif %}
+    aria-disabled="true"
+    role="link"
+    {% if include.aria_label %}aria-label="{{ include.aria_label }}"{% elsif include.icon_only and include.label %}aria-label="{{ include.label }}"{% endif %}
+  >
+    {{ btn_inner }}
+  </span>
+{% elsif include.href %}
   <a
     href="{{ include.href | relative_url }}"
     class="{{ btn_classes }}"
     {% if include.id %}id="{{ include.id }}"{% endif %}
     {% if include.target %}target="{{ include.target }}"{% if include.target == "_blank" %} rel="noopener noreferrer"{% endif %}{% endif %}
-    {% if include.disabled %}aria-disabled="true" tabindex="-1"{% endif %}
     {% if include.modal_open %}data-modal-open="{{ include.modal_open }}"{% endif %}
     {% if include.offcanvas_open %}data-offcanvas-open="{{ include.offcanvas_open }}" aria-controls="{{ include.offcanvas_open }}" aria-expanded="false"{% endif %}
     {% if include.aria_label %}aria-label="{{ include.aria_label }}"{% elsif include.icon_only and include.label %}aria-label="{{ include.label }}"{% endif %}
-    role="button"
   >
-    {% if include.icon and icon_position == "left" %}
-      <span class="c-button__icon" aria-hidden="true">
-        {% include icon.html name=include.icon %}
-      </span>
-    {% endif %}
-    {% unless include.icon_only %}
-      <span class="c-button__label">{{ include.label }}</span>
-    {% endunless %}
-    {% if include.icon and icon_position == "right" %}
-      <span class="c-button__icon" aria-hidden="true">
-        {% include icon.html name=include.icon %}
-      </span>
-    {% endif %}
+    {{ btn_inner }}
   </a>
 {% else %}
   <button
@@ -76,18 +93,6 @@
     {% if include.offcanvas_open %}data-offcanvas-open="{{ include.offcanvas_open }}" aria-controls="{{ include.offcanvas_open }}" aria-expanded="false"{% endif %}
     {% if include.aria_label %}aria-label="{{ include.aria_label }}"{% elsif include.icon_only and include.label %}aria-label="{{ include.label }}"{% endif %}
   >
-    {% if include.icon and icon_position == "left" %}
-      <span class="c-button__icon" aria-hidden="true">
-        {% include icon.html name=include.icon %}
-      </span>
-    {% endif %}
-    {% unless include.icon_only %}
-      <span class="c-button__label">{{ include.label }}</span>
-    {% endunless %}
-    {% if include.icon and icon_position == "right" %}
-      <span class="c-button__icon" aria-hidden="true">
-        {% include icon.html name=include.icon %}
-      </span>
-    {% endif %}
+    {{ btn_inner }}
   </button>
 {% endif %}

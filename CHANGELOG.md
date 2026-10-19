@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.2.1/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.1] - 2026-10-19
+
+### Fixed
+- Button: removed incorrect `role="button"` from link variants; links keep native navigation semantics
+- Button: `href` + `disabled` now renders a non-interactive `<span>` so disabled links cannot navigate
+- `thicket purge`: expanded default safelist (`c-`, `l-`, `u-`, `is-`, `has-`, `js-`) so utilities and state classes are not stripped
+- `thicket purge`: improved extraction for Liquid interpolations and JS template literals; fail-safe when dynamic classes are detected
+
+### Changed
+- Moved `glob`, `postcss`, and `postcss-selector-parser` to `devDependencies` (CLI/tooling only)
+- Moved `jekyll-component-mcp` to `optionalDependencies` so site consumers are not forced to install the MCP server
+- `.mcp.json` uses project-relative `--root .` instead of a machine-specific absolute path
+
+### Added
+- Optional `jekyll-component-mcp` integration for AI-assisted component workflows (`npm run mcp`)
+- `npm run test:purge` smoke entry for the purge CLI
+
 ## [1.4.0] - 2026-10-14
 
 ### Added

@@ -1,9 +1,9 @@
 # Thicket UI
 
 [![npm version](https://img.shields.io/npm/v/thicket-ui.svg)](https://www.npmjs.com/package/thicket-ui)
-[![Socket Badge](https://badge.socket.dev/npm/package/thicket-ui/1.4.0)](https://badge.socket.dev/npm/package/thicket-ui/1.4.0)
+[![Socket Badge](https://badge.socket.dev/npm/package/thicket-ui/1.4.1)](https://badge.socket.dev/npm/package/thicket-ui/1.4.1)
 
-**A hybrid component and utility framework for Jekyll · v1.4.0**
+**A hybrid component and utility framework for Jekyll · v1.4.1**
 
 Thicket is an accessible, Jekyll-native UI framework pairing reusable Liquid components with token-based utility classes, an earthy palette, and editorial typography.
 It is built with:
@@ -87,10 +87,10 @@ The package also includes the SCSS source at `thicket-ui/scss` and Liquid compon
 For a quick setup without a bundler, include the compiled stylesheet from unpkg:
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/thicket-ui@1.4.0/dist/thicket.css">
+<link rel="stylesheet" href="https://unpkg.com/thicket-ui@1.4.1/dist/thicket.css">
 ```
 
-The version is pinned to `1.4.0` so your site keeps using the same CSS until you choose to upgrade. Replace `1.4.0` with a newer published version when you want to update.
+The version is pinned to `1.4.1` so your site keeps using the same CSS until you choose to upgrade. Replace `1.4.1` with a newer published version when you want to update.
 
 To generate a smaller stylesheet for a Jekyll site, run the CLI from the site root:
 
@@ -98,15 +98,66 @@ To generate a smaller stylesheet for a Jekyll site, run the CLI from the site ro
 npx thicket purge --output assets/css/thicket.purged.css
 ```
 
-By default it scans HTML, Markdown, Liquid, and JavaScript source files while excluding generated `_site`, dependencies, and vendor files. It keeps dynamic component and layout classes. Add a `thicket.config.json` to customize scanning and safelist classes:
+By default it scans HTML, Markdown, Liquid, and JavaScript source files while excluding generated `_site`, dependencies, and vendor files.
+
+**Safelist (fail-safe):** classes matching `c-`, `l-`, `u-`, `is-`, `has-`, and `js-` are always retained so Liquid variants, utilities, and JS state classes are not stripped. The extractor also detects simple Liquid interpolations and JS template literals.
+
+Add a `thicket.config.json` to customize scanning and extra safelist patterns:
 
 ```json
 {
    "content": ["_includes/**/*.html", "_layouts/**/*.html", "docs/**/*.{md,html}", "assets/js/**/*.js"],
    "output": "assets/css/thicket.purged.css",
-   "safelist": ["^u-dynamic-"]
+   "safelist": ["^my-app-"]
 }
 ```
+
+> Always verify purged CSS on critical pages before production deploy. Regex extraction is not a full Liquid/JS parser.
+
+
+
+### AI tooling (optional) — jekyll-component-mcp
+
+Thicket ships with optional [jekyll-component-mcp](https://www.npmjs.com/package/jekyll-component-mcp) support so AI agents can inspect, create, and validate components.
+
+```bash
+# optional dependency (also installable via npx)
+npm install --save-optional jekyll-component-mcp
+
+# run the MCP server against this project
+npm run mcp
+# or: npx -y jekyll-component-mcp --root .
+```
+
+Project config is in `.mcp.json` (relative `--root .`). Point your MCP client (Cursor, Claude Code, VS Code, etc.) at that file or the `npx` command above.
+
+### Project skill for AI agents
+
+[`SKILL.md`](SKILL.md) gives an AI agent the project-specific context needed to
+install, customize, and extend Thicket without confusing the full Jekyll source
+with the published npm package.
+
+Keep `SKILL.md` at the repository root, then use the approach supported by your
+agent:
+
+1. **Repository-aware agents:** open the repository and ask the agent to read
+   and follow `SKILL.md` before it starts work.
+2. **Agents with a project-instructions setting:** add the contents of
+   `SKILL.md` as the project's instructions, or configure that setting to point
+   to this file if the agent supports file references.
+3. **Agents with a skills directory:** install or copy this project as a skill
+   using that agent's documented skill layout, preserving `SKILL.md` as the
+   skill entrypoint.
+
+Example prompt:
+
+```text
+Read and follow SKILL.md in the repository root. Then add a [component/change]
+to this Thicket UI project and validate the relevant build or test command.
+```
+
+The skill is guidance for the agent, not a runtime dependency: it is not needed
+by Jekyll or the npm package in production.
 
 ### Jekyll source
 
@@ -269,9 +320,7 @@ MIT License — see [LICENSE](LICENSE).
 
 ## Status
 
-Thicket UI 1.4.0 adds a Jekyll-aware CSS purge CLI, expanded interaction utilities, and an accessible searchable combobox. It also includes site-level Organization structured data alongside `jekyll-seo-tag`, with reusable components for buttons, cards, alerts, navigation, dialogs, and form controls.
-- new button ripple effect, card glare, and border beam features
-
+Thicket UI 1.4.1 release
 More components, documentation pages, and example templates will be added iteratively.
 
 

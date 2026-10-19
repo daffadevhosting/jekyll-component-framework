@@ -7,7 +7,7 @@ permalink: /docs/components/button/
 
 # Button
 
-Primary action component. Renders as `<button>` or `<a>` depending on `href`.
+Primary action component. Renders as a native `<button>` or `<a>` depending on `href`.
 
 ## Usage
 
@@ -26,13 +26,14 @@ Primary action component. Renders as `<button>` or `<a>` depending on `href`.
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `label` | string | — | Button text |
-| `href` | string | — | If set, renders as link |
+| `href` | string | — | If set, renders as a link (navigation semantics) |
 | `variant` | string | `primary` | `primary` `secondary` `outline` `ghost` `danger` `success` |
 | `size` | string | `md` | `sm` `md` `lg` |
-| `type` | string | `button` | `button` `submit` `reset` |
+| `type` | string | `button` | `button` `submit` `reset` (only for `<button>`) |
 | `disabled` | boolean | false | Disabled state |
 | `ripple` | boolean | false | Show a pointer-positioned ripple on click and a centered ripple on keyboard activation |
 | `modal_open` | string | — | Modal id to open when the button is clicked |
+| `offcanvas_open` | string | — | Offcanvas panel id to open |
 | `icon` | string | — | Icon name |
 | `icon_position` | string | `left` | `left` `right` |
 | `icon_only` | boolean | false | Icon-only button |
@@ -55,8 +56,9 @@ Primary action component. Renders as `<button>` or `<a>` depending on `href`.
 
 ## Accessibility
 
-- Uses native `<button>` or `<a role="button">`
+- **No `href`** → native `<button>` (action semantics)
+- **With `href`** → native `<a>` (link / navigation semantics). Does **not** use `role="button"`
+- **`href` + `disabled`** → non-interactive `<span role="link" aria-disabled="true">` so the URL cannot be activated
 - Visible focus ring via `:focus-visible`
-- `disabled` / `aria-disabled` supported
 - Set `ripple=true` to enable the decorative ripple; it respects `prefers-reduced-motion`
-- Icon-only buttons require `aria_label` or `label`
+- Icon-only controls require `aria_label` or `label`

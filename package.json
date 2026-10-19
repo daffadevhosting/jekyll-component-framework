@@ -1,6 +1,6 @@
 {
   "name": "thicket-ui",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A hybrid component and utility framework for Jekyll and the web.",
   "license": "MIT",
   "repository": {
@@ -15,7 +15,8 @@
     "jekyll",
     "liquid",
     "components",
-    "utilities"
+    "utilities",
+    "mcp"
   ],
   "style": "dist/thicket.css",
   "sass": "assets/scss/thicket.scss",
@@ -34,22 +35,25 @@
     "scripts/",
     "_includes/components/",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    ".mcp.json"
   ],
   "scripts": {
     "build:css": "sass --no-source-map --load-path=assets/scss assets/scss/thicket.scss dist/thicket.css",
-    "prepack": "npm run build:css"
+    "prepack": "npm run build:css",
+    "test:purge": "node scripts/thicket.mjs purge --help && node --test scripts/thicket.purge.test.mjs",
+    "mcp": "npx -y jekyll-component-mcp --root ."
   },
   "engines": {
     "node": ">=18"
   },
   "devDependencies": {
+    "glob": "^13.0.6",
+    "postcss": "^8.5.30",
+    "postcss-selector-parser": "^7.1.6",
     "sass": "^1.93.2"
   },
-  "dependencies": {
-    "glob": "^13.0.6",
-    "jekyll-component-mcp": "^1.2.2",
-    "postcss": "^8.5.30",
-    "postcss-selector-parser": "^7.1.6"
+  "optionalDependencies": {
+    "jekyll-component-mcp": "^1.2.2"
   }
 }
