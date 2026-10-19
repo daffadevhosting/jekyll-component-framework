@@ -320,9 +320,14 @@ Follow the existing BEM-inspired naming (`c-component`, `c-component--variant`).
 
 ### GitHub Pages
 
-1. Push to a repository
-2. Enable GitHub Pages (branch: `gh-pages` or use GitHub Actions)
-3. Set `url` and `baseurl` in `_config.yml`
+1. Push to the `master` branch. The included `Deploy Jekyll site to Pages`
+   workflow builds the site with the Jekyll version in `Gemfile` and deploys
+   `_site` to Pages.
+2. In **Settings → Pages**, set **Source** to **GitHub Actions**. Do not use
+   the branch-based Pages builder: it uses an older Sass toolchain that cannot
+   compile this project's Jekyll 4 stylesheet.
+3. Set `url` in `_config.yml`. The workflow provides the correct project
+   `baseurl` during Pages builds.
 
 ### Cloudflare Pages
 
