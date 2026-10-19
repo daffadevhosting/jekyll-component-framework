@@ -24,10 +24,16 @@
       gap: var(--space-8);
       padding-block: var(--space-8);
     }
+    .l-docs__mobile-toggle {
+      justify-self: start;
+    }
     @media (min-width: 1024px) {
       .l-docs {
         grid-template-columns: 16rem 1fr;
         gap: var(--space-12);
+      }
+      .l-docs__mobile-toggle {
+        display: none;
       }
     }
     .l-docs__sidebar {
@@ -91,23 +97,38 @@
   <a href="#main-content" class="c-skip-link">Skip to main content</a>
   {% include components/navbar.html %}
 
+  {% capture docs_navigation %}
+    <nav aria-label="Documentation">
+      {% for group in site.data.navigation.docs %}
+        <div class="l-docs__nav-group">
+          <div class="l-docs__nav-title">{{ group.title }}</div>
+          {% for item in group.items %}
+            <a
+              href="{{ item.url | relative_url }}"
+              class="l-docs__nav-link{% if page.url == item.url %} is-active{% endif %}"
+              {% if page.url == item.url %}aria-current="page"{% endif %}
+            >
+              {{ item.title }}
+            </a>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </nav>
+  {% endcapture %}
+
   <main id="main-content" class="l-main" tabindex="-1">
     <div class="l-container">
       <div class="l-docs">
+        {% include components/button.html
+          label="Browse documentation"
+          variant="outline"
+          size="sm"
+          icon="menu"
+          offcanvas_open="docs-navigation"
+          class="l-docs__mobile-toggle"
+        %}
         <aside class="l-docs__sidebar" aria-label="Documentation">
-          {% for group in site.data.navigation.docs %}
-            <div class="l-docs__nav-group">
-              <div class="l-docs__nav-title">{{ group.title }}</div>
-              {% for item in group.items %}
-                <a
-                  href="{{ item.url | relative_url }}"
-                  class="l-docs__nav-link{% if page.url == item.url %} is-active{% endif %}"
-                >
-                  {{ item.title }}
-                </a>
-              {% endfor %}
-            </div>
-          {% endfor %}
+          {{ docs_navigation }}
         </aside>
         <article class="l-docs__content">
           {{ content }}
@@ -115,6 +136,14 @@
       </div>
     </div>
   </main>
+
+  {% include components/offcanvas.html
+    id="docs-navigation"
+    title="Documentation"
+    position="left"
+    class="l-docs__offcanvas"
+    content=docs_navigation
+  %}
 
   {% include partials/footer.html %}
   {% include components/toast.html %}
