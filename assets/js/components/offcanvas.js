@@ -1,6 +1,6 @@
 /**
  * Offcanvas — accessible side panel
- * Focus trap, Escape, backdrop click, restore focus
+ * Focus trap, Escape, backdrop click, link auto-close, restore focus
  */
 
 let activePanel = null;
@@ -11,6 +11,24 @@ function getFocusable(container) {
   return [...container.querySelectorAll(
     'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
   )].filter((element) => !element.hasAttribute('disabled') && element.offsetParent !== null);
+}
+
+/**
+ * Links that should close the panel before navigation.
+ * Skip hash-only anchors that stay on the same page (e.g. #section)
+ * and links marked with data-offcanvas-keep.
+ */
+function shouldAutoCloseOnLink(link) {
+  if (!(link instanceof HTMLAnchorElement)) return false;
+  if (link.hasAttribute('data-offcanvas-keep')) return false;
+
+  const href = link.getAttribute('href');
+  if (!href || href === '#' || href.startsWith('javascript:')) return false;
+
+  // Same-page hash anchors: keep panel open unless they leave the page
+  if (href.startsWith('#')) return false;
+
+  return true;
 }
 
 export function openOffcanvas(id, trigger = document.activeElement) {
@@ -83,6 +101,17 @@ export function initOffcanvas() {
     if (closeButton && activePanel?.contains(closeButton)) {
       closeOffcanvas(activePanel.id);
       return;
+    }
+
+    // Auto-close when navigating via a link inside the open panel
+    if (activePanel) {
+      const link = event.target.closest('a[href]');
+      if (link && activePanel.contains(link) && shouldAutoCloseOnLink(link)) {
+        // Close without restoring focus — browser will navigate away
+        closeOffcanvas(activePanel.id, false);
+        // Do not preventDefault — allow normal navigation
+        return;
+      }
     }
 
     const backdrop = event.target.closest('[data-offcanvas-backdrop]');
