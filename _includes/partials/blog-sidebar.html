@@ -1,0 +1,74 @@
+{% comment %}
+  Blog sidebar content (categories + recent posts).
+
+  Used by blog listing and post layouts.
+  Data: site.data.blog
+{% endcomment %}
+
+{% assign blog = site.data.blog %}
+
+<nav class="l-sidebar-nav" aria-label="Blog">
+  {% if blog.categories and blog.categories.size > 0 %}
+    <div class="l-sidebar-nav__group">
+      <div class="l-sidebar-nav__title">Categories</div>
+      <a
+        href="{{ '/examples/blog/' | relative_url }}"
+        class="l-sidebar-nav__link{% if page.url == '/examples/blog/' %} is-active{% endif %}"
+      >
+        All posts
+      </a>
+      {% for cat in blog.categories %}
+        {%- comment -%}
+          Only mark category active when its URL is distinct from the blog index
+          and matches the current page (real category archives).
+        {%- endcomment -%}
+        {% assign cat_url = cat.url | default: '/examples/blog/' %}
+        {% assign cat_active = false %}
+        {% if cat_url != '/examples/blog/' and page.url == cat_url %}
+          {% assign cat_active = true %}
+        {% endif %}
+        <a
+          href="{{ cat_url | relative_url }}"
+          class="l-sidebar-nav__link{% if cat_active %} is-active{% endif %}"
+        >
+          {{ cat.title }}
+          {% if cat.count %}
+            <span class="l-sidebar-nav__meta">{{ cat.count }} {% if cat.count == 1 %}post{% else %}posts{% endif %}</span>
+          {% endif %}
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if blog.posts and blog.posts.size > 0 %}
+    <div class="l-sidebar-nav__group">
+      <div class="l-sidebar-nav__title">Recent</div>
+      {% for post in blog.posts limit: 5 %}
+        <a
+          href="{{ post.url | relative_url }}"
+          class="l-sidebar-nav__link{% if page.url == post.url %} is-active{% endif %}"
+        >
+          {{ post.title }}
+          {% if post.date %}
+            <span class="l-sidebar-nav__meta">{{ post.date }}</span>
+          {% endif %}
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if blog.links and blog.links.size > 0 %}
+    <div class="l-sidebar-nav__group">
+      <div class="l-sidebar-nav__title">Resources</div>
+      {% for link in blog.links %}
+        <a
+          href="{{ link.url | relative_url }}"
+          class="l-sidebar-nav__link"
+          {% if link.external %}target="_blank" rel="noopener noreferrer"{% endif %}
+        >
+          {{ link.title }}
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+</nav>
