@@ -1,49 +1,82 @@
 ---
 layout: default
 title: Blog Example
-description: Blog listing example built with Thicket UI
+description: Blog listing with mobile offcanvas sidebar — Thicket UI
 permalink: /examples/blog/
 ---
 
 {% assign data = site.data.blog %}
 
-<section class="l-section">
-  <div class="l-container l-container--md">
-    <div class="l-stack l-stack--md u-mb-8">
-      {% include components/breadcrumb.html items=site.data.demo.blog_breadcrumb %}
-      <h1 class="t-h1">{{ data.title }}</h1>
-      <p class="t-lead">{{ data.description }}</p>
-    </div>
+{% capture blog_sidebar %}
+  {% include partials/blog-sidebar.html %}
+{% endcapture %}
 
-    <div class="l-stack l-stack--lg">
-      {% for post in data.posts %}
-        <article class="c-card c-card--hoverable">
-          <div class="c-card__body">
-            <div class="l-stack l-stack--sm">
-              <div class="u-flex u-gap-3 u-items-center u-flex-wrap">
-                {% include components/badge.html label=post.category variant="primary" size="sm" %}
-                <time class="t-caption" datetime="{{ post.date }}">{{ post.date }}</time>
+<section class="l-section l-section--sm">
+  <div class="l-container">
+    <div class="l-with-sidebar">
+
+      {%- comment -%} Mobile: open sidebar as offcanvas {%- endcomment -%}
+      <button
+        type="button"
+        class="l-with-sidebar__toggle"
+        data-offcanvas-open="blog-sidebar"
+        aria-expanded="false"
+        aria-controls="blog-sidebar"
+      >
+        {% include icon.html name="menu" %}
+        <span>Blog menu</span>
+      </button>
+
+      {%- comment -%} Desktop: sticky sidebar {%- endcomment -%}
+      <aside class="l-with-sidebar__aside" aria-label="Blog">
+        {{ blog_sidebar }}
+      </aside>
+
+      <div class="l-with-sidebar__main">
+        <div class="l-stack l-stack--md u-mb-8">
+          {% include components/breadcrumb.html items=site.data.demo.blog_breadcrumb %}
+          <h1 class="t-h1">{{ data.title }}</h1>
+          <p class="t-lead">{{ data.description }}</p>
+        </div>
+
+        <div class="l-stack l-stack--lg">
+          {% for post in data.posts %}
+            <article class="c-card c-card--hoverable">
+              <div class="c-card__body">
+                <div class="l-stack l-stack--sm">
+                  <div class="u-flex u-gap-3 u-items-center u-flex-wrap">
+                    {% include components/badge.html label=post.category variant="primary" size="sm" %}
+                    <time class="t-caption" datetime="{{ post.date }}">{{ post.date }}</time>
+                  </div>
+                  <h2 class="c-card__title">
+                    <a href="{{ post.url | relative_url }}" class="t-link">{{ post.title }}</a>
+                  </h2>
+                  <p class="t-small t-muted">{{ post.excerpt }}</p>
+                  {% include components/button.html
+                    label="Read more"
+                    href=post.url
+                    variant="ghost"
+                    size="sm"
+                    icon="arrow-right"
+                    icon_position="right"
+                  %}
+                </div>
               </div>
-              <h2 class="c-card__title">
-                <a href="{{ post.url | relative_url }}" class="t-link">{{ post.title }}</a>
-              </h2>
-              <p class="t-small t-muted">{{ post.excerpt }}</p>
-              {% include components/button.html
-                label="Read more"
-                href=post.url
-                variant="ghost"
-                size="sm"
-                icon="arrow-right"
-                icon_position="right"
-              %}
-            </div>
-          </div>
-        </article>
-      {% endfor %}
-    </div>
+            </article>
+          {% endfor %}
+        </div>
 
-    <div class="u-mt-12">
-      {% include components/pagination.html current=1 total=3 base_url="/examples/blog" demo=true %}
+        <div class="u-mt-12">
+          {% include components/pagination.html current=1 total=3 base_url="/examples/blog" demo=true %}
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+{% include components/offcanvas.html
+  id="blog-sidebar"
+  title="Blog"
+  position="left"
+  content=blog_sidebar
+%}
