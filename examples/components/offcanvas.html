@@ -1,24 +1,83 @@
 ---
 layout: default
 title: Offcanvas Example
-description: Demonstration of the accessible offcanvas component
+description: Left navigation and right filters/settings offcanvas demos
 permalink: /examples/components/offcanvas/
 ---
 
-<main class="l-container">
-  <h1>Offcanvas example</h1>
-  <p>Open the side panel to see the component in action.</p>
+<main class="l-container" style="padding-block: var(--space-10);">
+  <h1>Offcanvas examples</h1>
+  <p class="u-text-muted" style="max-width: 40rem; margin-bottom: var(--space-8);">
+    Left panels work well for navigation. Right panels work well for filters and settings.
+    Links inside a panel auto-close it before navigation for a snappier feel.
+  </p>
 
-  {% include components/button.html
-    label="Open panel"
-    variant="primary"
-    offcanvas_open="example-offcanvas"
-  %}
+  <div class="l-stack" style="gap: var(--space-4); flex-direction: row; flex-wrap: wrap;">
+    {% include components/button.html
+      label="Open navigation (left)"
+      variant="outline"
+      offcanvas_open="example-nav"
+    %}
+
+    {% include components/button.html
+      label="Open filters (right)"
+      variant="primary"
+      offcanvas_open="example-filters"
+    %}
+  </div>
+
+  {%- comment -%} Left — navigation {%- endcomment -%}
+  {% capture example_nav_body %}
+    <nav aria-label="Example navigation">
+      <a href="{{ '/docs/' | relative_url }}" style="display:block; padding:0.5rem 0;">Documentation</a>
+      <a href="{{ '/docs/components/' | relative_url }}" style="display:block; padding:0.5rem 0;">Components</a>
+      <a href="{{ '/docs/components/offcanvas/' | relative_url }}" style="display:block; padding:0.5rem 0;">Offcanvas docs</a>
+    </nav>
+    <p style="margin-top:1rem; font-size:0.875rem;">
+      Tapping a link closes this panel before the next page loads.
+    </p>
+  {% endcapture %}
 
   {% include components/offcanvas.html
-    id="example-offcanvas"
-    title="Example panel"
+    id="example-nav"
+    title="Navigation"
+    position="left"
+    content=example_nav_body
+  %}
+
+  {%- comment -%} Right — filters / settings {%- endcomment -%}
+  {% capture example_filters_body %}
+    <p style="margin-bottom:1rem;">Slide-in filters and settings from the right edge.</p>
+    <div style="display:flex; flex-direction:column; gap:0.75rem;">
+      <label>
+        Status
+        <select name="status" style="display:block; width:100%; margin-top:0.25rem;">
+          <option>All</option>
+          <option>Published</option>
+          <option>Draft</option>
+        </select>
+      </label>
+      <label>
+        Sort by
+        <select name="sort" style="display:block; width:100%; margin-top:0.25rem;">
+          <option>Newest</option>
+          <option>Oldest</option>
+          <option>Title</option>
+        </select>
+      </label>
+    </div>
+  {% endcapture %}
+
+  {% capture example_filters_footer %}
+    <button type="button" class="c-button c-button--ghost c-button--md" data-offcanvas-close>Reset</button>
+    <button type="button" class="c-button c-button--primary c-button--md" data-offcanvas-close>Apply</button>
+  {% endcapture %}
+
+  {% include components/offcanvas.html
+    id="example-filters"
+    title="Filters"
     position="right"
-    content="<p>This panel can contain navigation, filters, or other supporting content.</p>"
+    content=example_filters_body
+    footer=example_filters_footer
   %}
 </main>
