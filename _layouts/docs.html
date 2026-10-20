@@ -19,28 +19,70 @@
     })();
   </script>
   <style>
+    /* ------------------------------------------------------------------ */
+    /* Docs layout — mobile: offcanvas · desktop: sticky sidebar           */
+    /* ------------------------------------------------------------------ */
     .l-docs {
       display: grid;
-      gap: var(--space-8);
-      padding-block: var(--space-8);
+      gap: var(--space-6);
+      padding-block: var(--space-6);
     }
-    .l-docs__mobile-toggle {
-      justify-self: start;
-    }
+
     @media (min-width: 1024px) {
       .l-docs {
         grid-template-columns: 16rem 1fr;
         gap: var(--space-12);
+        padding-block: var(--space-8);
       }
-      .l-docs__mobile-toggle {
+    }
+
+    /* Mobile nav trigger — visible only below lg */
+    .l-docs__nav-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      color: var(--color-text);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition:
+        background-color var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .l-docs__nav-toggle:hover {
+      background: var(--color-surface-elevated);
+      border-color: var(--color-border-strong, var(--color-border));
+    }
+
+    .l-docs__nav-toggle:focus-visible {
+      outline: var(--focus-ring-width) solid var(--color-focus-ring);
+      outline-offset: var(--focus-ring-offset);
+    }
+
+    .l-docs__nav-toggle svg {
+      width: 1.125rem;
+      height: 1.125rem;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 1024px) {
+      .l-docs__nav-toggle {
         display: none;
       }
     }
+
+    /* Desktop sidebar — hidden on mobile */
     .l-docs__sidebar {
-      display: block;
-      max-height: 20rem;
-      overflow-y: auto;
+      display: none;
     }
+
     @media (min-width: 1024px) {
       .l-docs__sidebar {
         display: block;
@@ -51,9 +93,15 @@
         overflow-y: auto;
       }
     }
+
     .l-docs__nav-group {
       margin-bottom: var(--space-6);
     }
+
+    .l-docs__nav-group:last-child {
+      margin-bottom: 0;
+    }
+
     .l-docs__nav-title {
       font-size: var(--font-size-xs);
       font-weight: 600;
@@ -63,6 +111,7 @@
       margin-bottom: var(--space-2);
       padding-inline: var(--space-3);
     }
+
     .l-docs__nav-link {
       display: block;
       padding: var(--space-2) var(--space-3);
@@ -70,26 +119,48 @@
       color: var(--color-text-muted);
       border-radius: var(--radius-md);
       text-decoration: none;
+      transition:
+        color var(--transition-fast),
+        background-color var(--transition-fast);
     }
+
     .l-docs__nav-link:hover {
       color: var(--color-text);
       background: var(--color-surface);
     }
+
     .l-docs__nav-link.is-active {
       color: var(--color-primary);
       background: var(--color-primary-subtle);
       font-weight: 500;
     }
+
+    .l-docs__nav-link:focus-visible {
+      outline: var(--focus-ring-width) solid var(--color-focus-ring);
+      outline-offset: var(--focus-ring-offset);
+    }
+
+    /* Offcanvas body inherits nav styles; tighten spacing slightly */
+    .c-offcanvas__body .l-docs__nav-group {
+      margin-bottom: var(--space-5);
+    }
+
     .l-docs__content {
       min-width: 0;
       max-width: 48rem;
     }
+
     .l-docs__content h1 { margin-bottom: var(--space-4); }
     .l-docs__content h2 { margin-top: var(--space-10); margin-bottom: var(--space-4); }
     .l-docs__content h3 { margin-top: var(--space-8); margin-bottom: var(--space-3); }
     .l-docs__content p { margin-bottom: var(--space-4); color: var(--color-text-muted); }
     .l-docs__content pre { margin-bottom: var(--space-6); }
-    .l-docs__content ul { margin-bottom: var(--space-4); padding-left: var(--space-6); list-style: disc; color: var(--color-text-muted); }
+    .l-docs__content ul {
+      margin-bottom: var(--space-4);
+      padding-left: var(--space-6);
+      list-style: disc;
+      color: var(--color-text-muted);
+    }
     .l-docs__content li { margin-bottom: var(--space-2); }
   </style>
 </head>
@@ -97,8 +168,12 @@
   <a href="#main-content" class="c-skip-link">Skip to main content</a>
   {% include components/navbar.html %}
 
-  {% capture docs_navigation %}
-    <nav aria-label="Documentation">
+  {%- comment -%}
+    Single source of truth for docs navigation.
+    Reused in desktop sidebar and mobile offcanvas.
+  {%- endcomment -%}
+  {% capture docs_nav %}
+    <nav class="l-docs__nav" aria-label="Documentation">
       {% for group in site.data.navigation.docs %}
         <div class="l-docs__nav-group">
           <div class="l-docs__nav-title">{{ group.title }}</div>
@@ -106,7 +181,6 @@
             <a
               href="{{ item.url | relative_url }}"
               class="l-docs__nav-link{% if page.url == item.url %} is-active{% endif %}"
-              {% if page.url == item.url %}aria-current="page"{% endif %}
             >
               {{ item.title }}
             </a>
@@ -119,17 +193,24 @@
   <main id="main-content" class="l-main" tabindex="-1">
     <div class="l-container">
       <div class="l-docs">
-        {% include components/button.html
-          label="Browse documentation"
-          variant="outline"
-          size="sm"
-          icon="menu"
-          offcanvas_open="docs-navigation"
-          class="l-docs__mobile-toggle"
-        %}
+
+        {%- comment -%} Mobile: open docs nav as offcanvas {%- endcomment -%}
+        <button
+          type="button"
+          class="l-docs__nav-toggle"
+          data-offcanvas-open="docs-nav"
+          aria-expanded="false"
+          aria-controls="docs-nav"
+        >
+          {% include icon.html name="menu" %}
+          <span>Docs menu</span>
+        </button>
+
+        {%- comment -%} Desktop: sticky sidebar {%- endcomment -%}
         <aside class="l-docs__sidebar" aria-label="Documentation">
-          {{ docs_navigation }}
+          {{ docs_nav }}
         </aside>
+
         <article class="l-docs__content">
           {{ content }}
         </article>
@@ -137,12 +218,12 @@
     </div>
   </main>
 
+  {%- comment -%} Mobile offcanvas — same nav, left position {%- endcomment -%}
   {% include components/offcanvas.html
-    id="docs-navigation"
+    id="docs-nav"
     title="Documentation"
     position="left"
-    class="l-docs__offcanvas"
-    content=docs_navigation
+    content=docs_nav
   %}
 
   {% include partials/footer.html %}
