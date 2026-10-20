@@ -2,61 +2,92 @@
 layout: default
 ---
 
-<article class="l-section">
-  <div class="l-container l-container--md">
-    <header class="l-stack l-stack--md u-mb-8">
-      {% if page.breadcrumb %}
-        {% include components/breadcrumb.html items=page.breadcrumb %}
-      {% endif %}
+{% capture blog_sidebar %}
+  {% include partials/blog-sidebar.html %}
+{% endcapture %}
 
-      {% if page.category %}
-        {% include components/badge.html label=page.category variant="primary" size="sm" %}
-      {% endif %}
+<article class="l-section l-section--sm">
+  <div class="l-container">
+    <div class="l-with-sidebar">
 
-      <h1 class="t-h1">{{ page.title }}</h1>
+      <button
+        type="button"
+        class="l-with-sidebar__toggle"
+        data-offcanvas-open="post-sidebar"
+        aria-expanded="false"
+        aria-controls="post-sidebar"
+      >
+        {% include icon.html name="menu" %}
+        <span>Blog menu</span>
+      </button>
 
-      {% if page.date %}
-        <time class="t-small t-muted" datetime="{{ page.date | date: '%Y-%m-%d' }}">
-          {{ page.date | date: "%B %d, %Y" }}
-        </time>
-      {% endif %}
+      <aside class="l-with-sidebar__aside" aria-label="Blog">
+        {{ blog_sidebar }}
+      </aside>
 
-      {% if page.description %}
-        <p class="t-lead">{{ page.description }}</p>
-      {% endif %}
-    </header>
+      <div class="l-with-sidebar__main">
+        <header class="l-stack l-stack--md u-mb-8">
+          {% if page.breadcrumb %}
+            {% include components/breadcrumb.html items=page.breadcrumb %}
+          {% endif %}
 
-    <div class="l-stack l-stack--md post-content">
-      {{ content }}
+          {% if page.category %}
+            {% include components/badge.html label=page.category variant="primary" size="sm" %}
+          {% endif %}
+
+          <h1 class="t-h1">{{ page.title }}</h1>
+
+          {% if page.date %}
+            <time class="t-small t-muted" datetime="{{ page.date | date: '%Y-%m-%d' }}">
+              {{ page.date | date: "%B %d, %Y" }}
+            </time>
+          {% endif %}
+
+          {% if page.description %}
+            <p class="t-lead">{{ page.description }}</p>
+          {% endif %}
+        </header>
+
+        <div class="l-stack l-stack--md post-content">
+          {{ content }}
+        </div>
+
+        <hr class="c-divider">
+
+        <nav class="u-flex u-justify-between u-flex-wrap u-gap-4" aria-label="Post navigation">
+          {% if page.previous_url %}
+            {% include components/button.html
+              label=page.previous_label
+              href=page.previous_url
+              variant="outline"
+              size="sm"
+              icon="arrow-left"
+            %}
+          {% else %}
+            <span></span>
+          {% endif %}
+          {% if page.next_url %}
+            {% include components/button.html
+              label=page.next_label
+              href=page.next_url
+              variant="outline"
+              size="sm"
+              icon="arrow-right"
+              icon_position="right"
+            %}
+          {% endif %}
+        </nav>
+      </div>
     </div>
-
-    <hr class="c-divider">
-
-    <nav class="u-flex u-justify-between u-flex-wrap u-gap-4" aria-label="Post navigation">
-      {% if page.previous_url %}
-        {% include components/button.html
-          label=page.previous_label
-          href=page.previous_url
-          variant="outline"
-          size="sm"
-          icon="arrow-left"
-        %}
-      {% else %}
-        <span></span>
-      {% endif %}
-      {% if page.next_url %}
-        {% include components/button.html
-          label=page.next_label
-          href=page.next_url
-          variant="outline"
-          size="sm"
-          icon="arrow-right"
-          icon_position="right"
-        %}
-      {% endif %}
-    </nav>
   </div>
 </article>
+
+{% include components/offcanvas.html
+  id="post-sidebar"
+  title="Blog"
+  position="left"
+  content=blog_sidebar
+%}
 
 <style>
   .post-content h2 { margin-top: var(--space-8); margin-bottom: var(--space-4); }
