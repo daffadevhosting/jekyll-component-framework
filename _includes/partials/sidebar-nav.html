@@ -1,0 +1,38 @@
+{% comment %}
+  Reusable sidebar navigation groups.
+
+  Parameters:
+  - groups  (array)  → [{ title, items: [{ title, url, active? }] }]
+  - aria    (string) → aria-label for the <nav>, default: "Sidebar"
+  - class   (string) → extra classes on the nav
+
+  Prefer passing `groups` built in the parent via capture/assign,
+  or use site.data navigation structures.
+{% endcomment %}
+
+{% assign sidebar_aria = include.aria | default: "Sidebar" %}
+
+<nav class="l-sidebar-nav {{ include.class }}" aria-label="{{ sidebar_aria }}">
+  {% for group in include.groups %}
+    <div class="l-sidebar-nav__group">
+      {% if group.title and group.title != "" %}
+        <div class="l-sidebar-nav__title">{{ group.title }}</div>
+      {% endif %}
+      {% for item in group.items %}
+        {% assign is_active = item.active %}
+        {% if is_active == nil and item.url and page.url == item.url %}
+          {% assign is_active = true %}
+        {% endif %}
+        <a
+          href="{{ item.url | relative_url }}"
+          class="l-sidebar-nav__link{% if is_active %} is-active{% endif %}"
+        >
+          {{ item.title }}
+          {% if item.meta %}
+            <span class="l-sidebar-nav__meta">{{ item.meta }}</span>
+          {% endif %}
+        </a>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</nav>

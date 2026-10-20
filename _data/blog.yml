@@ -1,6 +1,29 @@
 title: "Blog"
 description: "Notes on design systems, Jekyll, accessibility, and frontend architecture."
 
+categories:
+  - title: "Design Systems"
+    url: "/examples/blog/"
+    count: 1
+  - title: "Accessibility"
+    url: "/examples/blog/"
+    count: 1
+  - title: "Architecture"
+    url: "/examples/blog/"
+    count: 1
+  - title: "Performance"
+    url: "/examples/blog/"
+    count: 1
+
+links:
+  - title: "Component docs"
+    url: "/docs/components/"
+  - title: "Customization"
+    url: "/docs/customization/"
+  - title: "GitHub"
+    url: "https://github.com"
+    external: true
+
 posts:
   - title: "Building a design token system for Jekyll"
     excerpt: "How CSS custom properties and a small token layer make rebranding and dark mode straightforward without a heavy build pipeline."
