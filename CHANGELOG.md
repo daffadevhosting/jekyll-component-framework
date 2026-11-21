@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.2.1/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.5] - 2026-11-21
+
+### Added
+- Responsive offcanvas sidebar navigation for documentation, blog listings, and posts, with active-page state and automatic close after navigation
+- Node test suite covering purge class extraction, CSS selector pruning, Button link semantics, and npm tarball installation
+- npm lockfile and standalone runtime-validation plan
+
+### Changed
+- Migrated the Jekyll Sass entrypoint to the Sass module system
+- Moved `jekyll-component-mcp` to `devDependencies`; it remains available for repository tooling without being installed by package consumers
+- Updated `glob` to `^14.0.6`
+
+### Fixed
+- `thicket purge` preserves selectors for dynamic Liquid/JavaScript classes and the `data-` safelist prefix
+- Resolved moderate production dependency advisories in `glob` and `minimatch`
+
 ## [1.4.3] - 2026-10-20
 
 ### Fixed
