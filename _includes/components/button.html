@@ -66,7 +66,6 @@
     class="{{ btn_classes }}"
     {% if include.id %}id="{{ include.id }}"{% endif %}
     aria-disabled="true"
-    role="link"
     {% if include.aria_label %}aria-label="{{ include.aria_label }}"{% elsif include.icon_only and include.label %}aria-label="{{ include.label }}"{% endif %}
   >
     {{ btn_inner }}

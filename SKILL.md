@@ -81,10 +81,10 @@ import "thicket-ui/js";
 ```
 
 Or use the compiled CSS directly from a CDN (pin to a specific version in
-production, e.g. `https://unpkg.com/thicket-ui@1.4.3/dist/thicket.css`):
+production, e.g. `https://unpkg.com/thicket-ui@1.4.4/dist/thicket.css`):
 
 ```
-<link rel="stylesheet" href="https://unpkg.com/thicket-ui@1.4.3/dist/thicket.css">
+<link rel="stylesheet" href="https://unpkg.com/thicket-ui@1.4.4/dist/thicket.css">
 
 ```
 
@@ -99,7 +99,7 @@ npx thicket purge --output assets/css/thicket.purged.css
 
 By default, purge scans HTML, Markdown, Liquid, and JavaScript files while
 excluding `_site`, dependencies, and vendor paths, and keeps classes matching
-`c-`, `l-`, `u-`, `is-`, `has-`, and `js-`. Treat purge output as an
+`c-`, `l-`, `u-`, `is-`, `has-`, `js-`, and `data-`. Treat purge output as an
 artifact to review on critical pages before deploying. Dynamic class generation
 or custom prefixes may require safelist entries in `thicket.config.json`:
 
@@ -182,8 +182,11 @@ Choose verification that matches the change:
 
 ```
 bundle exec jekyll build --strict
+npm test
 npm run test:purge
+npm run test:package
 npm run build:css
+npm pack --dry-run
 
 ```
 
@@ -194,7 +197,8 @@ lockfiles merely to make a build appear clean.
 ## Optional component MCP server
 
 This repo contains `.mcp.json` for `jekyll-component-mcp` to inspect, generate,
-or validate components. If the user's AI environment supports MCP, run:
+or validate components. The package is a development dependency, not a runtime
+dependency of consumers. If the user's AI environment supports MCP, run:
 
 ```
 npm run mcp

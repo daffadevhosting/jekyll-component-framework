@@ -10,8 +10,12 @@ Gemfile.lock
 node_modules/
 vendor/
 .bundle/
-package-lock.json
 dist/
+
+# TypeScript runtime-validation generated results
+.tsupgrader/runtime-validation/baseline-result.json
+.tsupgrader/runtime-validation/postupgrade-result.json
+.tsupgrader/runtime-validation/standalone-result.json
 
 # OS
 .DS_Store

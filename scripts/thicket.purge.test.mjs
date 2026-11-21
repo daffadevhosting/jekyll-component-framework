@@ -1,60 +1,12 @@
-/**
- * Smoke tests for Thicket purge class extraction + safelist behaviour.
- * Run: node --test scripts/thicket.purge.test.mjs
- *
- * Note: extractClassNames is not exported; we re-implement the same rules
- * here to lock the contract without refactoring the CLI module surface.
- */
-
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
+import {
+  extractClassNames,
+  keepClass,
+  pruneStylesheet
+} from "./thicket.mjs";
 
 const defaultSafelist = [/^c-/, /^l-/, /^u-/, /^is-/, /^has-/, /^js-/, /^data-/];
-
-function extractClassNames(content) {
-  const classNames = new Set();
-  const classAttributes = /(?:class|className)\s*=\s*(["'`])([\s\S]*?)\1/g;
-  const classMutations = /classList\.(?:add|remove|toggle|contains)\(([^)]*)\)/g;
-  const quotedValues = /(["'`])([^"'`]+)\1/g;
-  const liquidClassAttr =
-    /(?:class|className)\s*=\s*(["'`])((?:(?!\1)[\s\S])*?\{\{(?:(?!\1)[\s\S])*?\}\}(?:(?!\1)[\s\S])*?)\1/g;
-
-  for (const match of content.matchAll(classAttributes)) {
-    const withoutLiquid = match[2].replace(/\{\{[\s\S]*?\}\}/g, " ");
-    withoutLiquid
-      .split(/\s+/)
-      .filter(Boolean)
-      .forEach((name) => {
-        if (!name.includes("{") && !name.includes("}")) classNames.add(name);
-      });
-  }
-
-  for (const match of content.matchAll(classMutations)) {
-    for (const value of match[1].matchAll(quotedValues)) {
-      value[2].split(/\s+/).filter(Boolean).forEach((name) => classNames.add(name));
-    }
-  }
-
-  for (const _ of content.matchAll(liquidClassAttr)) {
-    classNames.add("__liquid_dynamic__");
-  }
-
-  const templateLiterals = /`([^`]*\$\{[^}]+\}[^`]*)`/g;
-  for (const match of content.matchAll(templateLiterals)) {
-    const staticParts = match[1].replace(/\$\{[^}]+\}/g, " ");
-    staticParts
-      .split(/\s+/)
-      .filter((t) => t && !t.includes("$"))
-      .forEach((name) => classNames.add(name));
-    classNames.add("__js_dynamic__");
-  }
-
-  return classNames;
-}
-
-function keepClass(name, usedClasses, safelist = defaultSafelist) {
-  return usedClasses.has(name) || safelist.some((p) => p.test(name));
-}
 
 describe("extractClassNames", () => {
   it("collects static class attributes", () => {
@@ -95,5 +47,31 @@ describe("safelist", () => {
     assert.equal(keepClass("l-stack", used), true);
     assert.equal(keepClass("hero-banner", used), true);
     assert.equal(keepClass("orphan-utility", used), false);
+  });
+});
+
+describe("pruneStylesheet", () => {
+  it("retains combined selectors when every class is needed", () => {
+    const css = `
+      .c-button, .c-button--primary { color: green; }
+      .unused-card { display: none; }
+      @media (min-width: 600px) {
+        .u-grid { display: grid; }
+        .unused-grid { display: grid; }
+      }
+    `;
+    const used = new Set(["c-button", "c-button--primary", "u-grid"]);
+    const output = pruneStylesheet(css, used, defaultSafelist);
+
+    assert.match(output, /\.c-button,\s*\.c-button--primary/);
+    assert.doesNotMatch(output, /\.unused-card/);
+    assert.match(output, /\.u-grid/);
+    assert.doesNotMatch(output, /\.unused-grid/);
+  });
+
+  it("removes selectors containing an unused class", () => {
+    const css = `.c-button.unused-card { color: red; }`;
+    const output = pruneStylesheet(css, new Set(["c-button"]), defaultSafelist);
+    assert.doesNotMatch(output, /c-button/);
   });
 });

@@ -43,19 +43,21 @@
     "build": "npm run build:css",
     "build:css": "sass --no-source-map --load-path=assets/scss assets/scss/thicket.scss dist/thicket.css",
     "prepack": "npm run build:css",
+    "test": "node --test scripts/*.test.mjs",
     "test:purge": "node scripts/thicket.mjs purge --help && node --test scripts/thicket.purge.test.mjs",
+    "test:package": "node --test scripts/npm-package.test.mjs",
     "mcp": "npx -y jekyll-component-mcp --root ."
   },
   "engines": {
     "node": ">=18"
   },
   "devDependencies": {
-    "glob": "^13.0.6",
-    "postcss": "^8.5.30",
-    "postcss-selector-parser": "^7.1.6",
+    "jekyll-component-mcp": "^1.2.2",
     "sass": "^1.93.2"
   },
-  "optionalDependencies": {
-    "jekyll-component-mcp": "^1.2.2"
+  "dependencies": {
+    "glob": "^14.0.6",
+    "postcss": "^8.5.30",
+    "postcss-selector-parser": "^7.1.6"
   }
 }

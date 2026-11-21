@@ -1,0 +1,49 @@
+{
+  "generatedOnPlatform": "linux",
+  "projectType": "cli",
+  "setup": [
+    {
+      "command": "npm",
+      "args": ["ci"],
+      "timeoutSeconds": 600
+    }
+  ],
+  "assertions": [
+    {
+      "name": "css-build",
+      "kind": "process",
+      "command": "npm",
+      "args": ["run", "build:css"],
+      "verificationMethod": "exit-code",
+      "expected": "0",
+      "timeoutSeconds": 300
+    },
+    {
+      "name": "cli-help-banner",
+      "kind": "process",
+      "command": "node",
+      "args": ["scripts/thicket.mjs", "--help"],
+      "verificationMethod": "output-contains",
+      "expected": "Usage: thicket purge",
+      "timeoutSeconds": 60
+    },
+    {
+      "name": "purge-cli-fixture",
+      "kind": "process",
+      "command": "node",
+      "args": ["scripts/thicket.mjs", "purge", "--help"],
+      "verificationMethod": "exit-code",
+      "expected": "0",
+      "timeoutSeconds": 60
+    },
+    {
+      "name": "tests-pass",
+      "kind": "process",
+      "command": "npm",
+      "args": ["test"],
+      "verificationMethod": "test-results",
+      "expected": "0",
+      "timeoutSeconds": 300
+    }
+  ]
+}

@@ -16,7 +16,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { parseArgs } from "node:util";
 import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { glob } from "glob";
 import postcss from "postcss";
 import selectorParser from "postcss-selector-parser";
@@ -32,7 +32,7 @@ const defaultContent = [
 ];
 
 /** Framework prefixes always retained (components, layouts, utilities, state). */
-const defaultSafelist = [
+export const defaultSafelist = [
   /^c-/,
   /^l-/,
   /^u-/,
@@ -46,7 +46,7 @@ const defaultSafelist = [
  * Extract class names from source content.
  * Handles static attributes, classList mutations, and simple Liquid interpolations.
  */
-function extractClassNames(content) {
+export function extractClassNames(content) {
   const classNames = new Set();
 
   // class="..." / className='...' / class=`...`
@@ -101,7 +101,7 @@ function extractClassNames(content) {
   return classNames;
 }
 
-async function collectContentFiles(patterns, workingDirectory) {
+export async function collectContentFiles(patterns, workingDirectory) {
   const matches = await Promise.all(
     patterns.map((pattern) =>
       glob(pattern, {
@@ -122,7 +122,7 @@ async function collectContentFiles(patterns, workingDirectory) {
   );
 }
 
-function printHelp() {
+export function printHelp() {
   console.log(`Usage: thicket purge [options]
 
 Options:
@@ -141,16 +141,53 @@ Add a thicket.config.json or --safelist for project-specific classes.
 Always verify purged CSS on critical pages before production deploy.`);
 }
 
-const [command, ...args] = process.argv.slice(2);
+export function keepClass(name, usedClasses, safelist = defaultSafelist) {
+  return usedClasses.has(name) || safelist.some((pattern) => pattern.test(name));
+}
 
-if (command === "--help" || command === "-h" || !command) {
-  printHelp();
-  process.exitCode = command ? 0 : 1;
-} else if (command !== "purge") {
-  console.error(`Unknown command: ${command}`);
-  printHelp();
-  process.exitCode = 1;
-} else {
+export function pruneStylesheet(css, usedClasses, safelist) {
+  const stylesheet = postcss.parse(css);
+
+  stylesheet.walkRules((rule) => {
+    const selectors = selectorParser().astSync(rule.selector);
+    selectors.each((selector) => {
+      const classes = [];
+      selector.walkClasses((className) => classes.push(className.value));
+      const keepSelector =
+        classes.length === 0 ||
+        classes.every((name) => keepClass(name, usedClasses, safelist));
+
+      if (!keepSelector) selector.remove();
+    });
+
+    if (selectors.nodes.length === 0) {
+      rule.remove();
+    } else {
+      rule.selector = selectors.toString();
+    }
+  });
+
+  stylesheet.walkAtRules((rule) => {
+    if (rule.nodes && rule.nodes.length === 0) rule.remove();
+  });
+
+  return stylesheet.toString();
+}
+
+export async function runCli(argv = process.argv.slice(2), workingDirectory = process.cwd()) {
+  const [command, ...args] = argv;
+
+  if (command === "--help" || command === "-h" || !command) {
+    printHelp();
+    return command ? 0 : 1;
+  }
+
+  if (command !== "purge") {
+    console.error(`Unknown command: ${command}`);
+    printHelp();
+    return 1;
+  }
+
   try {
     const { values } = parseArgs({
       args,
@@ -168,7 +205,6 @@ if (command === "--help" || command === "-h" || !command) {
     if (values.help) {
       printHelp();
     } else {
-      const workingDirectory = process.cwd();
       const configPath = resolve(
         workingDirectory,
         values.config ?? "thicket.config.json"
@@ -222,47 +258,30 @@ if (command === "--help" || command === "-h" || !command) {
         }
       }
 
-      const stylesheet = postcss.parse(await readFile(cssPath, "utf8"), {
-        from: cssPath
-      });
       const safelist = [...defaultSafelist, ...customSafelist];
-
-      const keepClass = (name) =>
-        usedClasses.has(name) ||
-        safelist.some((pattern) => pattern.test(name));
-
-      stylesheet.walkRules((rule) => {
-        const selectors = selectorParser().astSync(rule.selector);
-        selectors.each((selector) => {
-          const classes = [];
-          selector.walkClasses((className) => classes.push(className.value));
-          const keepSelector =
-            classes.length === 0 || classes.every((name) => keepClass(name));
-
-          if (!keepSelector) selector.remove();
-        });
-
-        if (selectors.nodes.length === 0) {
-          rule.remove();
-        } else {
-          rule.selector = selectors.toString();
-        }
-      });
-
-      stylesheet.walkAtRules((rule) => {
-        if (rule.nodes && rule.nodes.length === 0) rule.remove();
-      });
+      const css = await readFile(cssPath, "utf8");
+      const output = pruneStylesheet(css, usedClasses, safelist);
 
       await mkdir(dirname(outputPath), { recursive: true });
-      await writeFile(outputPath, stylesheet.toString());
+      await writeFile(outputPath, output);
 
       const dynamicNote = hasDynamicClasses
         ? " (dynamic Liquid/JS classes detected — safelist applied)"
         : "";
       console.log(`Purged CSS written to ${outputPath}${dynamicNote}`);
+      return 0;
     }
+    return 0;
   } catch (error) {
     console.error(`Thicket purge failed: ${error.message}`);
-    process.exitCode = 1;
+    return 1;
   }
+}
+
+const isDirectExecution =
+  process.argv[1] &&
+  pathToFileURL(resolve(process.argv[1])).href === import.meta.url;
+
+if (isDirectExecution) {
+  process.exitCode = await runCli();
 }
