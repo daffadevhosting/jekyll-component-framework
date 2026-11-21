@@ -81,10 +81,10 @@ import "thicket-ui/js";
 ```
 
 Or use the compiled CSS directly from a CDN (pin to a specific version in
-production, e.g. `https://unpkg.com/thicket-ui@1.4.4/dist/thicket.css`):
+production, e.g. `https://unpkg.com/thicket-ui@1.4.5/dist/thicket.css`):
 
 ```
-<link rel="stylesheet" href="https://unpkg.com/thicket-ui@1.4.4/dist/thicket.css">
+<link rel="stylesheet" href="https://unpkg.com/thicket-ui@1.4.5/dist/thicket.css">
 
 ```
 
