@@ -1,3 +1,5 @@
+@use "mixins";
+
 // =============================================================================
 // With-sidebar layout
 // Desktop: sticky sidebar | Mobile: offcanvas (trigger + panel via Liquid)
@@ -8,7 +10,7 @@
   gap: var(--space-6);
   padding-block: var(--space-6);
 
-  @include respond-to(lg) {
+  @include mixins.respond-to(lg) {
     grid-template-columns: 16rem 1fr;
     gap: var(--space-12);
     padding-block: var(--space-8);
@@ -16,7 +18,7 @@
 
   // Reverse column order when sidebar is on the right
   &--sidebar-end {
-    @include respond-to(lg) {
+    @include mixins.respond-to(lg) {
       grid-template-columns: 1fr 16rem;
 
       .l-with-sidebar__aside {
@@ -65,7 +67,7 @@
     flex-shrink: 0;
   }
 
-  @include respond-to(lg) {
+  @include mixins.respond-to(lg) {
     display: none;
   }
 }
@@ -74,7 +76,7 @@
 .l-with-sidebar__aside {
   display: none;
 
-  @include respond-to(lg) {
+  @include mixins.respond-to(lg) {
     display: block;
     position: sticky;
     top: 5rem;

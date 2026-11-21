@@ -1,3 +1,5 @@
+@use "../mixins";
+
 // =============================================================================
 // Card Component
 // =============================================================================
@@ -89,7 +91,7 @@
   padding: var(--space-4) var(--space-5);
   border-bottom: 1px solid var(--color-border);
 
-  @include respond-to(md) {
+  @include mixins.respond-to(md) {
     padding: var(--space-5) var(--space-6);
   }
 }
@@ -97,7 +99,7 @@
 .c-card__body {
   padding: var(--space-4) var(--space-5);
 
-  @include respond-to(md) {
+  @include mixins.respond-to(md) {
     padding: var(--space-5) var(--space-6);
   }
 }
@@ -107,7 +109,7 @@
   border-top: 1px solid var(--color-border);
   background-color: var(--color-surface);
 
-  @include respond-to(md) {
+  @include mixins.respond-to(md) {
     padding: var(--space-5) var(--space-6);
   }
 }

@@ -1,3 +1,5 @@
+@use "../mixins";
+
 // =============================================================================
 // Offcanvas Component
 // =============================================================================
@@ -60,7 +62,7 @@
     display: none;
   }
 
-  @include respond-to(md) {
+  @include mixins.respond-to(md) {
   margin: 15px;
   border-radius: 10px;
   }

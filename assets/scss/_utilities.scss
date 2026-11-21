@@ -1,3 +1,5 @@
+@use "mixins";
+
 // =============================================================================
 // Utility Classes (lightweight, intentional — not a Tailwind clone)
 // =============================================================================
@@ -239,8 +241,8 @@ $utility-hover-text-colors: (
   .u-hover-text-#{$name}:hover { color: $value !important; }
 }
 
-.u-focus-visible-ring:focus-visible { @include focus-ring; }
-.u-focus-visible-ring-inset:focus-visible { @include focus-ring-inset; }
+.u-focus-visible-ring:focus-visible { @include mixins.focus-ring; }
+.u-focus-visible-ring-inset:focus-visible { @include mixins.focus-ring-inset; }
 .u-disabled-opacity-50:disabled { opacity: 0.5 !important; }
 .u-disabled-cursor-not-allowed:disabled { cursor: not-allowed !important; }
 
@@ -289,12 +291,12 @@ $utility-hover-text-colors: (
 
 // Screen reader only
 .u-sr-only {
-  @include visually-hidden;
+  @include mixins.visually-hidden;
 }
 
 // Responsive variants are mobile-first and follow the configured breakpoints.
 @mixin responsive-utilities($breakpoint) {
-  @include respond-to($breakpoint) {
+  @include mixins.respond-to($breakpoint) {
     .u-#{$breakpoint}-hidden { display: none !important; }
     .u-#{$breakpoint}-block { display: block !important; }
     .u-#{$breakpoint}-inline { display: inline !important; }

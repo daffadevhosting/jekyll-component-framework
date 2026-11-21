@@ -1,3 +1,5 @@
+@use "mixins";
+
 // =============================================================================
 // Typography System
 // =============================================================================
@@ -11,11 +13,11 @@
   letter-spacing: var(--letter-spacing-tight);
   color: var(--color-text);
 
-  @include respond-to(md) {
+  @include mixins.respond-to(md) {
     font-size: var(--font-size-5xl);
   }
 
-  @include respond-to(lg) {
+  @include mixins.respond-to(lg) {
     font-size: var(--font-size-6xl);
   }
 }
@@ -30,7 +32,7 @@ h1 {
   letter-spacing: var(--letter-spacing-tight);
   color: var(--color-text);
 
-  @include respond-to(md) {
+  @include mixins.respond-to(md) {
     font-size: var(--font-size-4xl);
   }
 }
@@ -44,7 +46,7 @@ h2 {
   letter-spacing: var(--letter-spacing-tight);
   color: var(--color-text);
 
-  @include respond-to(md) {
+  @include mixins.respond-to(md) {
     font-size: var(--font-size-3xl);
   }
 }
@@ -57,7 +59,7 @@ h3 {
   line-height: var(--line-height-snug);
   color: var(--color-text);
 
-  @include respond-to(md) {
+  @include mixins.respond-to(md) {
     font-size: var(--font-size-2xl);
   }
 }
@@ -69,7 +71,7 @@ h4 {
   line-height: var(--line-height-snug);
   color: var(--color-text);
 
-  @include respond-to(md) {
+  @include mixins.respond-to(md) {
     font-size: var(--font-size-xl);
   }
 }
@@ -81,7 +83,7 @@ h5 {
   line-height: var(--line-height-snug);
   color: var(--color-text);
 
-  @include respond-to(md) {
+  @include mixins.respond-to(md) {
     font-size: var(--font-size-lg);
   }
 }
@@ -111,7 +113,7 @@ p {
   line-height: var(--line-height-relaxed);
   color: var(--color-text-muted);
 
-  @include respond-to(md) {
+  @include mixins.respond-to(md) {
     font-size: var(--font-size-xl);
   }
 }
@@ -179,7 +181,7 @@ a.t-link {
   }
 
   &:focus-visible {
-    @include focus-ring;
+    @include mixins.focus-ring;
     border-radius: var(--radius-sm);
   }
 }
@@ -197,5 +199,5 @@ a.t-link {
 .t-left { text-align: left; }
 .t-right { text-align: right; }
 
-.t-truncate { @include truncate; }
+.t-truncate { @include mixins.truncate; }
 .t-balance { text-wrap: balance; }

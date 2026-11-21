@@ -1,3 +1,5 @@
+@use "../mixins";
+
 // =============================================================================
 // Features Section
 // =============================================================================
@@ -17,7 +19,7 @@
     color: var(--color-text);
     margin-bottom: var(--space-4);
 
-    @include respond-to(md) {
+    @include mixins.respond-to(md) {
       font-size: var(--font-size-4xl);
     }
   }
@@ -32,11 +34,11 @@
     display: grid;
     gap: var(--space-8);
 
-    @include respond-to(md) {
+    @include mixins.respond-to(md) {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @include respond-to(lg) {
+    @include mixins.respond-to(lg) {
       grid-template-columns: repeat(3, 1fr);
     }
   }

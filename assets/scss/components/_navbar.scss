@@ -1,3 +1,5 @@
+@use "../mixins";
+
 // =============================================================================
 // Navbar Component
 // =============================================================================
@@ -42,7 +44,7 @@
   }
 
   &:focus-visible {
-    @include focus-ring;
+    @include mixins.focus-ring;
     border-radius: var(--radius-sm);
   }
 }
@@ -81,7 +83,7 @@
   align-items: center;
   gap: var(--space-1);
 
-  @include respond-to(lg) {
+  @include mixins.respond-to(lg) {
     display: flex;
   }
 }
@@ -103,7 +105,7 @@
   }
 
   &:focus-visible {
-    @include focus-ring;
+    @include mixins.focus-ring;
   }
 
   &--active {
@@ -133,7 +135,7 @@
   border-radius: var(--radius-md);
   cursor: pointer;
 
-  @include respond-to(lg) {
+  @include mixins.respond-to(lg) {
     display: none;
   }
 
@@ -142,7 +144,7 @@
   }
 
   &:focus-visible {
-    @include focus-ring;
+    @include mixins.focus-ring;
   }
 
   svg {
@@ -161,7 +163,7 @@
     display: block;
   }
 
-  @include respond-to(lg) {
+  @include mixins.respond-to(lg) {
     display: none !important;
   }
 
