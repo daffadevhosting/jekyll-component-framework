@@ -1,6 +1,7 @@
 {
   "name": "thicket-ui",
-  "version": "1.4.5",
+  "version": "1.4.6",
+  "type": "module",
   "description": "A hybrid component and utility framework for Jekyll and the web.",
   "license": "MIT",
   "repository": {
@@ -32,32 +33,45 @@
     "dist/",
     "assets/scss/",
     "assets/js/",
-    "scripts/",
+    "scripts/thicket.mjs",
     "_includes/components/",
+    "_includes/icon.html",
     "README.md",
     "SKILL.md",
-    "LICENSE",
-    ".mcp.json"
+    "LICENSE"
   ],
   "scripts": {
     "build": "npm run build:css",
     "build:css": "sass --no-source-map --load-path=assets/scss assets/scss/thicket.scss dist/thicket.css",
     "prepack": "npm run build:css",
     "test": "node --test scripts/*.test.mjs",
+    "test:components": "node --test scripts/component-api.test.mjs scripts/component-mcp-tools.test.mjs",
+    "test:liquid": "node --test scripts/liquid-components.test.mjs",
+    "test:js": "node --test scripts/javascript-interactions.test.mjs",
+    "test:a11y": "node --test scripts/accessibility.test.mjs",
     "test:purge": "node scripts/thicket.mjs purge --help && node --test scripts/thicket.purge.test.mjs",
     "test:package": "node --test scripts/npm-package.test.mjs",
-    "mcp": "npx -y jekyll-component-mcp --root ."
+    "benchmark:purge": "node scripts/thicket.bench.mjs",
+    "mcp": "npx -y jekyll-component-mcp --root .",
+    "mcp:components": "node scripts/thicket-component-mcp.mjs --root ."
   },
   "engines": {
     "node": ">=18"
   },
   "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.5",
+    "axe-core": "^4.10.3",
     "jekyll-component-mcp": "^1.2.2",
-    "sass": "^1.93.2"
+    "jsdom": "^26.1.0",
+    "sass": "^1.93.2",
+    "zod": "^4.6.6"
   },
   "dependencies": {
     "glob": "^14.0.6",
     "postcss": "^8.5.30",
     "postcss-selector-parser": "^7.1.6"
+  },
+  "overrides": {
+    "zod": "^4.6.6"
   }
 }

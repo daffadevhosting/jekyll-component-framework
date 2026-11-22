@@ -276,6 +276,22 @@ $utility-hover-text-colors: (
 .u-fixed { position: fixed !important; }
 .u-sticky { position: sticky !important; }
 
+// Float
+.u-float-left { float: left !important; }
+.u-float-right { float: right !important; }
+.u-float-none { float: none !important; }
+
+// Position offsets use the same spacing scale as margin and padding utilities.
+@each $step, $value in $utility-space {
+  .u-inset-#{$step} { inset: $value !important; }
+  .u-inset-x-#{$step} { inset-inline: $value !important; }
+  .u-inset-y-#{$step} { inset-block: $value !important; }
+  .u-top-#{$step} { top: $value !important; }
+  .u-right-#{$step} { right: $value !important; }
+  .u-bottom-#{$step} { bottom: $value !important; }
+  .u-left-#{$step} { left: $value !important; }
+}
+
 // Overflow
 .u-overflow-hidden { overflow: hidden !important; }
 .u-overflow-auto { overflow: auto !important; }

@@ -6,23 +6,27 @@
   - size        (string)  → CSS size, default: 1em
   - class       (string)
   - aria_hidden (boolean) → default true
+  - aria_label  (string)  → accessible name when aria_hidden=false
 {% endcomment %}
 
 {% assign size = include.size | default: "1em" %}
-{% assign aria_hidden = include.aria_hidden | default: true %}
+{% assign aria_hidden = include.aria_hidden %}
+{% if aria_hidden == nil %}
+  {% assign aria_hidden = true %}
+{% endif %}
 
 <svg
   xmlns="http://www.w3.org/2000/svg"
-  width="{{ size }}"
-  height="{{ size }}"
+  width="{{ size | escape }}"
+  height="{{ size | escape }}"
   viewBox="0 0 24 24"
   fill="none"
   stroke="currentColor"
   stroke-width="2"
   stroke-linecap="round"
   stroke-linejoin="round"
-  class="c-icon c-icon--{{ include.name }} {{ include.class }}"
-  {% if aria_hidden %}aria-hidden="true"{% else %}role="img"{% endif %}
+  class="c-icon c-icon--{{ include.name | escape }} {{ include.class | escape }}"
+  {% if aria_hidden %}aria-hidden="true"{% else %}role="img" aria-label="{{ include.aria_label | default: include.name | escape }}"{% endif %}
 >
   {% case include.name %}
     {% when "arrow-right" %}

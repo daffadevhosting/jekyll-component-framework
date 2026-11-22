@@ -9,6 +9,6 @@
 
 {% assign size = include.size | default: "xl" %}
 
-<div class="l-container{% if size != 'xl' %} l-container--{{ size }}{% endif %}{% if include.class %} {{ include.class }}{% endif %}">
+<div class="l-container{% if size != 'xl' %} l-container--{{ size | escape }}{% endif %}{% if include.class %} {{ include.class | escape }}{% endif %}">
   {{ include.content }}
 </div>

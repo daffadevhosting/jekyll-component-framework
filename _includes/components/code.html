@@ -19,14 +19,14 @@
 {% assign lang = include.language | default: "" %}
 
 <div
-  class="c-code {{ include.class }}"
-  {% if include.id %}id="{{ include.id }}"{% endif %}
+  class="c-code {{ include.class | escape }}"
+  {% if include.id %}id="{{ include.id | escape }}"{% endif %}
   data-code-block
 >
   {% if lang != "" or copyable %}
     <div class="c-code__header">
       {% if lang != "" %}
-        <span class="c-code__lang">{{ lang }}</span>
+        <span class="c-code__lang">{{ lang | escape }}</span>
       {% else %}
         <span></span>
       {% endif %}
@@ -44,5 +44,5 @@
     </div>
   {% endif %}
 
-  <pre class="c-code__body"><code{% if lang != "" %} class="language-{{ lang }}"{% endif %}>{{ include.code | escape }}</code></pre>
+  <pre class="c-code__body"><code{% if lang != "" %} class="language-{{ lang | escape }}"{% endif %}>{{ include.code | escape }}</code></pre>
 </div>

@@ -17,18 +17,18 @@
 {% endif %}
 {% assign heading_tag = "h" | append: heading_level %}
 
-<section class="s-hero s-hero--{{ variant }} l-section {{ include.class }}">
+<section class="s-hero s-hero--{{ variant | escape }} l-section {{ include.class | escape }}">
   <div class="l-container">
     <div class="s-hero__inner">
       <div class="s-hero__content">
         {% if include.eyebrow %}
-          <p class="s-hero__eyebrow">{{ include.eyebrow }}</p>
+          <p class="s-hero__eyebrow">{{ include.eyebrow | escape }}</p>
         {% endif %}
 
-        <{{ heading_tag }} class="s-hero__title">{{ include.title }}</{{ heading_tag }}>
+        <{{ heading_tag | escape }} class="s-hero__title">{{ include.title | escape }}</{{ heading_tag | escape }}>
 
         {% if include.subtitle %}
-          <p class="s-hero__subtitle">{{ include.subtitle }}</p>
+          <p class="s-hero__subtitle">{{ include.subtitle | escape }}</p>
         {% endif %}
 
         {% if include.primary_label or include.secondary_label %}
@@ -56,8 +56,8 @@
       {% if include.media %}
         <div class="s-hero__media">
           <img
-            src="{{ include.media | relative_url }}"
-            alt="{{ include.media_alt | default: '' }}"
+            src="{{ include.media | relative_url | escape }}"
+            alt="{{ include.media_alt | default: '' | escape }}"
             width="1200"
             height="675"
             loading="eager"

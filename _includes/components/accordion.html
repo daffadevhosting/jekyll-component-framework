@@ -14,7 +14,7 @@
 
 {% assign accordion_id = include.id | default: "accordion" %}
 
-<div class="c-accordion {{ include.class }}" data-accordion id="{{ accordion_id }}">
+<div class="c-accordion {{ include.class | escape }}" data-accordion id="{{ accordion_id | escape }}">
   {% for item in include.items %}
     {% assign item_id = accordion_id | append: "-item-" | append: forloop.index %}
     {% assign panel_id = item_id | append: "-panel" %}
@@ -25,12 +25,12 @@
         <button
           type="button"
           class="c-accordion__trigger"
-          id="{{ item_id }}"
-          aria-expanded="{{ is_open }}"
-          aria-controls="{{ panel_id }}"
+          id="{{ item_id | escape }}"
+          aria-expanded="{{ is_open | escape }}"
+          aria-controls="{{ panel_id | escape }}"
           data-accordion-trigger
         >
-          <span>{{ item.title }}</span>
+          <span>{{ item.title | escape }}</span>
           <span class="c-accordion__icon" aria-hidden="true">
             {% include icon.html name="chevron-down" %}
           </span>
@@ -38,9 +38,9 @@
       </span>
       <div
         class="c-accordion__panel"
-        id="{{ panel_id }}"
+        id="{{ panel_id | escape }}"
         role="region"
-        aria-labelledby="{{ item_id }}"
+        aria-labelledby="{{ item_id | escape }}"
         {% unless is_open %}hidden{% endunless %}
         data-accordion-panel
       >

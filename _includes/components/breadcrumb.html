@@ -16,9 +16,9 @@
 {% endcomment %}
 
 <nav
-  class="c-breadcrumb {{ include.class }}"
-  aria-label="{{ include.aria_label | default: 'Breadcrumb' }}"
-  {% if include.id %}id="{{ include.id }}"{% endif %}
+  class="c-breadcrumb {{ include.class | escape }}"
+  aria-label="{{ include.aria_label | default: 'Breadcrumb' | escape }}"
+  {% if include.id %}id="{{ include.id | escape }}"{% endif %}
 >
   <ol>
     {% for item in include.items %}
@@ -33,9 +33,9 @@
         {% endunless %}
 
         {% if forloop.last or item.url == nil %}
-          <span>{{ item.label }}</span>
+          <span>{{ item.label | escape }}</span>
         {% else %}
-          <a href="{{ item.url | relative_url }}">{{ item.label }}</a>
+          <a href="{{ item.url | relative_url | escape }}">{{ item.label | escape }}</a>
         {% endif %}
       </li>
     {% endfor %}

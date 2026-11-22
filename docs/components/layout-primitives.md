@@ -69,7 +69,31 @@ Interaction utilities include `u-hover-bg-*`, `u-hover-text-*`, `u-focus-visible
 <section class="u-bg-background u-dark-bg-surface">The surface changes in dark mode.</section>
 ```
 
-Responsive variants are mobile-first and available at `sm` (640px), `md` (768px), `lg` (1024px), `xl` (1280px), and `2xl` (1536px). Prefix supported display, flex, grid-column, spacing, gap, font-size, and text-alignment utilities with the breakpoint, for example `u-md-hidden`, `u-lg-px-8`, or `u-xl-text-3xl`.
+## Alignment, float, and positioning
+
+For button groups and other aligned controls, use flex utilities rather than `float`:
+
+```html
+<div class="u-flex u-justify-end u-items-center u-gap-2">
+  <button type="button">Cancel</button>
+  <button type="button">Save</button>
+</div>
+```
+
+Use `u-justify-start`, `u-justify-center`, `u-justify-end`, or `u-justify-between` to place items horizontally, and `u-items-start`, `u-items-center`, or `u-items-end` to align them vertically. Center a constrained-width block with `u-mx-auto`. Text alignment is separate: use `u-text-left`, `u-text-center`, or `u-text-right`.
+
+Float utilities are available as `u-float-left`, `u-float-right`, and `u-float-none`. They are intended for text wrapping around content, not for positioning button groups.
+
+Position an element with `u-relative`, `u-absolute`, `u-fixed`, or `u-sticky`, then set offsets with `u-top-*`, `u-right-*`, `u-bottom-*`, and `u-left-*`. Offset values use the spacing scale above. `u-inset-*`, `u-inset-x-*`, and `u-inset-y-*` set one or both axes at once.
+
+```html
+<div class="u-relative u-inline-block">
+  Notifications
+  <span class="u-absolute u-top-0 u-right-0">3</span>
+</div>
+```
+
+Responsive variants are mobile-first and available at `sm` (640px), `md` (768px), `lg` (1024px), `xl` (1280px), and `2xl` (1536px). Prefix supported display, flex, grid-column, spacing, gap, font-size, and text-alignment utilities with the breakpoint, for example `u-md-hidden`, `u-lg-px-8`, or `u-xl-text-3xl`. Position offset and float utilities are not breakpoint-prefixed.
 
 ## Divider
 

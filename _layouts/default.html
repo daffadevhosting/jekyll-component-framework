@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: 'en' }}" data-theme="system">
+<html lang="{{ site.lang | default: 'en' | escape }}" data-theme="system">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,8 +8,8 @@
   {% seo %}
   {% include seo/site-schema.html %}
 
-  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-  <link rel="icon" type="image/svg+xml" href="{{ '/assets/images/thicket-mark.svg' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url | escape }}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/images/thicket-mark.svg' | relative_url | escape }}">
 
   {%- comment -%} Prevent flash of incorrect theme {%- endcomment -%}
   <script>
@@ -40,6 +40,6 @@
 
   {% include components/toast.html %}
 
-  <script type="module" src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  <script type="module" src="{{ '/assets/js/main.js' | relative_url | escape }}"></script>
 </body>
 </html>

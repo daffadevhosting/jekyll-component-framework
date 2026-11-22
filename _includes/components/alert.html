@@ -14,15 +14,15 @@
 
 {% capture alert_classes %}
   c-alert
-  c-alert--{{ variant }}
-  {{ include.class }}
+  c-alert--{{ variant | escape }}
+  {{ include.class | escape }}
 {% endcapture %}
 {% assign alert_classes = alert_classes | strip | strip_newlines | split: " " | compact | join: " " %}
 
 <div
-  class="{{ alert_classes }}"
+  class="{{ alert_classes | escape }}"
   role="alert"
-  {% if include.id %}id="{{ include.id }}"{% endif %}
+  {% if include.id %}id="{{ include.id | escape }}"{% endif %}
 >
   <span class="c-alert__icon" aria-hidden="true">
     {% case variant %}
@@ -39,9 +39,9 @@
 
   <div class="c-alert__content">
     {% if include.title %}
-      <div class="c-alert__title">{{ include.title }}</div>
+      <div class="c-alert__title">{{ include.title | escape }}</div>
     {% endif %}
-    <div class="c-alert__message">{{ include.message }}</div>
+    <div class="c-alert__message">{{ include.message | escape }}</div>
   </div>
 
   {% if include.dismissible %}

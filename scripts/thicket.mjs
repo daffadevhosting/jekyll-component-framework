@@ -23,7 +23,7 @@ import selectorParser from "postcss-selector-parser";
 
 const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
-const defaultContent = [
+export const defaultContent = [
   "**/*.{html,htm,md,liquid,js,jsx,ts,tsx,vue}",
   "!**/node_modules/**",
   "!**/_site/**",
@@ -55,14 +55,10 @@ export function extractClassNames(content) {
   const classMutations = /classList\.(?:add|remove|toggle|contains)\(([^)]*)\)/g;
   const quotedValues = /(["'`])([^"'`]+)\1/g;
 
-  // Liquid: class="c-button--{{ variant }}" or class="{{ foo }} bar"
-  const liquidClassAttr =
-    /(?:class|className)\s*=\s*(["'`])((?:(?!\1)[\s\S])*?\{\{(?:(?!\1)[\s\S])*?\}\}(?:(?!\1)[\s\S])*?)\1/g;
-
   for (const match of content.matchAll(classAttributes)) {
     const raw = match[2];
-    // Strip Liquid expressions; keep static tokens
-    const withoutLiquid = raw.replace(/\{\{[\s\S]*?\}\}/g, " ");
+    const containsLiquid = /\{\{[\s\S]*?\}\}|\{%[\s\S]*?%\}/.test(raw);
+    const withoutLiquid = raw.replace(/\{\{[\s\S]*?\}\}|\{%[\s\S]*?%\}/g, " ");
     withoutLiquid
       .split(/\s+/)
       .filter(Boolean)
@@ -71,20 +67,33 @@ export function extractClassNames(content) {
           classNames.add(name);
         }
       });
+    if (containsLiquid) classNames.add("__liquid_dynamic__");
   }
 
   for (const match of content.matchAll(classMutations)) {
-    for (const value of match[1].matchAll(quotedValues)) {
+    const values = [...match[1].matchAll(quotedValues)];
+    const dynamicExpression = match[1].replace(quotedValues, "").trim();
+    for (const value of values) {
       value[2]
         .split(/\s+/)
         .filter(Boolean)
         .forEach((name) => classNames.add(name));
     }
+    if (dynamicExpression) classNames.add("__js_dynamic__");
   }
 
-  // Soft signal for Liquid dynamic classes
-  for (const _ of content.matchAll(liquidClassAttr)) {
-    classNames.add("__liquid_dynamic__");
+  for (const match of content.matchAll(/\bclassName\s*=\s*([^;\n]+)/g)) {
+    const expression = match[1].trim();
+    const values = [...expression.matchAll(quotedValues)];
+    for (const value of values) {
+      value[2]
+        .split(/\s+/)
+        .filter(Boolean)
+        .forEach((name) => classNames.add(name));
+    }
+    if (!/^(['"])[\s\S]*\1$/.test(expression)) {
+      classNames.add("__js_dynamic__");
+    }
   }
 
   // Template literals in JS: `is-${state}` / `c-button--${variant}`
@@ -130,22 +139,32 @@ Options:
   -o, --output <file>      Output CSS (defaults to ./thicket.purged.css)
   -c, --content <glob>     Content glob; may be passed more than once
       --safelist <regex>   Keep matching classes; may be passed more than once
+      --mode <mode>        Purge mode: safe (default) or aggressive
       --config <file>      JSON config (defaults to ./thicket.config.json)
   -h, --help               Show this help
 
-By default, source files are scanned recursively. Dynamic component, layout,
-utility, and JavaScript state classes are retained via safelist prefixes:
+By default, source files are scanned recursively. Safe mode retains dynamic
+classes using framework prefixes:
   c-  l-  u-  is-  has-  js-
 
-Add a thicket.config.json or --safelist for project-specific classes.
-Always verify purged CSS on critical pages before production deploy.`);
+If dynamic Liquid/JavaScript classes are detected, safe mode keeps the input
+stylesheet unchanged. Aggressive mode purges more classes and may remove
+runtime-generated styles; review its output on critical pages before deploy.
+Add a thicket.config.json or --safelist for project-specific classes.`);
 }
 
 export function keepClass(name, usedClasses, safelist = defaultSafelist) {
   return usedClasses.has(name) || safelist.some((pattern) => pattern.test(name));
 }
 
-export function pruneStylesheet(css, usedClasses, safelist) {
+export function pruneStylesheet(css, usedClasses, safelist, options = {}) {
+  const { mode = "safe", hasDynamicClasses = false } = options;
+  if (mode !== "safe" && mode !== "aggressive") {
+    throw new Error(`Unknown purge mode: ${mode}`);
+  }
+  if (mode === "safe" && hasDynamicClasses) return css;
+
+  const activeSafelist = safelist ?? (mode === "safe" ? defaultSafelist : []);
   const stylesheet = postcss.parse(css);
 
   stylesheet.walkRules((rule) => {
@@ -155,7 +174,7 @@ export function pruneStylesheet(css, usedClasses, safelist) {
       selector.walkClasses((className) => classes.push(className.value));
       const keepSelector =
         classes.length === 0 ||
-        classes.every((name) => keepClass(name, usedClasses, safelist));
+        classes.every((name) => keepClass(name, usedClasses, activeSafelist));
 
       if (!keepSelector) selector.remove();
     });
@@ -196,6 +215,7 @@ export async function runCli(argv = process.argv.slice(2), workingDirectory = pr
         output: { type: "string", short: "o" },
         content: { type: "string", short: "c", multiple: true },
         safelist: { type: "string", multiple: true },
+        mode: { type: "string" },
         config: { type: "string" },
         help: { type: "boolean", short: "h" }
       },
@@ -221,6 +241,10 @@ export async function runCli(argv = process.argv.slice(2), workingDirectory = pr
         workingDirectory,
         values.output ?? config.output ?? "thicket.purged.css"
       );
+      const mode = values.mode ?? config.mode ?? "safe";
+      if (mode !== "safe" && mode !== "aggressive") {
+        throw new Error(`Unknown purge mode "${mode}". Use "safe" or "aggressive".`);
+      }
       const content = values.content ?? config.content ?? defaultContent;
       const customSafelist = [
         ...(config.safelist ?? []),
@@ -258,16 +282,25 @@ export async function runCli(argv = process.argv.slice(2), workingDirectory = pr
         }
       }
 
-      const safelist = [...defaultSafelist, ...customSafelist];
+      const safelist =
+        mode === "safe"
+          ? [...defaultSafelist, ...customSafelist]
+          : customSafelist;
       const css = await readFile(cssPath, "utf8");
-      const output = pruneStylesheet(css, usedClasses, safelist);
+      const output = pruneStylesheet(css, usedClasses, safelist, {
+        mode,
+        hasDynamicClasses
+      });
 
       await mkdir(dirname(outputPath), { recursive: true });
       await writeFile(outputPath, output);
 
-      const dynamicNote = hasDynamicClasses
-        ? " (dynamic Liquid/JS classes detected — safelist applied)"
-        : "";
+      const dynamicNote =
+        mode === "safe" && hasDynamicClasses
+          ? " (dynamic classes detected — safe mode kept the input unchanged)"
+          : mode === "aggressive" && hasDynamicClasses
+            ? " (dynamic classes detected — aggressive mode may omit runtime styles)"
+            : "";
       console.log(`Purged CSS written to ${outputPath}${dynamicNote}`);
       return 0;
     }

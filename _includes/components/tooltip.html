@@ -14,13 +14,13 @@
 
 {% assign position = include.position | default: "top" %}
 
-<span class="c-tooltip {{ include.class }}" data-tooltip>
+<span class="c-tooltip {{ include.class | escape }}" data-tooltip>
   {{ include.content }}
   <span
-    class="c-tooltip__content c-tooltip__content--{{ position }}"
+    class="c-tooltip__content c-tooltip__content--{{ position | escape }}"
     role="tooltip"
     data-tooltip-content
   >
-    {{ include.text }}
+    {{ include.text | escape }}
   </span>
 </span>

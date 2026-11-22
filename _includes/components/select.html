@@ -30,11 +30,11 @@
   {% endif %}
 {% endfor %}
 
-<div class="c-form-group c-select-menu {{ include.class }}" data-select-menu>
+<div class="c-form-group c-select-menu {{ include.class | escape }}" data-select-menu>
   {% if include.label %}
     <label
-      id="{{ label_id }}"
-      for="{{ input_id }}"
+      id="{{ label_id | escape }}"
+        for="{{ input_id | escape }}"
       class="c-label{% if include.required %} c-label--required{% endif %}"
     >
       {{ include.label | escape }}
@@ -42,14 +42,14 @@
   {% endif %}
 
   <select
-    id="{{ input_id }}"
-    name="{{ include.name }}"
+    id="{{ input_id | escape }}"
+    name="{{ include.name | escape }}"
     class="c-select c-select-menu__native"
     data-select-native
     {% if include.required %}required{% endif %}
     {% if include.disabled %}disabled{% endif %}
     {% if include.error %}aria-invalid="true"{% endif %}
-    {% if include.error %}aria-describedby="{{ input_id }}-error"{% elsif include.hint %}aria-describedby="{{ input_id }}-hint"{% endif %}
+    {% if include.error %}aria-describedby="{{ input_id | escape }}-error"{% elsif include.hint %}aria-describedby="{{ input_id | escape }}-hint"{% endif %}
   >
     {% if include.placeholder %}
       <option value="" disabled {% unless selected_value %}selected{% endunless %}>
@@ -69,20 +69,20 @@
 
   <div class="c-select-menu__enhanced" data-select-enhanced hidden>
     <button
-      id="{{ input_id }}-control"
+      id="{{ input_id | escape }}-control"
       class="c-select-menu__trigger"
       type="button"
       role="combobox"
       aria-haspopup="listbox"
       aria-expanded="false"
-      aria-controls="{{ listbox_id }}"
-      {% if include.label %}aria-labelledby="{{ label_id }} {{ value_id }}"{% else %}aria-label="{{ include.aria_label | default: include.name | escape }}"{% endif %}
+      aria-controls="{{ listbox_id | escape }}"
+      {% if include.label %}aria-labelledby="{{ label_id | escape }} {{ value_id | escape }}"{% else %}aria-label="{{ include.aria_label | default: include.name | escape }}"{% endif %}
       {% if include.disabled %}disabled{% endif %}
       {% if include.error %}aria-invalid="true"{% endif %}
-      {% if include.error %}aria-describedby="{{ input_id }}-error"{% elsif include.hint %}aria-describedby="{{ input_id }}-hint"{% endif %}
+      {% if include.error %}aria-describedby="{{ input_id | escape }}-error"{% elsif include.hint %}aria-describedby="{{ input_id | escape }}-hint"{% endif %}
       data-select-trigger
     >
-      <span id="{{ value_id }}" class="c-select-menu__value" data-select-value>
+      <span id="{{ value_id | escape }}" class="c-select-menu__value" data-select-value>
         {% if selected_icon %}{% include icon.html name=selected_icon class="c-select-menu__icon" %}{% endif %}
         <span>{{ selected_label | default: include.placeholder | default: "Choose an option" | escape }}</span>
         {% if selected_badge %}<span class="c-badge c-badge--{{ selected_badge_variant | escape }}">{{ selected_badge | escape }}</span>{% endif %}
@@ -93,16 +93,16 @@
     <input type="hidden" value="{{ selected_value | escape }}" data-select-value-input disabled>
 
     <ul
-      id="{{ listbox_id }}"
+      id="{{ listbox_id | escape }}"
       class="c-select-menu__list"
       role="listbox"
-      {% if include.label %}aria-labelledby="{{ label_id }}"{% else %}aria-label="{{ include.aria_label | default: include.name | escape }}"{% endif %}
+      {% if include.label %}aria-labelledby="{{ label_id | escape }}"{% else %}aria-label="{{ include.aria_label | default: include.name | escape }}"{% endif %}
       hidden
       data-select-list
     >
       {% for opt in include.options %}
         <li
-          id="{{ listbox_id }}-option-{{ forloop.index0 }}"
+          id="{{ listbox_id | escape }}-option-{{ forloop.index0 | escape }}"
           class="c-select-menu__option"
           role="option"
           aria-selected="{% if opt.value == selected_value %}true{% else %}false{% endif %}"
@@ -125,10 +125,10 @@
   </div>
 
   {% if include.hint and include.error == nil %}
-    <p id="{{ input_id }}-hint" class="c-hint">{{ include.hint | escape }}</p>
+    <p id="{{ input_id | escape }}-hint" class="c-hint">{{ include.hint | escape }}</p>
   {% endif %}
 
   {% if include.error %}
-    <p id="{{ input_id }}-error" class="c-error" role="alert">{{ include.error | escape }}</p>
+    <p id="{{ input_id | escape }}-error" class="c-error" role="alert">{{ include.error | escape }}</p>
   {% endif %}
 </div>

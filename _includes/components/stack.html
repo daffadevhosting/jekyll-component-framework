@@ -9,6 +9,6 @@
 
 {% assign size = include.size | default: "md" %}
 
-<div class="l-stack l-stack--{{ size }}{% if include.class %} {{ include.class }}{% endif %}">
+<div class="l-stack l-stack--{{ size | escape }}{% if include.class %} {{ include.class | escape }}{% endif %}">
   {{ include.content }}
 </div>

@@ -20,25 +20,25 @@
   c-navbar
   {% if include.transparent %}c-navbar--transparent{% endif %}
   {% if include.elevated %}c-navbar--elevated{% endif %}
-  {{ include.class }}
+  {{ include.class | escape }}
 {% endcapture %}
 {% assign nav_classes = nav_classes | strip | strip_newlines | split: " " | compact | join: " " %}
 
-<header class="{{ nav_classes }}" role="banner">
+<header class="{{ nav_classes | escape }}" role="banner">
   <div class="l-container">
     <div class="c-navbar__inner">
-      <a href="{{ brand_url | relative_url }}" class="c-navbar__brand">
+      <a href="{{ brand_url | relative_url | escape }}" class="c-navbar__brand">
         {% if brand_mark %}
           <img
             class="c-navbar__brand-mark"
-            src="{{ brand_mark | relative_url }}"
+            src="{{ brand_mark | relative_url | escape }}"
             alt=""
             width="40"
             height="40"
           >
         {% endif %}
         <span class="c-navbar__brand-copy">
-          <span class="c-navbar__brand-name">{{ brand }}</span>
+          <span class="c-navbar__brand-name">{{ brand | escape }}</span>
           <span class="c-navbar__brand-note">Jekyll component garden</span>
         </span>
       </a>
@@ -46,10 +46,10 @@
       <nav class="c-navbar__nav" aria-label="Main navigation">
         {% for item in site.data.navigation.main %}
           <a
-            href="{{ item.url | relative_url }}"
+            href="{{ item.url | relative_url | escape }}"
             class="c-navbar__link{% if page.url == item.url %} c-navbar__link--active{% endif %}"
           >
-            {{ item.title }}
+            {{ item.title | escape }}
           </a>
         {% endfor %}
       </nav>
@@ -62,7 +62,7 @@
           class="c-navbar__toggle"
           aria-label="Toggle menu"
           aria-expanded="false"
-          aria-controls="{{ mobile_menu_id }}"
+          aria-controls="{{ mobile_menu_id | escape }}"
           data-navbar-toggle
         >
           {% include icon.html name="menu" %}
@@ -70,14 +70,14 @@
       </div>
     </div>
 
-    <div class="c-navbar__mobile" id="{{ mobile_menu_id }}" hidden>
+    <div class="c-navbar__mobile" id="{{ mobile_menu_id | escape }}" hidden>
       <nav aria-label="Mobile navigation">
         {% for item in site.data.navigation.main %}
           <a
-            href="{{ item.url | relative_url }}"
+            href="{{ item.url | relative_url | escape }}"
             class="c-navbar__link{% if page.url == item.url %} c-navbar__link--active{% endif %}"
           >
-            {{ item.title }}
+            {{ item.title | escape }}
           </a>
         {% endfor %}
       </nav>

@@ -6,13 +6,13 @@
   - plans (array of {name, price, period, description, features[], cta_label, cta_href, featured, badge})
 {% endcomment %}
 
-<section class="s-pricing l-section {{ include.class }}">
+<section class="s-pricing l-section {{ include.class | escape }}">
   <div class="l-container">
     {% if include.title %}
       <div class="s-pricing__header">
-        <h2 class="s-pricing__title">{{ include.title }}</h2>
+        <h2 class="s-pricing__title">{{ include.title | escape }}</h2>
         {% if include.subtitle %}
-          <p class="s-pricing__subtitle">{{ include.subtitle }}</p>
+          <p class="s-pricing__subtitle">{{ include.subtitle | escape }}</p>
         {% endif %}
       </div>
     {% endif %}
@@ -27,19 +27,19 @@
 
         <div
           class="c-pricing-card{% if plan.featured %} c-pricing-card--featured{% endif %}"
-          {% if plan.badge %}data-badge="{{ plan.badge }}"{% endif %}
+          {% if plan.badge %}data-badge="{{ plan.badge | escape }}"{% endif %}
         >
-          <div class="c-pricing-card__name">{{ plan.name }}</div>
+          <div class="c-pricing-card__name">{{ plan.name | escape }}</div>
 
           <div class="c-pricing-card__price">
-            <span class="c-pricing-card__price-amount">{{ plan.price }}</span>
+            <span class="c-pricing-card__price-amount">{{ plan.price | escape }}</span>
             {% if plan.period %}
-              <span class="c-pricing-card__price-period">/ {{ plan.period }}</span>
+              <span class="c-pricing-card__price-period">/ {{ plan.period | escape }}</span>
             {% endif %}
           </div>
 
           {% if plan.description %}
-            <p class="c-pricing-card__desc">{{ plan.description }}</p>
+            <p class="c-pricing-card__desc">{{ plan.description | escape }}</p>
           {% endif %}
 
           {% if plan.features %}
@@ -47,7 +47,7 @@
               {% for feature in plan.features %}
                 <li>
                   {% include icon.html name="check" %}
-                  <span>{{ feature }}</span>
+                  <span>{{ feature | escape }}</span>
                 </li>
               {% endfor %}
             </ul>

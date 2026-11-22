@@ -36,12 +36,12 @@
 
 {% capture btn_classes %}
   c-button
-  c-button--{{ variant }}
-  c-button--{{ size }}
+  c-button--{{ variant | escape }}
+  c-button--{{ size | escape }}
   {% if include.ripple %}c-button--ripple{% endif %}
   {% if include.block %}c-button--block{% endif %}
   {% if include.icon_only %}c-button--icon-only{% endif %}
-  {{ include.class }}
+  {{ include.class | escape }}
 {% endcapture %}
 {% assign btn_classes = btn_classes | strip | strip_newlines | split: " " | compact | join: " " %}
 
@@ -52,7 +52,7 @@
     </span>
   {% endif %}
   {% unless include.icon_only %}
-    <span class="c-button__label">{{ include.label }}</span>
+    <span class="c-button__label">{{ include.label | escape }}</span>
   {% endunless %}
   {% if include.icon and icon_position == "right" %}
     <span class="c-button__icon" aria-hidden="true">
@@ -63,34 +63,34 @@
 
 {% if include.href and include.disabled %}
   <span
-    class="{{ btn_classes }}"
-    {% if include.id %}id="{{ include.id }}"{% endif %}
+    class="{{ btn_classes | escape }}"
+    {% if include.id %}id="{{ include.id | escape }}"{% endif %}
     aria-disabled="true"
-    {% if include.aria_label %}aria-label="{{ include.aria_label }}"{% elsif include.icon_only and include.label %}aria-label="{{ include.label }}"{% endif %}
+    {% if include.aria_label %}aria-label="{{ include.aria_label | escape }}"{% elsif include.icon_only and include.label %}aria-label="{{ include.label | escape }}"{% endif %}
   >
     {{ btn_inner }}
   </span>
 {% elsif include.href %}
   <a
-    href="{{ include.href | relative_url }}"
-    class="{{ btn_classes }}"
-    {% if include.id %}id="{{ include.id }}"{% endif %}
-    {% if include.target %}target="{{ include.target }}"{% if include.target == "_blank" %} rel="noopener noreferrer"{% endif %}{% endif %}
-    {% if include.modal_open %}data-modal-open="{{ include.modal_open }}"{% endif %}
-    {% if include.offcanvas_open %}data-offcanvas-open="{{ include.offcanvas_open }}" aria-controls="{{ include.offcanvas_open }}" aria-expanded="false"{% endif %}
-    {% if include.aria_label %}aria-label="{{ include.aria_label }}"{% elsif include.icon_only and include.label %}aria-label="{{ include.label }}"{% endif %}
+    href="{{ include.href | relative_url | escape }}"
+    class="{{ btn_classes | escape }}"
+    {% if include.id %}id="{{ include.id | escape }}"{% endif %}
+    {% if include.target %}target="{{ include.target | escape }}"{% if include.target == "_blank" %} rel="noopener noreferrer"{% endif %}{% endif %}
+    {% if include.modal_open %}data-modal-open="{{ include.modal_open | escape }}"{% endif %}
+    {% if include.offcanvas_open %}data-offcanvas-open="{{ include.offcanvas_open | escape }}" aria-controls="{{ include.offcanvas_open | escape }}" aria-expanded="false"{% endif %}
+    {% if include.aria_label %}aria-label="{{ include.aria_label | escape }}"{% elsif include.icon_only and include.label %}aria-label="{{ include.label | escape }}"{% endif %}
   >
     {{ btn_inner }}
   </a>
 {% else %}
   <button
-    type="{{ type }}"
-    class="{{ btn_classes }}"
-    {% if include.id %}id="{{ include.id }}"{% endif %}
+    type="{{ type | escape }}"
+    class="{{ btn_classes | escape }}"
+    {% if include.id %}id="{{ include.id | escape }}"{% endif %}
     {% if include.disabled %}disabled{% endif %}
-    {% if include.modal_open %}data-modal-open="{{ include.modal_open }}"{% endif %}
-    {% if include.offcanvas_open %}data-offcanvas-open="{{ include.offcanvas_open }}" aria-controls="{{ include.offcanvas_open }}" aria-expanded="false"{% endif %}
-    {% if include.aria_label %}aria-label="{{ include.aria_label }}"{% elsif include.icon_only and include.label %}aria-label="{{ include.label }}"{% endif %}
+    {% if include.modal_open %}data-modal-open="{{ include.modal_open | escape }}"{% endif %}
+    {% if include.offcanvas_open %}data-offcanvas-open="{{ include.offcanvas_open | escape }}" aria-controls="{{ include.offcanvas_open | escape }}" aria-expanded="false"{% endif %}
+    {% if include.aria_label %}aria-label="{{ include.aria_label | escape }}"{% elsif include.icon_only and include.label %}aria-label="{{ include.label | escape }}"{% endif %}
   >
     {{ btn_inner }}
   </button>

@@ -12,11 +12,11 @@ when changing or integrating it.
 
 Determine which of these the request concerns before changing files:
 
-| Target | What to use | 
-| ----- | ----- | 
-| This component-garden site or a full fork | The repository source, `npm install` (for CSS build/test scripts), `bundle install`, then Jekyll commands. | 
-| An existing non-Jekyll frontend consuming the published package | `npm install thicket-ui`; import `thicket-ui/css` (or load `dist/thicket.css` via CDN), and optionally `thicket-ui/js` or `thicket-ui/scss`. | 
-| An existing Jekyll site that needs Liquid components | Bring in the relevant `_includes/components/` templates in addition to the package assets, or use a full fork. The npm package does not install Jekyll layouts, data, or pages. | 
+| Target | What to use |
+| --- | --- |
+| This component-garden site or a full fork | The repository source, `npm install` (for CSS build/test scripts), `bundle install`, then Jekyll commands. |
+| An existing non-Jekyll frontend consuming the published package | `npm install thicket-ui`; import `thicket-ui/css` (or load `dist/thicket.css` via CDN), and optionally `thicket-ui/js` or `thicket-ui/scss`. |
+| An existing Jekyll site that needs Liquid components | Bring in the relevant `_includes/components/` templates in addition to the package assets, or use a full fork. The npm package does not install Jekyll layouts, data, or pages. |
 
 Do not replace a consumer's existing Jekyll layouts, configuration, brand
 tokens, or JavaScript entrypoint unless the user asks. Adapt the integration to
@@ -27,6 +27,9 @@ their site.
 * `_includes/components/`: Liquid component API. Include files from here with
   `{% include components/<name>.html ... %}`. Inspect the target include and
   its page in `docs/components/` before choosing parameters.
+* `_includes/icon.html`: shared inline SVG dependency used by the icon wrapper
+  and several components. This file must be copied alongside component
+  templates when integrating from the npm package.
 
 * `_includes/sections/` and `_includes/partials/`: composed marketing sections
   and shared page regions, not generic component primitives.
@@ -61,7 +64,6 @@ For this repository or a full Jekyll fork:
 npm install
 bundle install
 bundle exec jekyll serve
-
 ```
 
 Use `bundle exec jekyll build --strict` for a production-oriented validation.
@@ -71,21 +73,18 @@ For the published npm package:
 
 ```
 npm install thicket-ui
-
 ```
 
 ```
 import "thicket-ui/css";
 import "thicket-ui/js";
-
 ```
 
 Or use the compiled CSS directly from a CDN (pin to a specific version in
-production, e.g. `https://unpkg.com/thicket-ui@1.4.5/dist/thicket.css`):
+production, e.g. `https://unpkg.com/thicket-ui@1.4.6/dist/thicket.css`):
 
 ```
-<link rel="stylesheet" href="https://unpkg.com/thicket-ui@1.4.5/dist/thicket.css">
-
+<link rel="stylesheet" href="https://unpkg.com/thicket-ui@1.4.6/dist/thicket.css">
 ```
 
 The package exports `./css`, `./scss`, and `./js`, provides the `thicket` CLI,
@@ -98,19 +97,25 @@ npx thicket purge --output assets/css/thicket.purged.css
 ```
 
 By default, purge scans HTML, Markdown, Liquid, and JavaScript files while
-excluding `_site`, dependencies, and vendor paths, and keeps classes matching
-`c-`, `l-`, `u-`, `is-`, `has-`, `js-`, and `data-`. Treat purge output as an
-artifact to review on critical pages before deploying. Dynamic class generation
-or custom prefixes may require safelist entries in `thicket.config.json`:
+excluding `_site`, dependencies, and vendor paths. Safe mode keeps classes
+matching `c-`, `l-`, `u-`, `is-`, `has-`, `js-`, and `data-`; if dynamic Liquid
+or JavaScript classes are detected, it leaves the input stylesheet unchanged.
+Aggressive mode removes unused framework-prefixed classes too and can omit
+runtime-generated styles. Review aggressive output on critical pages before
+deploying. Dynamic class generation or custom prefixes may require safelist
+entries in `thicket.config.json`:
 
 ```
 {
+  "mode": "safe",
   "content": ["_includes/**/*.html", "_layouts/**/*.html", "docs/**/*.{md,html}", "assets/js/**/*.js"],
   "output": "assets/css/thicket.purged.css",
   "safelist": ["^my-app-"]
 }
-
 ```
+
+Set `"mode": "aggressive"` to opt into deeper pruning. Use
+`npm run benchmark:purge` to compare output sizes and timings.
 
 ## Make changes in the correct layer
 
@@ -131,7 +136,6 @@ change. Use the established BEM-inspired selectors:
 .c-component
 .c-component--variant
 .c-component__element
-
 ```
 
 Use `c-` for components and `l-` for layout. The `u-` utility system is for
@@ -185,9 +189,9 @@ bundle exec jekyll build --strict
 npm test
 npm run test:purge
 npm run test:package
+npm run test:components
 npm run build:css
 npm pack --dry-run
-
 ```
 
 Run only the relevant commands and report any environment prerequisite that
@@ -206,5 +210,12 @@ npm run mcp
 ```
 
 Or invoke `npx -y jekyll-component-mcp --root .` / point the MCP client to
-`.mcp.json`. The server is optional; continue with the source files when it is
-unavailable.
+``.mcp.json`. Use its component catalog and inspection tools for discovery,
+token tools for the design system, and component validation before and after
+source changes. The `thicket-components` server provides a dedicated
+`thicket_component_update` tool for existing source files (dry-run by
+default) and `thicket_component_validate_dependencies` for Liquid include
+dependencies. The `jekyll-component` server remains responsible for component
+discovery, metadata, previews, design tokens, scaffolding, documentation, and
+its broader component validation.
+The server is optional; continue with the source files when it is unavailable.

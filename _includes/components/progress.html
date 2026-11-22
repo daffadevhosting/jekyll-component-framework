@@ -21,26 +21,26 @@
 
 {% capture progress_classes %}
   c-progress
-  {% if size != "md" %}c-progress--{{ size }}{% endif %}
-  {% if variant != "primary" %}c-progress--{{ variant }}{% endif %}
+  {% if size != "md" %}c-progress--{{ size | escape }}{% endif %}
+  {% if variant != "primary" %}c-progress--{{ variant | escape }}{% endif %}
   {% if include.indeterminate %}c-progress--indeterminate{% endif %}
-  {{ include.class }}
+  {{ include.class | escape }}
 {% endcapture %}
 {% assign progress_classes = progress_classes | strip | strip_newlines | split: " " | compact | join: " " %}
 
 <div
-  class="{{ progress_classes }}"
-  {% if include.id %}id="{{ include.id }}"{% endif %}
+  class="{{ progress_classes | escape }}"
+  {% if include.id %}id="{{ include.id | escape }}"{% endif %}
 >
   {% if include.label or include.show_value %}
     <div class="c-progress__label">
       {% if include.label %}
-        <span class="c-progress__label-text">{{ include.label }}</span>
+        <span class="c-progress__label-text">{{ include.label | escape }}</span>
       {% else %}
         <span></span>
       {% endif %}
       {% if include.show_value and include.indeterminate != true %}
-        <span class="c-progress__value">{{ percent }}%</span>
+        <span class="c-progress__value">{{ percent | escape }}%</span>
       {% endif %}
     </div>
   {% endif %}
@@ -48,15 +48,15 @@
   <div
     class="c-progress__track"
     role="progressbar"
-    aria-valuenow="{% unless include.indeterminate %}{{ value }}{% endunless %}"
+    aria-valuenow="{% unless include.indeterminate %}{{ value | escape }}{% endunless %}"
     aria-valuemin="0"
-    aria-valuemax="{{ max }}"
-    {% if include.label %}aria-label="{{ include.label }}"{% endif %}
+    aria-valuemax="{{ max | escape }}"
+    {% if include.label %}aria-label="{{ include.label | escape }}"{% endif %}
     {% if include.indeterminate %}aria-valuetext="Loading"{% endif %}
   >
     <div
       class="c-progress__bar"
-      style="width: {% if include.indeterminate %}40%{% else %}{{ percent }}%{% endif %}"
+      style="width: {% if include.indeterminate %}40%{% else %}{{ percent | escape }}%{% endif %}"
     ></div>
   </div>
 </div>

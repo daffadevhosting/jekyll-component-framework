@@ -10,6 +10,16 @@
         "."
       ],
       "tools": ["*"]
+    },
+    "thicket-components": {
+      "type": "local",
+      "command": "node",
+      "args": [
+        "scripts/thicket-component-mcp.mjs",
+        "--root",
+        "."
+      ],
+      "tools": ["*"]
     }
   }
 }

@@ -20,25 +20,25 @@
 
 <div
   class="c-offcanvas-backdrop"
-  id="{{ offcanvas_id }}-backdrop"
-  data-offcanvas-backdrop="{{ offcanvas_id }}"
+  id="{{ offcanvas_id | escape }}-backdrop"
+  data-offcanvas-backdrop="{{ offcanvas_id | escape }}"
   hidden
   aria-hidden="true"
 ></div>
 
 <aside
-  class="c-offcanvas c-offcanvas--{{ position }} {{ include.class }}"
-  id="{{ offcanvas_id }}"
+  class="c-offcanvas c-offcanvas--{{ position | escape }} {{ include.class | escape }}"
+  id="{{ offcanvas_id | escape }}"
   role="dialog"
   aria-modal="true"
-  aria-labelledby="{{ offcanvas_id }}-title"
+  aria-labelledby="{{ offcanvas_id | escape }}-title"
   tabindex="-1"
   hidden
   data-offcanvas
 >
   <div class="c-offcanvas__header">
-    <h2 class="c-offcanvas__title" id="{{ offcanvas_id }}-title">
-      {{ include.title }}
+    <h2 class="c-offcanvas__title" id="{{ offcanvas_id | escape }}-title">
+      {{ include.title | escape }}
     </h2>
     <button
       type="button"

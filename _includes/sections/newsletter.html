@@ -14,21 +14,24 @@
 {% assign placeholder = include.placeholder | default: "Enter your email" %}
 {% assign button_label = include.button_label | default: "Subscribe" %}
 {% assign method = include.method | default: "post" %}
+{% unless method == "get" or method == "post" %}
+  {% assign method = "post" %}
+{% endunless %}
 
-<section class="s-newsletter l-section {{ include.class }}">
+<section class="s-newsletter l-section {{ include.class | escape }}">
   <div class="l-container">
     <div class="s-newsletter__inner">
       {% if include.title %}
-        <h2 class="s-newsletter__title">{{ include.title }}</h2>
+        <h2 class="s-newsletter__title">{{ include.title | escape }}</h2>
       {% endif %}
       {% if include.subtitle %}
-        <p class="s-newsletter__subtitle">{{ include.subtitle }}</p>
+        <p class="s-newsletter__subtitle">{{ include.subtitle | escape }}</p>
       {% endif %}
 
       <form
         class="s-newsletter__form"
-        {% if include.action %}action="{{ include.action }}"{% endif %}
-        method="{{ method }}"
+        {% if include.action %}action="{{ include.action | escape }}"{% endif %}
+        method="{{ method | escape }}"
         {% if method == "post" %}netlify{% endif %}
       >
         <div class="s-newsletter__input">
@@ -38,7 +41,7 @@
             id="newsletter-email"
             name="email"
             class="c-input"
-            placeholder="{{ placeholder }}"
+            placeholder="{{ placeholder | escape }}"
             required
             autocomplete="email"
           >
@@ -51,7 +54,7 @@
       </form>
 
       {% if include.hint %}
-        <p class="s-newsletter__hint">{{ include.hint }}</p>
+        <p class="s-newsletter__hint">{{ include.hint | escape }}</p>
       {% endif %}
     </div>
   </div>

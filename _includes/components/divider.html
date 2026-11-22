@@ -6,4 +6,4 @@
   - class   (string)
 {% endcomment %}
 
-<hr class="c-divider{% if include.variant == 'subtle' %} c-divider--subtle{% elsif include.variant == 'strong' %} c-divider--strong{% endif %}{% if include.class %} {{ include.class }}{% endif %}">
+<hr class="c-divider{% if include.variant == 'subtle' %} c-divider--subtle{% elsif include.variant == 'strong' %} c-divider--strong{% endif %}{% if include.class %} {{ include.class | escape }}{% endif %}">

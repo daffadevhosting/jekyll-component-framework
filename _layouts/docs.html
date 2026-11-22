@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: 'en' }}" data-theme="system">
+<html lang="{{ site.lang | default: 'en' | escape }}" data-theme="system">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
   {% seo %}
   {% include seo/site-schema.html %}
-  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url | escape }}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/images/thicket-mark.svg' | relative_url | escape }}">
   <script>
     (function() {
       var stored = localStorage.getItem('theme');
@@ -46,13 +47,13 @@
     <nav class="l-sidebar-nav" aria-label="Documentation">
       {% for group in site.data.navigation.docs %}
         <div class="l-sidebar-nav__group">
-          <div class="l-sidebar-nav__title">{{ group.title }}</div>
+          <div class="l-sidebar-nav__title">{{ group.title | escape }}</div>
           {% for item in group.items %}
             <a
-              href="{{ item.url | relative_url }}"
+              href="{{ item.url | relative_url | escape }}"
               class="l-sidebar-nav__link{% if page.url == item.url %} is-active{% endif %}"
             >
-              {{ item.title }}
+              {{ item.title | escape }}
             </a>
           {% endfor %}
         </div>
@@ -95,6 +96,6 @@
 
   {% include partials/footer.html %}
   {% include components/toast.html %}
-  <script type="module" src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  <script type="module" src="{{ '/assets/js/main.js' | relative_url | escape }}"></script>
 </body>
 </html>

@@ -10,12 +10,12 @@
 
 {% assign variant = include.variant | default: "default" %}
 
-<section class="s-cta l-section {{ include.class }}">
+<section class="s-cta l-section {{ include.class | escape }}">
   <div class="l-container">
-    <div class="s-cta__inner s-cta--{{ variant }}">
-      <h2 class="s-cta__title">{{ include.title }}</h2>
+    <div class="s-cta__inner s-cta--{{ variant | escape }}">
+      <h2 class="s-cta__title">{{ include.title | escape }}</h2>
       {% if include.subtitle %}
-        <p class="s-cta__subtitle">{{ include.subtitle }}</p>
+        <p class="s-cta__subtitle">{{ include.subtitle | escape }}</p>
       {% endif %}
       <div class="s-cta__actions">
         {% if include.primary_label %}

@@ -1,9 +1,9 @@
 # Thicket UI
 
 [![npm version](https://img.shields.io/npm/v/thicket-ui.svg)](https://www.npmjs.com/package/thicket-ui)
-[![Socket Badge](https://badge.socket.dev/npm/package/thicket-ui/1.4.5)](https://badge.socket.dev/npm/package/thicket-ui/1.4.5)
+[![Socket Badge](https://badge.socket.dev/npm/package/thicket-ui/1.4.6)](https://badge.socket.dev/npm/package/thicket-ui/1.4.6)
 
-**A hybrid component and utility framework for Jekyll · v1.4.5**
+**A hybrid component and utility framework for Jekyll · v1.4.6**
 
 Thicket is an accessible, Jekyll-native UI framework pairing reusable Liquid components with token-based utility classes, an earthy palette, and editorial typography.
 It is built with:
@@ -80,17 +80,17 @@ import "thicket-ui/css";
 import "thicket-ui/js";
 ```
 
-The package also includes the SCSS source at `thicket-ui/scss` and Liquid component templates under `_includes/components/`. The CSS is built automatically when the package is packed or published.
+The package also includes the SCSS source at `thicket-ui/scss`, Liquid component templates under `_includes/components/`, and the shared `_includes/icon.html` include they depend on. The CSS is built automatically when the package is packed or published.
 
 #### CDN
 
 For a quick setup without a bundler, include the compiled stylesheet from unpkg:
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/thicket-ui@1.4.5/dist/thicket.css">
+<link rel="stylesheet" href="https://unpkg.com/thicket-ui@1.4.6/dist/thicket.css">
 ```
 
-The version is pinned to `1.4.5` so your site keeps using the same CSS until you choose to upgrade. Replace `1.4.5` with a newer published version when you want to update.
+The version is pinned to `1.4.6` so your site keeps using the same CSS until you choose to upgrade. Replace `1.4.6` with a newer published version when you want to update.
 
 To generate a smaller stylesheet for a Jekyll site, run the CLI from the site root:
 
@@ -100,25 +100,32 @@ npx thicket purge --output assets/css/thicket.purged.css
 
 By default it scans HTML, Markdown, Liquid, and JavaScript source files while excluding generated `_site`, dependencies, and vendor files.
 
-**Safelist (fail-safe):** classes matching `c-`, `l-`, `u-`, `is-`, `has-`, `js-`, and `data-` are always retained so Liquid variants, utilities, and JS state classes are not stripped. The extractor also detects simple Liquid interpolations and JS template literals.
+**Safe mode (default):** classes matching `c-`, `l-`, `u-`, `is-`, `has-`, `js-`, and `data-` are retained. If the scanner detects Liquid control-flow or computed JavaScript classes, it leaves the input stylesheet unchanged rather than risk removing runtime styles.
+
+**Aggressive mode (opt-in):** remove unused framework-prefixed classes too, based on the extracted source classes. Review the output and configure a safelist for classes generated at runtime:
+
+```bash
+npx thicket purge --mode aggressive --output assets/css/thicket.purged.css
+```
 
 Add a `thicket.config.json` to customize scanning and extra safelist patterns:
 
 ```json
 {
+   "mode": "safe",
    "content": ["_includes/**/*.html", "_layouts/**/*.html", "docs/**/*.{md,html}", "assets/js/**/*.js"],
    "output": "assets/css/thicket.purged.css",
    "safelist": ["^my-app-"]
 }
 ```
 
-> Always verify purged CSS on critical pages before production deploy. Regex extraction is not a full Liquid/JS parser.
+Use `"mode": "aggressive"` to opt into smaller output, and add project-specific patterns to `safelist` in either mode. Always review aggressive output on critical pages before deployment; dynamic Liquid/JavaScript extraction is heuristic, not a full language parser. `npm run benchmark:purge` reports production CSS sizes and timings for both modes.
 
 
 
 ### AI tooling (optional) — jekyll-component-mcp
 
-Thicket ships with optional [jekyll-component-mcp](https://www.npmjs.com/package/jekyll-component-mcp) support so AI agents can inspect, create, and validate components.
+Thicket ships with optional [jekyll-component-mcp](https://www.npmjs.com/package/jekyll-component-mcp) support so AI agents can discover components and their metadata, inspect source and parameters, preview and validate components, browse or update design tokens, and create component scaffolds or update component documentation.
 
 ```bash
 # included as a development dependency for repository work
@@ -130,6 +137,10 @@ npm run mcp
 ```
 
 Project config is in `.mcp.json` (relative `--root .`). Point your MCP client (Cursor, Claude Code, VS Code, etc.) at that file or the `npx` command above.
+
+The discovery server validates a component's Liquid, SCSS, documentation, accessibility hints, and parameter consistency. Run `npm run test:components` for repository-wide include dependency and documentation checks.
+
+Thicket also registers a focused local MCP server from `.mcp.json`. It provides `thicket_component_update` for replacing an existing component source file (dry-run by default) and `thicket_component_validate_dependencies` for checking Liquid include references. Run it directly with `npm run mcp:components`. Use the first server for discovery/catalog metadata, previews, design tokens, and its component validator; use the Thicket server for source updates and include dependency checks.
 
 ### Project skill for AI agents
 
@@ -352,7 +363,7 @@ MIT License — see [LICENSE](LICENSE).
 
 ## Status
 
-Thicket UI 1.4.5 release
+Thicket UI 1.4.6 release
 More components, documentation pages, and example templates will be added iteratively.
 
 

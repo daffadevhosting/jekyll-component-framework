@@ -15,15 +15,15 @@
 
 {% capture spinner_classes %}
   c-spinner
-  c-spinner--{{ size }}
-  c-spinner--{{ variant }}
+  c-spinner--{{ size | escape }}
+  c-spinner--{{ variant | escape }}
   {% if include.block %}c-spinner--block{% endif %}
-  {{ include.class }}
+  {{ include.class | escape }}
 {% endcapture %}
 {% assign spinner_classes = spinner_classes | strip | strip_newlines | split: " " | compact | join: " " %}
 
 <span
-  class="{{ spinner_classes }}"
+  class="{{ spinner_classes | escape }}"
   role="status"
-  aria-label="{{ label }}"
+  aria-label="{{ label | escape }}"
 ></span>

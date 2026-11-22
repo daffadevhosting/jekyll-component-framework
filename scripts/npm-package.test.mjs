@@ -42,7 +42,18 @@ describe("published npm package", () => {
       await readFile(join(installed, "assets", "scss", "thicket.scss"), "utf8");
       await readFile(join(installed, "assets", "js", "main.js"), "utf8");
       await readFile(join(installed, "_includes", "components", "button.html"), "utf8");
+      const iconInclude = await readFile(join(installed, "_includes", "icon.html"), "utf8");
+      const iconComponent = await readFile(
+        join(installed, "_includes", "components", "icon.html"),
+        "utf8"
+      );
       await readFile(join(installed, "scripts", "thicket.mjs"), "utf8");
+      await assert.rejects(
+        readFile(join(installed, "scripts", "thicket-component-mcp.mjs")),
+        { code: "ENOENT" }
+      );
+      assert.match(iconInclude, /case include\.name/);
+      assert.match(iconComponent, /include icon\.html name=include\.name/);
 
       const css = await readFile(join(installed, "dist", "thicket.css"), "utf8");
       assert.match(css, /--color-primary:/);

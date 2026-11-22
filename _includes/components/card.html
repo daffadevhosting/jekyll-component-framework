@@ -24,16 +24,16 @@
   {% if include.border_beam %}c-card--border-beam{% endif %}
   {% if include.elevated %}c-card--elevated{% endif %}
   {% if include.borderless %}c-card--borderless{% endif %}
-  {{ include.class }}
+  {{ include.class | escape }}
 {% endcapture %}
 {% assign card_classes = card_classes | strip | strip_newlines | split: " " | compact | join: " " %}
 
-<article class="{{ card_classes }}" {% if include.id %}id="{{ include.id }}"{% endif %}>
+<article class="{{ card_classes | escape }}" {% if include.id %}id="{{ include.id | escape }}"{% endif %}>
   {% if include.media %}
     <div class="c-card__media">
       <img
-        src="{{ include.media | relative_url }}"
-        alt="{{ include.media_alt | default: '' }}"
+        src="{{ include.media | relative_url | escape }}"
+        alt="{{ include.media_alt | default: '' | escape }}"
         loading="lazy"
         decoding="async"
       >
@@ -43,10 +43,10 @@
   {% if include.title or include.subtitle %}
     <header class="c-card__header">
       {% if include.title %}
-        <h3 class="c-card__title">{{ include.title }}</h3>
+        <h3 class="c-card__title">{{ include.title | escape }}</h3>
       {% endif %}
       {% if include.subtitle %}
-        <p class="c-card__subtitle">{{ include.subtitle }}</p>
+        <p class="c-card__subtitle">{{ include.subtitle | escape }}</p>
       {% endif %}
     </header>
   {% endif %}

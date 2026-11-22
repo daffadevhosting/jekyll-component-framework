@@ -12,11 +12,11 @@
 
 {% assign sidebar_aria = include.aria | default: "Sidebar" %}
 
-<nav class="l-sidebar-nav {{ include.class }}" aria-label="{{ sidebar_aria }}">
+<nav class="l-sidebar-nav {{ include.class | escape }}" aria-label="{{ sidebar_aria | escape }}">
   {% for group in include.groups %}
     <div class="l-sidebar-nav__group">
       {% if group.title and group.title != "" %}
-        <div class="l-sidebar-nav__title">{{ group.title }}</div>
+        <div class="l-sidebar-nav__title">{{ group.title | escape }}</div>
       {% endif %}
       {% for item in group.items %}
         {% assign is_active = item.active %}
@@ -24,12 +24,12 @@
           {% assign is_active = true %}
         {% endif %}
         <a
-          href="{{ item.url | relative_url }}"
+          href="{{ item.url | relative_url | escape }}"
           class="l-sidebar-nav__link{% if is_active %} is-active{% endif %}"
         >
-          {{ item.title }}
+          {{ item.title | escape }}
           {% if item.meta %}
-            <span class="l-sidebar-nav__meta">{{ item.meta }}</span>
+            <span class="l-sidebar-nav__meta">{{ item.meta | escape }}</span>
           {% endif %}
         </a>
       {% endfor %}

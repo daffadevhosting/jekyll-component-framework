@@ -16,17 +16,17 @@
 {% assign size = include.size | default: "md" %}
 {% assign align = include.align | default: "left" %}
 
-<div class="c-dropdown {{ include.class }}" data-dropdown>
+<div class="c-dropdown {{ include.class | escape }}" data-dropdown>
   <button
     type="button"
-    class="c-button c-button--{{ variant }} c-button--{{ size }}"
+    class="c-button c-button--{{ variant | escape }} c-button--{{ size | escape }}"
     aria-haspopup="true"
     aria-expanded="false"
-    aria-controls="{{ dropdown_id }}-menu"
-    id="{{ dropdown_id }}-trigger"
+    aria-controls="{{ dropdown_id | escape }}-menu"
+    id="{{ dropdown_id | escape }}-trigger"
     data-dropdown-trigger
   >
-    {{ include.label }}
+    {{ include.label | escape }}
     <span class="c-button__icon" aria-hidden="true">
       {% include icon.html name="chevron-down" %}
     </span>
@@ -34,9 +34,9 @@
 
   <div
     class="c-dropdown__menu{% if align == 'right' %} c-dropdown__menu--right{% endif %}"
-    id="{{ dropdown_id }}-menu"
+    id="{{ dropdown_id | escape }}-menu"
     role="menu"
-    aria-labelledby="{{ dropdown_id }}-trigger"
+    aria-labelledby="{{ dropdown_id | escape }}-trigger"
     hidden
     data-dropdown-menu
   >
@@ -44,16 +44,16 @@
       {% if item.divider %}
         <hr class="c-dropdown__divider" role="separator">
       {% elsif item.label_only %}
-        <div class="c-dropdown__label">{{ item.label }}</div>
+        <div class="c-dropdown__label">{{ item.label | escape }}</div>
       {% else %}
         {% if item.href %}
           <a
-            href="{{ item.href | relative_url }}"
+            href="{{ item.href | relative_url | escape }}"
             class="c-dropdown__item{% if item.danger %} c-dropdown__item--danger{% endif %}"
             role="menuitem"
             {% if item.disabled %}aria-disabled="true" tabindex="-1"{% endif %}
           >
-            {{ item.label }}
+            {{ item.label | escape }}
           </a>
         {% else %}
           <button
@@ -62,7 +62,7 @@
             role="menuitem"
             {% if item.disabled %}disabled{% endif %}
           >
-            {{ item.label }}
+            {{ item.label | escape }}
           </button>
         {% endif %}
       {% endif %}

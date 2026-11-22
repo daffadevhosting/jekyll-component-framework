@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.2.1/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.6] - 2026-11-23
+
+### Added
+- Package smoke coverage for the root Liquid icon include and its component wrapper
+- Liquid rendering, JavaScript interaction, axe accessibility, and component dependency tests
+- MCP tools for updating existing component files and validating Liquid include dependencies
+- Safe and aggressive CSS purge modes, CSS size regression coverage, and a production benchmark
+- Dedicated API documentation for the Container, Divider, Grid, Icon, and Stack components
+
+### Changed
+- Synchronized release metadata at version 1.4.6
+- Aligned the `jekyll-feed` Gemfile constraint with the locked 0.18.0 dependency
+- Dynamic classes now make safe purge mode preserve the complete input stylesheet
+
+### Fixed
+- Included `_includes/icon.html` in the npm package
+- Escaped dynamic Liquid text and attribute values while preserving documented trusted HTML slots
+- Made non-decorative icons accept an accessible name and corrected the `aria_hidden=false` behavior
+- Overrode vulnerable transitive Zod versions with the patched 4.6.7 release
+
 ## [1.4.5] - 2026-11-21
 
 ### Added

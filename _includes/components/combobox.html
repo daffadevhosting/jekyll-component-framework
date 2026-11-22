@@ -31,22 +31,22 @@
   {% endif %}
 {% endfor %}
 
-<div class="c-form-group c-combobox {{ include.class }}" data-combobox>
+<div class="c-form-group c-combobox {{ include.class | escape }}" data-combobox>
   {% if include.label %}
-    <label id="{{ label_id }}" for="{{ input_id }}" class="c-label{% if include.required %} c-label--required{% endif %}">
+    <label id="{{ label_id | escape }}" for="{{ input_id | escape }}" class="c-label{% if include.required %} c-label--required{% endif %}">
       {{ include.label | escape }}
     </label>
   {% endif %}
 
   <select
-    id="{{ input_id }}"
-    name="{{ include.name }}"
+    id="{{ input_id | escape }}"
+    name="{{ include.name | escape }}"
     class="c-select"
     data-combobox-fallback
     {% if include.required %}required{% endif %}
     {% if include.disabled %}disabled{% endif %}
     {% if include.error %}aria-invalid="true"{% endif %}
-    {% if include.error %}aria-describedby="{{ input_id }}-error"{% elsif include.hint %}aria-describedby="{{ input_id }}-hint"{% endif %}
+    {% if include.error %}aria-describedby="{{ input_id | escape }}-error"{% elsif include.hint %}aria-describedby="{{ input_id | escape }}-hint"{% endif %}
   >
     {% if include.placeholder %}
       <option value="" disabled {% unless selected_value %}selected{% endunless %}>{{ include.placeholder | escape }}</option>
@@ -60,15 +60,15 @@
 
   <div class="c-combobox__enhanced" data-combobox-enhanced hidden>
     <input
-      id="{{ input_id }}-combobox"
+      id="{{ input_id | escape }}-combobox"
       class="c-input c-combobox__input"
       type="text"
       role="combobox"
-      {% if include.label %}aria-labelledby="{{ label_id }}"{% else %}aria-label="{{ include.aria_label | default: include.name | escape }}"{% endif %}
+      {% if include.label %}aria-labelledby="{{ label_id | escape }}"{% else %}aria-label="{{ include.aria_label | default: include.name | escape }}"{% endif %}
       aria-autocomplete="list"
       aria-haspopup="listbox"
       aria-expanded="false"
-      aria-controls="{{ listbox_id }}"
+      aria-controls="{{ listbox_id | escape }}"
       autocomplete="off"
       value="{{ selected_label | escape }}"
       placeholder="{{ include.placeholder | escape }}"
@@ -77,20 +77,20 @@
       {% if include.required %}required aria-required="true"{% endif %}
       {% if include.disabled %}aria-disabled="true"{% endif %}
       {% if include.error %}aria-invalid="true"{% endif %}
-      {% if include.error %}aria-describedby="{{ input_id }}-error"{% elsif include.hint %}aria-describedby="{{ input_id }}-hint"{% endif %}
+      {% if include.error %}aria-describedby="{{ input_id | escape }}-error"{% elsif include.hint %}aria-describedby="{{ input_id | escape }}-hint"{% endif %}
     >
-    <input type="hidden" name="{{ include.name }}" value="{{ selected_value | escape }}" data-combobox-value disabled>
+    <input type="hidden" name="{{ include.name | escape }}" value="{{ selected_value | escape }}" data-combobox-value disabled>
 
     <ul
-      id="{{ listbox_id }}"
+      id="{{ listbox_id | escape }}"
       class="c-combobox__list"
       role="listbox"
-      {% if include.label %}aria-labelledby="{{ label_id }}"{% else %}aria-label="{{ include.aria_label | default: include.name | escape }}"{% endif %}
+      {% if include.label %}aria-labelledby="{{ label_id | escape }}"{% else %}aria-label="{{ include.aria_label | default: include.name | escape }}"{% endif %}
       hidden
     >
       {% for opt in include.options %}
         <li
-          id="{{ listbox_id }}-option-{{ forloop.index0 }}"
+          id="{{ listbox_id | escape }}-option-{{ forloop.index0 | escape }}"
           class="c-combobox__option"
           role="option"
           aria-selected="{% if opt.value == selected_value %}true{% else %}false{% endif %}"
@@ -102,10 +102,10 @@
   </div>
 
   {% if include.hint and include.error == nil %}
-    <p id="{{ input_id }}-hint" class="c-hint">{{ include.hint | escape }}</p>
+    <p id="{{ input_id | escape }}-hint" class="c-hint">{{ include.hint | escape }}</p>
   {% endif %}
 
   {% if include.error %}
-    <p id="{{ input_id }}-error" class="c-error" role="alert">{{ include.error | escape }}</p>
+    <p id="{{ input_id | escape }}-error" class="c-error" role="alert">{{ include.error | escape }}</p>
   {% endif %}
 </div>

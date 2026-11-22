@@ -17,33 +17,33 @@
 
 {% capture avatar_classes %}
   c-avatar
-  c-avatar--{{ size }}
+  c-avatar--{{ size | escape }}
   {% if shape == "square" %}c-avatar--square{% endif %}
   {% if include.status %}c-avatar--with-status{% endif %}
-  {{ include.class }}
+  {{ include.class | escape }}
 {% endcapture %}
 {% assign avatar_classes = avatar_classes | strip | strip_newlines | split: " " | compact | join: " " %}
 
 <span
-  class="{{ avatar_classes }}"
-  {% if include.id %}id="{{ include.id }}"{% endif %}
+  class="{{ avatar_classes | escape }}"
+  {% if include.id %}id="{{ include.id | escape }}"{% endif %}
   role="img"
-  {% if include.alt %}aria-label="{{ include.alt }}"{% elsif include.initials %}aria-label="{{ include.initials }}"{% endif %}
+  {% if include.alt %}aria-label="{{ include.alt | escape }}"{% elsif include.initials %}aria-label="{{ include.initials | escape }}"{% endif %}
 >
   {% if include.src %}
     <img
-      src="{{ include.src | relative_url }}"
-      alt="{{ include.alt | default: '' }}"
+      src="{{ include.src | relative_url | escape }}"
+      alt="{{ include.alt | default: '' | escape }}"
       loading="lazy"
       decoding="async"
     >
   {% elsif include.initials %}
-    {{ include.initials | upcase | truncate: 2, "" }}
+    {{ include.initials | upcase | truncate: 2, "" | escape }}
   {% else %}
     {% include icon.html name="user" %}
   {% endif %}
 
   {% if include.status %}
-    <span class="c-avatar__status c-avatar__status--{{ include.status }}" aria-hidden="true"></span>
+    <span class="c-avatar__status c-avatar__status--{{ include.status | escape }}" aria-hidden="true"></span>
   {% endif %}
 </span>

@@ -12,7 +12,7 @@
     <div class="l-sidebar-nav__group">
       <div class="l-sidebar-nav__title">Categories</div>
       <a
-        href="{{ '/examples/blog/' | relative_url }}"
+        href="{{ '/examples/blog/' | relative_url | escape }}"
         class="l-sidebar-nav__link{% if page.url == '/examples/blog/' %} is-active{% endif %}"
       >
         All posts
@@ -28,12 +28,12 @@
           {% assign cat_active = true %}
         {% endif %}
         <a
-          href="{{ cat_url | relative_url }}"
+          href="{{ cat_url | relative_url | escape }}"
           class="l-sidebar-nav__link{% if cat_active %} is-active{% endif %}"
         >
-          {{ cat.title }}
+          {{ cat.title | escape }}
           {% if cat.count %}
-            <span class="l-sidebar-nav__meta">{{ cat.count }} {% if cat.count == 1 %}post{% else %}posts{% endif %}</span>
+            <span class="l-sidebar-nav__meta">{{ cat.count | escape }} {% if cat.count == 1 %}post{% else %}posts{% endif %}</span>
           {% endif %}
         </a>
       {% endfor %}
@@ -45,12 +45,12 @@
       <div class="l-sidebar-nav__title">Recent</div>
       {% for post in blog.posts limit: 5 %}
         <a
-          href="{{ post.url | relative_url }}"
+          href="{{ post.url | relative_url | escape }}"
           class="l-sidebar-nav__link{% if page.url == post.url %} is-active{% endif %}"
         >
-          {{ post.title }}
+          {{ post.title | escape }}
           {% if post.date %}
-            <span class="l-sidebar-nav__meta">{{ post.date }}</span>
+            <span class="l-sidebar-nav__meta">{{ post.date | escape }}</span>
           {% endif %}
         </a>
       {% endfor %}
@@ -62,11 +62,11 @@
       <div class="l-sidebar-nav__title">Resources</div>
       {% for link in blog.links %}
         <a
-          href="{{ link.url | relative_url }}"
+          href="{{ link.url | relative_url | escape }}"
           class="l-sidebar-nav__link"
           {% if link.external %}target="_blank" rel="noopener noreferrer"{% endif %}
         >
-          {{ link.title }}
+          {{ link.title | escape }}
         </a>
       {% endfor %}
     </div>

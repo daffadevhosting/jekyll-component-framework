@@ -27,6 +27,16 @@ docs:
         url: /docs/typography/
       - title: Layout Primitives
         url: /docs/components/layout-primitives/
+      - title: Container
+        url: /docs/components/container/
+      - title: Stack
+        url: /docs/components/stack/
+      - title: Grid
+        url: /docs/components/grid/
+      - title: Divider
+        url: /docs/components/divider/
+      - title: Icon
+        url: /docs/components/icon/
   - title: Components
     items:
       - title: All Components

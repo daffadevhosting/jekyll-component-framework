@@ -35,16 +35,16 @@ layout: default
             {% include components/badge.html label=page.category variant="primary" size="sm" %}
           {% endif %}
 
-          <h1 class="t-h1">{{ page.title }}</h1>
+          <h1 class="t-h1">{{ page.title | escape }}</h1>
 
           {% if page.date %}
             <time class="t-small t-muted" datetime="{{ page.date | date: '%Y-%m-%d' }}">
-              {{ page.date | date: "%B %d, %Y" }}
+              {{ page.date | date: "%B %d, %Y" | escape }}
             </time>
           {% endif %}
 
           {% if page.description %}
-            <p class="t-lead">{{ page.description }}</p>
+            <p class="t-lead">{{ page.description | escape }}</p>
           {% endif %}
         </header>
 
