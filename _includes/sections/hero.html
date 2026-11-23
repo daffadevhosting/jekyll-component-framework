@@ -17,6 +17,8 @@
   {% assign heading_level = 1 %}
 {% endif %}
 {% assign heading_tag = "h" | append: heading_level %}
+{% capture safe_media %}{% include partials/safe-url.html url=include.media %}{% endcapture %}
+{% assign safe_media = safe_media | strip %}
 
 <section class="s-hero s-hero--{{ variant | escape }} l-section {{ include.class | escape }}">
   <div class="l-container">
@@ -65,10 +67,10 @@
         {% endif %}
       </div>
 
-      {% if include.media %}
+      {% if safe_media != "" %}
         <div class="s-hero__media">
           <img
-            src="{{ include.media | relative_url | escape }}"
+            src="{{ safe_media | relative_url | escape }}"
             alt="{{ include.media_alt | default: '' | escape }}"
             width="1200"
             height="675"

@@ -46,15 +46,21 @@
       {% elsif item.label_only %}
         <div class="c-dropdown__label">{{ item.label | escape }}</div>
       {% else %}
-        {% if item.href %}
+        {% capture safe_item_href %}{% include partials/safe-url.html url=item.href %}{% endcapture %}
+        {% assign safe_item_href = safe_item_href | strip %}
+        {% if item.href and safe_item_href != "" %}
           <a
-            href="{{ item.href | relative_url | escape }}"
+            href="{{ safe_item_href | relative_url | escape }}"
             class="c-dropdown__item{% if item.danger %} c-dropdown__item--danger{% endif %}"
             role="menuitem"
             {% if item.disabled %}aria-disabled="true" tabindex="-1"{% endif %}
           >
             {{ item.label | escape }}
           </a>
+        {% elsif item.href %}
+          <span class="c-dropdown__item" role="menuitem" aria-disabled="true" data-thicket-invalid-url="true">
+            {{ item.label | escape }}
+          </span>
         {% else %}
           <button
             type="button"

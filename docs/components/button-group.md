@@ -27,6 +27,8 @@ Groups related actions into a connected horizontal or vertical control.
 | `variant` | string | `outline` | Default button variant for items |
 | `size` | string | `md` | Button size |
 | `vertical` | boolean | `false` | Stacks buttons vertically |
-| `content` | string | — | HTML for custom nested buttons when `items` is omitted |
+| `content` | HTML | — | Trusted markup for custom nested buttons when `items` is omitted |
 | `aria_label` | string | — | Accessible group name |
 | `class` | string | — | Additional CSS classes |
+
+The `content` slot is rendered as trusted HTML. Only pass markup from templates or trusted project data.

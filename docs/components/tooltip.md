@@ -28,8 +28,10 @@ Adds descriptive text to a short piece of inline content. Pass the wrapped marku
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `text` | string | — | Tooltip text |
-| `content` | string | — | Inline HTML that triggers the tooltip |
+| `content` | HTML | — | Trusted inline markup that triggers the tooltip |
 | `position` | string | `top` | `top`, `bottom`, `left`, `right` |
 | `class` | string | — | Additional CSS classes |
 
 Keep essential instructions available in visible text as well; tooltips supplement rather than replace labels.
+
+The `content` slot is rendered as trusted HTML. Only pass markup from templates or trusted project data.

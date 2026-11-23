@@ -1,9 +1,9 @@
 # Thicket UI
 
 [![npm version](https://img.shields.io/npm/v/thicket-ui.svg)](https://www.npmjs.com/package/thicket-ui)
-[![Socket Badge](https://badge.socket.dev/npm/package/thicket-ui/1.4.6)](https://badge.socket.dev/npm/package/thicket-ui/1.4.6)
+[![Socket Badge](https://badge.socket.dev/npm/package/thicket-ui/1.4.7)](https://badge.socket.dev/npm/package/thicket-ui/1.4.7)
 
-**A hybrid component and utility framework for Jekyll · v1.4.6**
+**A hybrid component and utility framework for Jekyll · v1.4.7**
 
 Thicket is an accessible, Jekyll-native UI framework pairing reusable Liquid components with token-based utility classes, an earthy palette, and editorial typography.
 It is built with:
@@ -87,10 +87,16 @@ The package also includes the SCSS source at `thicket-ui/scss`, Liquid component
 For a quick setup without a bundler, include the compiled stylesheet from unpkg:
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/thicket-ui@1.4.6/dist/thicket.css">
+<link rel="stylesheet" href="https://unpkg.com/thicket-ui@1.4.7/dist/thicket.css">
 ```
 
-The version is pinned to `1.4.6` so your site keeps using the same CSS until you choose to upgrade. Replace `1.4.6` with a newer published version when you want to update.
+The version is pinned to `1.4.7` so your site keeps using the same CSS until you choose to upgrade. Replace `1.4.7` with a newer published version when you want to update.
+
+The package and `thicket` CLI support Node.js 18, 20, and 22 or newer. Repository development and local MCP tooling require Node.js 20 or newer. Jekyll site builds require Ruby and Bundler.
+
+### Trusted HTML slots
+
+Some Liquid components accept HTML slots (`content`, `body`, or `footer`) and render them without escaping so nested components remain usable. Only pass trusted markup authored in project templates or trusted project data; never pass user-submitted or otherwise untrusted HTML. Plain-text values and URL attributes are escaped, and component links reject unsupported URL schemes.
 
 To generate a smaller stylesheet for a Jekyll site, run the CLI from the site root:
 
@@ -140,7 +146,7 @@ Project config is in `.mcp.json` (relative `--root .`). Point your MCP client (C
 
 The discovery server validates a component's Liquid, SCSS, documentation, accessibility hints, and parameter consistency. Run `npm run test:components` for repository-wide include dependency and documentation checks.
 
-Thicket also registers a focused local MCP server from `.mcp.json`. It provides `thicket_component_update` for replacing an existing component source file (dry-run by default) and `thicket_component_validate_dependencies` for checking Liquid include references. Run it directly with `npm run mcp:components`. Use the first server for discovery/catalog metadata, previews, design tokens, and its component validator; use the Thicket server for source updates and include dependency checks.
+Thicket also registers a focused local MCP server from `.mcp.json`. Use `thicket_component_inspect` to read a component's source, docs, and Liquid dependencies. `thicket_component_update` returns a unified diff by default; after reviewing it, set `dry_run=false` to apply. Apply stages the change, validates and runs the relevant build/tests, and rolls back automatically if a check fails. `thicket_component_validate` runs those checks against proposed content without retaining it. Run the server directly with `npm run mcp:components`. The discovery server remains responsible for catalog metadata, previews, design tokens, scaffolding, and broader component validation.
 
 ### Project skill for AI agents
 
@@ -363,7 +369,7 @@ MIT License — see [LICENSE](LICENSE).
 
 ## Status
 
-Thicket UI 1.4.6 release
+Thicket UI 1.4.7 release
 More components, documentation pages, and example templates will be added iteratively.
 
 

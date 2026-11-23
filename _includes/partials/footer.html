@@ -6,7 +6,13 @@
       </p>
       <nav class="c-footer__nav" aria-label="Footer">
         {% for link in site.data.site.footer.links %}
-          <a href="{{ link.url | relative_url | escape }}" class="t-link t-small">{{ link.title | escape }}</a>
+          {% capture safe_url %}{% include partials/safe-url.html url=link.url %}{% endcapture %}
+          {% assign safe_url = safe_url | strip %}
+          {% if safe_url != "" %}
+          <a href="{{ safe_url | relative_url | escape }}" class="t-link t-small">{{ link.title | escape }}</a>
+          {% else %}
+          <span class="t-link t-small" aria-disabled="true" data-thicket-invalid-url="true">{{ link.title | escape }}</span>
+          {% endif %}
         {% endfor %}
       </nav>
     </div>

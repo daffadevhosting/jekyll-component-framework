@@ -27,8 +27,11 @@
         {% if cat_url != '/examples/blog/' and page.url == cat_url %}
           {% assign cat_active = true %}
         {% endif %}
+        {% capture safe_cat_url %}{% include partials/safe-url.html url=cat_url %}{% endcapture %}
+        {% assign safe_cat_url = safe_cat_url | strip %}
+        {% if safe_cat_url != "" %}
         <a
-          href="{{ cat_url | relative_url | escape }}"
+          href="{{ safe_cat_url | relative_url | escape }}"
           class="l-sidebar-nav__link{% if cat_active %} is-active{% endif %}"
         >
           {{ cat.title | escape }}
@@ -36,6 +39,9 @@
             <span class="l-sidebar-nav__meta">{{ cat.count | escape }} {% if cat.count == 1 %}post{% else %}posts{% endif %}</span>
           {% endif %}
         </a>
+        {% else %}
+        <span class="l-sidebar-nav__link" aria-disabled="true" data-thicket-invalid-url="true">{{ cat.title | escape }}</span>
+        {% endif %}
       {% endfor %}
     </div>
   {% endif %}
@@ -44,8 +50,11 @@
     <div class="l-sidebar-nav__group">
       <div class="l-sidebar-nav__title">Recent</div>
       {% for post in blog.posts limit: 5 %}
+        {% capture safe_post_url %}{% include partials/safe-url.html url=post.url %}{% endcapture %}
+        {% assign safe_post_url = safe_post_url | strip %}
+        {% if safe_post_url != "" %}
         <a
-          href="{{ post.url | relative_url | escape }}"
+          href="{{ safe_post_url | relative_url | escape }}"
           class="l-sidebar-nav__link{% if page.url == post.url %} is-active{% endif %}"
         >
           {{ post.title | escape }}
@@ -53,6 +62,9 @@
             <span class="l-sidebar-nav__meta">{{ post.date | escape }}</span>
           {% endif %}
         </a>
+        {% else %}
+        <span class="l-sidebar-nav__link" aria-disabled="true" data-thicket-invalid-url="true">{{ post.title | escape }}</span>
+        {% endif %}
       {% endfor %}
     </div>
   {% endif %}
@@ -61,13 +73,19 @@
     <div class="l-sidebar-nav__group">
       <div class="l-sidebar-nav__title">Resources</div>
       {% for link in blog.links %}
+        {% capture safe_link_url %}{% include partials/safe-url.html url=link.url %}{% endcapture %}
+        {% assign safe_link_url = safe_link_url | strip %}
+        {% if safe_link_url != "" %}
         <a
-          href="{{ link.url | relative_url | escape }}"
+          href="{{ safe_link_url | relative_url | escape }}"
           class="l-sidebar-nav__link"
           {% if link.external %}target="_blank" rel="noopener noreferrer"{% endif %}
         >
           {{ link.title | escape }}
         </a>
+        {% else %}
+        <span class="l-sidebar-nav__link" aria-disabled="true" data-thicket-invalid-url="true">{{ link.title | escape }}</span>
+        {% endif %}
       {% endfor %}
     </div>
   {% endif %}

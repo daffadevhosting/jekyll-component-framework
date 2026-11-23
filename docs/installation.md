@@ -7,6 +7,10 @@ permalink: /docs/installation/
 
 # Installation
 
+## Runtime compatibility
+
+The published package and its `thicket` CLI support Node.js 18, 20, and 22 or newer. Repository development and the local MCP tools require Node.js 20 or newer. Jekyll site builds require Ruby and Bundler; Node.js is not needed to serve an already built static site.
+
 ## Clone & install
 
 ```bash

@@ -49,12 +49,18 @@
         <div class="l-sidebar-nav__group">
           <div class="l-sidebar-nav__title">{{ group.title | escape }}</div>
           {% for item in group.items %}
+            {% capture safe_nav_url %}{% include partials/safe-url.html url=item.url %}{% endcapture %}
+            {% assign safe_nav_url = safe_nav_url | strip %}
+            {% if safe_nav_url != "" %}
             <a
-              href="{{ item.url | relative_url | escape }}"
+              href="{{ safe_nav_url | relative_url | escape }}"
               class="l-sidebar-nav__link{% if page.url == item.url %} is-active{% endif %}"
             >
               {{ item.title | escape }}
             </a>
+            {% else %}
+            <span class="l-sidebar-nav__link" aria-disabled="true" data-thicket-invalid-url="true">{{ item.title | escape }}</span>
+            {% endif %}
           {% endfor %}
         </div>
       {% endfor %}

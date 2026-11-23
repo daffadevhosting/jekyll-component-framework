@@ -27,12 +27,14 @@
   {{ include.class | escape }}
 {% endcapture %}
 {% assign card_classes = card_classes | strip | strip_newlines | split: " " | compact | join: " " %}
+{% capture safe_media %}{% include partials/safe-url.html url=include.media %}{% endcapture %}
+{% assign safe_media = safe_media | strip %}
 
 <article class="{{ card_classes | escape }}" {% if include.id %}id="{{ include.id | escape }}"{% endif %}>
-  {% if include.media %}
+  {% if safe_media != "" %}
     <div class="c-card__media">
       <img
-        src="{{ include.media | relative_url | escape }}"
+        src="{{ safe_media | relative_url | escape }}"
         alt="{{ include.media_alt | default: '' | escape }}"
         loading="lazy"
         decoding="async"

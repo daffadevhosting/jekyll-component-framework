@@ -1,5 +1,8 @@
-## name: jekyll-component-framework
+---
+name: jekyll-component-framework
 description: Install, customize, and extend the Thicket UI Jekyll component framework. Use for work in this repository or when integrating its Liquid components, SCSS design system, JavaScript enhancements, or npm package into a Jekyll site.
+compatibility: "Package and CLI support Node.js 18, 20, and 22+. Repository MCP tooling requires Node.js 20 or newer."
+---
 
 # Thicket UI / Jekyll Component Framework
 
@@ -81,10 +84,10 @@ import "thicket-ui/js";
 ```
 
 Or use the compiled CSS directly from a CDN (pin to a specific version in
-production, e.g. `https://unpkg.com/thicket-ui@1.4.6/dist/thicket.css`):
+production, e.g. `https://unpkg.com/thicket-ui@1.4.7/dist/thicket.css`):
 
 ```
-<link rel="stylesheet" href="https://unpkg.com/thicket-ui@1.4.6/dist/thicket.css">
+<link rel="stylesheet" href="https://unpkg.com/thicket-ui@1.4.7/dist/thicket.css">
 ```
 
 The package exports `./css`, `./scss`, and `./js`, provides the `thicket` CLI,
@@ -212,10 +215,13 @@ npm run mcp
 Or invoke `npx -y jekyll-component-mcp --root .` / point the MCP client to
 ``.mcp.json`. Use its component catalog and inspection tools for discovery,
 token tools for the design system, and component validation before and after
-source changes. The `thicket-components` server provides a dedicated
-`thicket_component_update` tool for existing source files (dry-run by
-default) and `thicket_component_validate_dependencies` for Liquid include
-dependencies. The `jekyll-component` server remains responsible for component
-discovery, metadata, previews, design tokens, scaffolding, documentation, and
-its broader component validation.
+source changes. The `thicket-components` server provides `thicket_component_inspect` for
+component source, documentation, and dependencies; `thicket_component_update`
+returns a unified diff by default and applies only after `dry_run=false`.
+`thicket_component_validate` checks proposed content without retaining it.
+Apply validates and runs the relevant build/tests and restores the original
+file if a check fails. `thicket_component_validate_dependencies` is also
+available for standalone Liquid include checks. The
+`jekyll-component` server remains responsible for component discovery,
+metadata, previews, design tokens, scaffolding, and broader validation.
 The server is optional; continue with the source files when it is unavailable.

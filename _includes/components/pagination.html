@@ -38,14 +38,22 @@
         {% else %}
           {% assign prev_url = base | append: "/page/" | append: prev | append: "/" %}
         {% endif %}
+        {% capture safe_prev_url %}{% include partials/safe-url.html url=prev_url %}{% endcapture %}
+        {% assign safe_prev_url = safe_prev_url | strip %}
+        {% if safe_prev_url != "" %}
         <a
-          href="{% if is_demo %}#{% else %}{{ prev_url | relative_url | escape }}{% endif %}"
+          href="{{ safe_prev_url | relative_url | escape }}"
           class="c-pagination__link"
           aria-label="Previous page"
           {% if is_demo %}tabindex="-1"{% endif %}
         >
           {% include icon.html name="arrow-left" %}
         </a>
+        {% else %}
+        <span class="c-pagination__link" aria-disabled="true" aria-label="Previous page" data-thicket-invalid-url="true">
+          {% include icon.html name="arrow-left" %}
+        </span>
+        {% endif %}
       {% else %}
         <span class="c-pagination__link" aria-disabled="true" aria-label="Previous page">
           {% include icon.html name="arrow-left" %}
@@ -77,14 +85,22 @@
             {% else %}
               {% assign page_url = base | append: "/page/" | append: page_num | append: "/" %}
             {% endif %}
+            {% capture safe_page_url %}{% include partials/safe-url.html url=page_url %}{% endcapture %}
+            {% assign safe_page_url = safe_page_url | strip %}
+            {% if safe_page_url != "" %}
             <a
-              href="{% if is_demo %}#{% else %}{{ page_url | relative_url | escape }}{% endif %}"
+              href="{{ safe_page_url | relative_url | escape }}"
               class="c-pagination__link"
               aria-label="Page {{ page_num | escape }}"
               {% if is_demo %}tabindex="-1"{% endif %}
             >
               {{ page_num | escape }}
             </a>
+            {% else %}
+            <span class="c-pagination__link" aria-disabled="true" data-thicket-invalid-url="true">
+              {{ page_num | escape }}
+            </span>
+            {% endif %}
           {% endif %}
         </li>
       {% else %}
@@ -114,14 +130,22 @@
         {% else %}
           {% assign next_url = base | append: "/page/" | append: next | append: "/" %}
         {% endif %}
+        {% capture safe_next_url %}{% include partials/safe-url.html url=next_url %}{% endcapture %}
+        {% assign safe_next_url = safe_next_url | strip %}
+        {% if safe_next_url != "" %}
         <a
-          href="{% if is_demo %}#{% else %}{{ next_url | relative_url | escape }}{% endif %}"
+          href="{{ safe_next_url | relative_url | escape }}"
           class="c-pagination__link"
           aria-label="Next page"
           {% if is_demo %}tabindex="-1"{% endif %}
         >
           {% include icon.html name="arrow-right" %}
         </a>
+        {% else %}
+        <span class="c-pagination__link" aria-disabled="true" aria-label="Next page" data-thicket-invalid-url="true">
+          {% include icon.html name="arrow-right" %}
+        </span>
+        {% endif %}
       {% else %}
         <span class="c-pagination__link" aria-disabled="true" aria-label="Next page">
           {% include icon.html name="arrow-right" %}

@@ -17,6 +17,9 @@ export async function buildLiquidFixture() {
   await cp(join(repositoryRoot, "_includes"), join(sourceRoot, "_includes"), {
     recursive: true
   });
+  await cp(join(repositoryRoot, "_data"), join(sourceRoot, "_data"), {
+    recursive: true
+  });
   await writeFile(
     join(sourceRoot, "_config.yml"),
     "url: https://example.test\nbaseurl: \"\"\nplugins: []\n"
@@ -28,6 +31,9 @@ layout: null
 payload: "<script>alert(1)</script>"
 icon_label: "Next page"
 safe_html: "<strong>Trusted slot</strong>"
+unsafe_url: "JaVaScRiPt:alert(1)"
+protocol_relative_url: "//evil.example/path"
+safe_external_url: "https://example.test/help"
 ---
 <!doctype html>
 <html lang="en">
@@ -35,9 +41,17 @@ safe_html: "<strong>Trusted slot</strong>"
   <body>
     <main>
       {% include components/button.html label=page.payload %}
+      {% include components/button.html label="Unsafe link" href=page.unsafe_url %}
+      {% include components/button.html label="Protocol-relative link" href=page.protocol_relative_url %}
+      {% include components/button.html label="External link" href=page.safe_external_url %}
       {% include components/input.html name="email" label=page.payload value=page.payload %}
       {% include components/icon.html name="arrow-right" aria_hidden=false aria_label=page.icon_label %}
       {% include components/card.html body=page.safe_html %}
+      {% include components/avatar.html initials="AB" alt="Alex Brown" %}
+      {% include components/breadcrumb.html items=site.data.demo.breadcrumb aria_label="Breadcrumb" %}
+      {% include components/dropdown.html id="test-actions" label="Actions" items=site.data.demo.dropdown_items %}
+      {% include components/accordion.html id="test-faq" items=site.data.demo.accordion_items %}
+      {% include components/tabs.html id="test-tabs" aria_label="Account settings" items=site.data.demo.tab_items %}
     </main>
   </body>
 </html>

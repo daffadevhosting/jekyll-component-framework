@@ -86,8 +86,8 @@ The `offcanvas_open` button parameter adds the trigger attributes and keeps `ari
 | `id` | string | — | **Required.** Unique panel id, matched by the trigger |
 | `title` | string | — | Panel title, used by `aria-labelledby` |
 | `position` | string | `right` | Panel placement: `left` or `right` |
-| `content` | string | — | Panel body HTML |
-| `footer` | string | — | Optional footer actions HTML |
+| `content` | HTML | — | Trusted panel body markup |
+| `footer` | HTML | — | Trusted optional footer action markup |
 | `class` | string | — | Extra classes on the panel |
 
 ## Auto-close on link navigation
@@ -120,6 +120,8 @@ Example — keep panel open for an in-page action:
 - Restores focus to the trigger (except when navigating away via a link).
 - Prevents background scrolling while open.
 - Respects `prefers-reduced-motion`.
+
+The `content` and `footer` slots render unescaped HTML. Only pass trusted markup from templates or trusted project data.
 
 ## Live examples
 

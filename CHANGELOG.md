@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.2.1/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.7] - 2026-11-23
+
+### Added
+- Safer component MCP workflow with inspection, unified diff preview, staged validation, related tests, and automatic rollback
+- URL-scheme validation for dynamic component links and guidance for trusted HTML slots
+- Expanded accessibility, JavaScript interaction, browser, and responsive checks
+- Documented supported Node.js versions and completed component API documentation coverage
+
+### Fixed
+- Synchronized release metadata and npm lockfile, including the MCP tooling dependency
+- Corrected `SKILL.md` front matter and release metadata
+
 ## [1.4.6] - 2026-11-23
 
 ### Added

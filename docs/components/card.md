@@ -29,8 +29,9 @@ Container for grouped content — title, body, media, and footer.
 |-----------|------|---------|-------------|
 | `title` | string | — | Card heading |
 | `subtitle` | string | — | Secondary text under title |
-| `body` | string | — | Main content (HTML allowed) |
-| `footer` | string | — | Footer content |
+| `body` | HTML | — | Trusted HTML for the main content |
+| `content` | HTML | — | Trusted HTML body alternative |
+| `footer` | HTML | — | Trusted HTML footer content |
 | `media` | string | — | Image URL |
 | `media_alt` | string | `""` | Image alt text |
 | `hoverable` | boolean | false | Lift and elevate on hover |
@@ -52,3 +53,5 @@ Container for grouped content — title, body, media, and footer.
 ## Accessibility
 
 Uses `<article>` semantics. Provide meaningful titles. Decorative images should use empty `alt`.
+
+The `body`, `content`, and `footer` slots render unescaped HTML. Only pass trusted markup from templates or trusted project data.

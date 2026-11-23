@@ -33,6 +33,8 @@
 {% endunless %}
 {% assign type = include.type | default: "button" %}
 {% assign icon_position = include.icon_position | default: "left" %}
+{% capture safe_href %}{% include partials/safe-url.html url=include.href %}{% endcapture %}
+{% assign safe_href = safe_href | strip %}
 
 {% capture btn_classes %}
   c-button
@@ -61,7 +63,17 @@
   {% endif %}
 {% endcapture %}
 
-{% if include.href and include.disabled %}
+{% if include.href and safe_href == "" %}
+  <span
+    class="{{ btn_classes | escape }}"
+    {% if include.id %}id="{{ include.id | escape }}"{% endif %}
+    aria-disabled="true"
+    data-thicket-invalid-url="true"
+    {% if include.aria_label %}aria-label="{{ include.aria_label | escape }}"{% elsif include.icon_only and include.label %}aria-label="{{ include.label | escape }}"{% endif %}
+  >
+    {{ btn_inner }}
+  </span>
+{% elsif include.href and include.disabled %}
   <span
     class="{{ btn_classes | escape }}"
     {% if include.id %}id="{{ include.id | escape }}"{% endif %}
@@ -72,7 +84,7 @@
   </span>
 {% elsif include.href %}
   <a
-    href="{{ include.href | relative_url | escape }}"
+    href="{{ safe_href | relative_url | escape }}"
     class="{{ btn_classes | escape }}"
     {% if include.id %}id="{{ include.id | escape }}"{% endif %}
     {% if include.target %}target="{{ include.target | escape }}"{% if include.target == "_blank" %} rel="noopener noreferrer"{% endif %}{% endif %}

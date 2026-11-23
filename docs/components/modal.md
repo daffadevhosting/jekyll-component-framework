@@ -32,8 +32,9 @@ Trigger:
 |-----------|------|---------|-------------|
 | `id` | string | — | **Required.** Unique modal id |
 | `title` | string | — | Dialog title |
-| `body` | string | — | Body HTML |
-| `footer` | string | — | Footer actions HTML |
+| `body` | HTML | — | Trusted body markup |
+| `content` | HTML | — | Trusted body markup alternative |
+| `footer` | HTML | — | Trusted footer action markup |
 | `size` | string | `md` | `sm` `md` `lg` `xl` |
 | `class` | string | — | Extra classes on dialog |
 
@@ -45,6 +46,8 @@ Trigger:
 - Tab cycles inside the dialog
 - Escape and backdrop click close
 - Focus returns to the trigger
+
+The `body`, `content`, and `footer` slots render unescaped HTML. Only pass trusted markup from templates or trusted project data.
 
 ## Example
 

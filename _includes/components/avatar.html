@@ -14,6 +14,8 @@
 
 {% assign size = include.size | default: "md" %}
 {% assign shape = include.shape | default: "circle" %}
+{% capture safe_src %}{% include partials/safe-url.html url=include.src %}{% endcapture %}
+{% assign safe_src = safe_src | strip %}
 
 {% capture avatar_classes %}
   c-avatar
@@ -30,9 +32,9 @@
   role="img"
   {% if include.alt %}aria-label="{{ include.alt | escape }}"{% elsif include.initials %}aria-label="{{ include.initials | escape }}"{% endif %}
 >
-  {% if include.src %}
+  {% if safe_src != "" %}
     <img
-      src="{{ include.src | relative_url | escape }}"
+      src="{{ safe_src | relative_url | escape }}"
       alt="{{ include.alt | default: '' | escape }}"
       loading="lazy"
       decoding="async"

@@ -19,7 +19,7 @@ Tabbed interface following the WAI-ARIA Tabs pattern.
 %}{% endraw %}
 ```
 
-Each item: `{ label, content, disabled }`.
+Each item: `{ label, content, disabled }`. `content` is rendered as trusted HTML; only pass markup from templates or trusted project data.
 
 ## Example
 
@@ -34,7 +34,7 @@ Each item: `{ label, content, disabled }`.
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `id` | string | — | **Required** |
-| `items` | array | — | Tab definitions |
+| `items` | array | — | Tab definitions; each `content` value is trusted HTML |
 | `variant` | string | `default` | `default` `pills` |
 | `class` | string | — | Extra classes |
 

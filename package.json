@@ -1,6 +1,6 @@
 {
   "name": "thicket-ui",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "type": "module",
   "description": "A hybrid component and utility framework for Jekyll and the web.",
   "license": "MIT",
@@ -56,12 +56,12 @@
     "mcp:components": "node scripts/thicket-component-mcp.mjs --root ."
   },
   "engines": {
-    "node": ">=18"
+    "node": "18 || 20 || >=22"
   },
   "devDependencies": {
     "@modelcontextprotocol/sdk": "^1.17.5",
     "axe-core": "^4.10.3",
-    "jekyll-component-mcp": "^1.2.2",
+    "jekyll-component-mcp": "^1.5.0",
     "jsdom": "^26.1.0",
     "sass": "^1.93.2",
     "zod": "^4.6.6"

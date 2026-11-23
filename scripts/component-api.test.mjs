@@ -21,6 +21,15 @@ describe("Liquid component catalog", () => {
           /No parameters are required/i.test(doc),
         `${componentFile} should document its public API`
       );
+      const rawHtmlSlots = [...(await readFile(join(includesRoot, "components", componentFile), "utf8"))
+        .matchAll(/\{\{\s*(?:include|item)\.(?:body|content|footer)\s*\}\}/g)];
+      if (rawHtmlSlots.length > 0) {
+        assert.match(
+          doc,
+          /trusted.{0,30}html|html.{0,30}trusted/i,
+          `${componentFile} should document that unescaped HTML slots require trusted content`
+        );
+      }
     }
   });
 

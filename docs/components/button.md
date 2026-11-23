@@ -42,6 +42,8 @@ Primary action component. Renders as a native `<button>` or `<a>` depending on `
 | `id` | string | — | Element id |
 | `aria_label` | string | — | Accessible label |
 
+`href` may be a relative path, fragment, query, or an `http`, `https`, `mailto`, or `tel` URL. Unsupported schemes (including `javascript:` and protocol-relative URLs) render as a non-interactive disabled label instead of a link.
+
 ## Variants
 
 <div class="u-flex u-gap-3 u-flex-wrap u-mb-6">
