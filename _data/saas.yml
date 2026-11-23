@@ -1,15 +1,23 @@
 hero:
-  eyebrow: "Thicket UI"
-  title: "Build beautiful static sites faster"
-  subtitle: "A production-ready component system for Jekyll. Accessible, themable, and ready for commercial templates."
-  primary_label: "Get Started"
+  eyebrow: "The Jekyll design system"
+  title: "Ship polished static sites, faster"
+  subtitle: "Build accessible, high-performance Jekyll websites with reusable components, semantic design tokens, and zero framework lock-in."
+  media_alt: "Thicket analytics dashboard preview"
+  primary_label: "Start building"
   primary_href: "/docs/"
-  secondary_label: "View Components"
+  secondary_label: "Explore components"
   secondary_href: "/docs/components/"
+  stats:
+    - value: "30+"
+      label: "UI components"
+    - value: "AA"
+      label: "Accessibility-ready"
+    - value: "0"
+      label: "JS framework lock-in"
 
 features:
-  title: "Everything you need"
-  subtitle: "A complete design system without the complexity of modern JS frameworks."
+  title: "Everything you need to move fast"
+  subtitle: "A complete design system that stays lightweight, accessible, and easy to customize."
   items:
     - icon: "check-circle"
       title: "Design Tokens"

@@ -5,6 +5,10 @@
 // =============================================================================
 
 .s-features {
+  &.l-section {
+    background: linear-gradient(180deg, var(--color-background), var(--color-surface));
+  }
+
   &__header {
     text-align: center;
     max-width: 36rem;
@@ -46,7 +50,20 @@
   &__item {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-4);
+    min-height: 12rem;
+    padding: var(--space-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background-color: var(--color-surface-elevated);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+
+    &:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-primary-subtle);
+      box-shadow: var(--shadow-lg);
+    }
   }
 
   &__icon {

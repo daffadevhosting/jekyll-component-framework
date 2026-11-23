@@ -1,21 +1,59 @@
 ---
 layout: default
-title: SaaS Landing Page Example
+title: Modern SaaS Landing Page Example
 description: Example SaaS landing page built with Thicket UI
 permalink: /examples/saas/
 ---
 
 {% assign data = site.data.saas %}
 
-{% include sections/hero.html
-  eyebrow=data.hero.eyebrow
-  title=data.hero.title
-  subtitle=data.hero.subtitle
-  primary_label=data.hero.primary_label
-  primary_href=data.hero.primary_href
-  secondary_label=data.hero.secondary_label
-  secondary_href=data.hero.secondary_href
-%}
+<section class="s-hero s-hero--split l-section">
+  <div class="l-container">
+    <div class="s-hero__inner">
+      <div class="s-hero__content">
+        {% if data.hero.eyebrow %}
+          <p class="s-hero__eyebrow">{{ data.hero.eyebrow | escape }}</p>
+        {% endif %}
+        <h1 class="s-hero__title">{{ data.hero.title | escape }}</h1>
+        <p class="s-hero__subtitle">{{ data.hero.subtitle | escape }}</p>
+        <div class="s-hero__actions">
+          {% include components/button.html
+            label=data.hero.primary_label
+            href=data.hero.primary_href
+            variant="primary"
+            size="lg"
+          %}
+          {% include components/button.html
+            label=data.hero.secondary_label
+            href=data.hero.secondary_href
+            variant="outline"
+            size="lg"
+          %}
+        </div>
+        {% if data.hero.stats %}
+          <dl class="s-hero__stats">
+            {% for stat in data.hero.stats %}
+              <div class="s-hero__stat">
+                <dt>{{ stat.label | escape }}</dt>
+                <dd>{{ stat.value | escape }}</dd>
+              </div>
+            {% endfor %}
+          </dl>
+        {% endif %}
+      </div>
+      <div class="s-hero__media">
+        <img
+          src="{{ '/assets/images/saas-dashboard.svg' | relative_url | escape }}"
+          alt="{{ data.hero.media_alt | escape }}"
+          width="1200"
+          height="675"
+          loading="eager"
+          decoding="async"
+        >
+      </div>
+    </div>
+  </div>
+</section>
 
 {% include sections/features.html
   title=data.features.title

@@ -8,6 +8,7 @@
   - media, media_alt
   - variant (default|split)
   - class
+  - stats (array of {value, label})
 {% endcomment %}
 
 {% assign variant = include.variant | default: "default" %}
@@ -50,6 +51,17 @@
               %}
             {% endif %}
           </div>
+        {% endif %}
+
+        {% if include.stats %}
+          <dl class="s-hero__stats">
+            {% for stat in include.stats %}
+              <div class="s-hero__stat">
+                <dt>{{ stat.label | escape }}</dt>
+                <dd>{{ stat.value | escape }}</dd>
+              </div>
+            {% endfor %}
+          </dl>
         {% endif %}
       </div>
 

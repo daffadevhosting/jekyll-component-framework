@@ -67,7 +67,6 @@ exclude:
   - CHANGELOG.md
   - CONTRIBUTING.md
   - scripts
-  - examples
   - portfolio-jekyll
 
 # Include
